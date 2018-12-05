@@ -1,0 +1,76 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kapt {
+        generateStubs = true
+    }
+}
+
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':widget')
+    //eventBus
+    api rootProject.ext.dependencies["androideventbus"]
+
+    //rx2
+    api rootProject.ext.dependencies["rxjava2"]
+    api(rootProject.ext.dependencies["rxandroid2"])
+    api(rootProject.ext.dependencies["rxlifecycle2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'jsr305'
+    }
+    api(rootProject.ext.dependencies["rxlifecycle2-android-lifecycle-kotlin"]) {
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+    api(rootProject.ext.dependencies["rxbinding2"])
+    api(rootProject.ext.dependencies["rxbinding-kotlin"]) {
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+    api(rootProject.ext.dependencies["rxbinding-appcompat-v7"])
+
+    //激光推送
+//    api rootProject.ext.dependencies["jpush"]
+//    api rootProject.ext.dependencies["jcore"]
+
+    // 工具类
+    api rootProject.ext.dependencies["arouter"]
+
+    // 日志打印
+    api rootProject.ext.dependencies["logger"]
+
+    //友盟统计
+    api rootProject.ext.dependencies["umeng-analytics"]
+    api rootProject.ext.dependencies["umeng-common"]
+    //统计 bugly
+    api rootProject.ext.dependencies["crashreport"]
+    api rootProject.ext.dependencies["nativecrashreport"]
+    implementation rootProject.ext.dependencies["ptrRefresh"]
+
+
+}

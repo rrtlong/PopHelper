@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="app_content_bg_color" format="color" /> <!-- content-->
+
+    <declare-styleable name="ProgressBarCircular">
+        <attr name="matProg_progressIndeterminate" format="boolean" />
+        <attr name="matProg_barColor" format="color" />
+        <attr name="matProg_rimColor" format="color" />
+        <attr name="matProg_rimWidth" format="dimension" />
+        <attr name="matProg_spinSpeed" format="float" />
+        <attr name="matProg_barSpinCycleTime" format="integer" />
+        <attr name="matProg_circleRadius" format="dimension" />
+        <attr name="matProg_fillRadius" format="boolean" />
+        <attr name="matProg_barWidth" format="dimension" />
+        <attr name="matProg_linearProgress" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ClearEditText">
+        <attr name="clearIcon" format="reference" />
+        <attr name="scaleSize" format="float" />
+        <attr name="drawableWidth" format="dimension" />
+    </declare-styleable>
+
+
+    <declare-styleable name="MarqueeTextView">
+        <attr name="scroll_interval" format="integer" />
+        <attr name="scroll_first_delay" format="integer" />
+        <attr name="scroll_mode">
+            <enum name="mode_forever" value="100" />
+            <enum name="mode_once" value="101" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="progressColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="strokeWidth" format="float"/>
+        <attr name="backgroundWidth" format="float"/>
+        <attr name="roundedCorners" format="boolean"/>
+        <attr name="maxValue" format="float"/>
+        <attr name="progressTextColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="progressText" format="string"/>
+        <attr name="suffix" format="string"/>
+        <attr name="prefix" format="string"/>
+    </declare-styleable>
+</resources>

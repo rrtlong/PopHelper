@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvMale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/dp_25"
+        android:paddingBottom="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12"
+        android:text="男"
+        android:textColor="@color/color_322200"
+        android:textSize="@dimen/sp_18" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/color_ededed" />
+
+    <TextView
+        android:id="@+id/tvFemale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/dp_25"
+        android:paddingBottom="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12"
+        android:text="女"
+        android:textColor="@color/color_322200"
+        android:textSize="@dimen/sp_18" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/color_f6f6f6" />
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/dp_25"
+        android:paddingBottom="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12"
+        android:text="取消"
+        android:textColor="@color/color_322200"
+        android:textSize="@dimen/sp_18" />
+</LinearLayout>

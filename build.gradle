@@ -1,17 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
+apply from : "version_config.gradle"
 buildscript {
     ext.kotlin_version = '1.2.71'
+    ext.objectboxVersion = '1.5.0'
     repositories {
         google()
         jcenter()
+        maven { url "http://objectbox.net/beta-repo/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath "com.alibaba:arouter-register:1.0.0"
+        //ObjectBox
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        //ARouter
+        classpath "com.alibaba:arouter-register:1.0.0"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
     }
 }
 
@@ -19,6 +26,12 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url "http://objectbox.net/beta-repo/" }
+        //bigImageViewer
+        maven { url "http://dl.bintray.com/piasy/maven" }
+        maven { url "http://47.92.147.81:8081/nexus/content/repositories/releases/" }
+        maven { url "http://47.92.147.81:8081/nexus/content/repositories/snapshots/" }
     }
 }
 

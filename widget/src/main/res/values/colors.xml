@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="black_100">#000000</color>
+    <color name="black_95">#F2000000</color>
+    <color name="black_90">#E6000000</color>
+    <color name="black_85">#D9000000</color>
+    <color name="black_80">#cc000000</color>
+    <color name="black_75">#BF000000</color>
+    <color name="black_70">#B3000000</color>
+    <color name="black_65">#A6000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_55">#8C000000</color>
+    <color name="black_50">#80000000</color>
+    <color name="black_45">#73000000</color>
+    <color name="black_40">#66000000</color>
+    <color name="black_35">#59000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_25">#40000000</color>
+    <color name="black_20">#33000000</color>
+    <color name="black_15">#26000000</color>
+    <color name="black_10">#1A000000</color>
+    <color name="black_6">#0F000000</color>
+    <color name="black_4">#0A000000</color>
+
+    <color name="white_100">#FFFFFF</color>
+    <color name="white_95">#F2FFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
+    <color name="white_85">#D9FFFFFF</color>
+    <color name="white_80">#ccFFFFFF</color>
+    <color name="white_75">#BFFFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_65">#A6FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_55">#8CFFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_45">#73FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="white_35">#59FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_25">#40FFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_15">#26FFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_6">#0FFFFFFF</color>
+    <color name="white_4">#0AFFFFFF</color>
+
+    <color name="color_074D81">#074D81</color>
+    <color name="color_0e0f1a">#0E0F1A</color>
+    <color name="color_ffec00">#FFEC00</color>
+    <color name="color_0f101c_90">#f20F101C</color>
+    <color name="color_322200">#322200</color>
+    <color name="color_ededed">#ededed</color>
+    <color name="color_f6f6f6">#f6f6f6</color>
+    <color name="color_221e1e_60">#99221E1E</color>
+    <color name="color_fe6257">#FE6257</color>
+    <color name="color_f6ce17">#F6CE17</color>
+    <color name="color_666666">#666666</color>
+</resources>

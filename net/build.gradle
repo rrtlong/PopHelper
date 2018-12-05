@@ -1,0 +1,151 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        buildConfigField "String", "versionNumber", "\"${rootProject.ext.android["versionName"]}\""
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "SERVER"
+    productFlavors {
+
+        /**
+         * 连服务器本机调试*/
+        develop {
+            dimension "SERVER"
+            buildConfigField("String", "DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
+            buildConfigField("String", "SevicePlateform", "\"test\"")
+            buildConfigField("String", "PING_DOMAIN_NAME", "\"http://218.244.151.190/\"")
+            buildConfigField("String", "WEB_DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
+        }
+
+        /**
+         * 测试服*/
+        offline {
+            dimension "SERVER"
+//            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.api.5moligame.com/\"")
+            buildConfigField("String", "DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
+            buildConfigField("String", "SevicePlateform", "\"test\"")
+            buildConfigField("String", "PING_DOMAIN_NAME", "\"http://218.244.151.190/\"")
+            buildConfigField("String", "WEB_DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
+        }
+
+        /**
+         * 正式服
+         * */
+        online {
+            dimension "SERVER"
+            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.5moligame.com/\"")
+            buildConfigField("String", "SevicePlateform", "\"guanwang\"")
+            buildConfigField("String", "PING_DOMAIN_NAME", "\"http://218.244.151.190/\"")
+            buildConfigField("String", "WEB_DOMAIN_NAME", "\"http://www.5youshang.com/\"")
+        }
+        /**
+         * 正式服，公测包
+         * */
+        beta {
+            dimension "SERVER"
+            buildConfigField("String", "DOMAIN_NAME", "\"http://www.youshang666.com/\"")
+            buildConfigField("String", "SevicePlateform", "\"guanwang\"")
+            buildConfigField("String", "PING_DOMAIN_NAME", "\"http://218.244.151.190/\"")
+            buildConfigField("String", "WEB_DOMAIN_NAME", "\"http://www.5youshang.com/\"")
+        }
+    }
+    kapt {
+        generateStubs = true
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force rootProject.ext.dependencies["kotlin-stdlib"]
+        force rootProject.ext.dependencies["kotlin-stdlib-jre"]
+        force rootProject.ext.dependencies["support-v4"]
+        force rootProject.ext.dependencies["appcompat-v7"]
+        force rootProject.ext.dependencies["recyclerview-v7"]
+        force rootProject.ext.dependencies["design"]
+        force rootProject.ext.dependencies["cardview-v7"]
+        force rootProject.ext.dependencies["annotations"]
+        force rootProject.ext.dependencies["rxjava2"]
+        force rootProject.ext.dependencies["rxkotlin"]
+        force rootProject.ext.dependencies["rxandroid2"]
+        force rootProject.ext.dependencies["rxbinding2"]
+        force rootProject.ext.dependencies["rxbinding-kotlin"]
+        force rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+        force rootProject.ext.dependencies["gson"]
+        force rootProject.ext.dependencies["timber"]
+        force rootProject.ext.dependencies["arouter"]
+        force rootProject.ext.dependencies["luban"]
+        force rootProject.ext.dependencies["retrofit-converter-gson"]
+        force rootProject.ext.dependencies["retrofit"]
+        force rootProject.ext.dependencies["okhttp3"]
+        force rootProject.ext.dependencies["okio"]
+    }
+}
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+    generateStubs = true
+}
+
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':model')
+    api project(':router')
+    api project(':framework')
+    //kotlin
+    api(rootProject.ext.dependencies["kotlin-stdlib"])
+    //路由表
+    implementation rootProject.ext.dependencies["arouter"]
+    kapt rootProject.ext.dependencies["arouter-compiler"]
+    //网络
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
+    api rootProject.ext.dependencies["okhttp3"]
+    //网络请求框架
+    api rootProject.ext.dependencies["retrofit-url-manager"]
+    // 下载框架
+    api(rootProject.ext.dependencies["rxdownload"]) {
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+    api(rootProject.ext.dependencies["rxcache2"]) {
+        exclude module: 'rxjava'
+    }
+    api rootProject.ext.dependencies["multidex"]
+    //oss
+    api rootProject.ext.dependencies["oss"]
+    //timber
+    api rootProject.ext.dependencies["timber"]
+    api(rootProject.ext.dependencies["durban"])
+    api(rootProject.ext.dependencies["luban"])
+    api(rootProject.ext.dependencies["ssiv"])
+    api(rootProject.ext.dependencies["qiniu-android"])
+
+}

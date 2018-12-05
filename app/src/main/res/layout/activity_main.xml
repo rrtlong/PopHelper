@@ -1,19 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+    <FrameLayout
+            android:id="@+id/homeContentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            app:layout_constraintBottom_toTopOf="@id/bottomLine"
             app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <View
+            android:id="@+id/bottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            app:layout_constraintBottom_toTopOf="@id/tabBottomLayout"
+            android:background="@color/white_10"/>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/tabBottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_49"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+                android:id="@+id/ivHome"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_home_selector"
+                app:layout_constraintEnd_toStartOf="@+id/ivWealth"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+                android:id="@+id/ivWealth"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_wealth_selector"
+                app:layout_constraintEnd_toStartOf="@+id/ivActivity"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ivHome"/>
+
+
+        <ImageView
+                android:id="@+id/ivActivity"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_activity_selector"
+                app:layout_constraintEnd_toStartOf="@+id/ivMine"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ivWealth"/>
+
+
+        <ImageView
+                android:id="@+id/ivMine"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/bg_mine_selector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ivActivity"/>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

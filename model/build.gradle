@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.objectbox'
+android {
+
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kapt {
+        generateStubs = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //kotlin
+    api(rootProject.ext.dependencies["kotlin-stdlib"])
+    //gosn解析
+    api rootProject.ext.dependencies["rxcache-jolyglot-gson"]
+    //数据库操作
+    api rootProject.ext.dependencies["objectbox-android"]
+    //    releaseImplementation rootProject.ext.dependencies["objectbox-android"]
+    //    debugImplementation rootProject.ext.dependencies["objectbox-android-objectbrowser"]
+    api(rootProject.ext.dependencies["objectbox-kotlin"]) {
+        exclude module: 'objectbox-java'
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+    api(rootProject.ext.dependencies["objectbox-rxjava"]) {
+        exclude module: 'objectbox-java'
+    }
+    kapt rootProject.ext.dependencies["objectbox-processor"]
+
+
+    api(rootProject.ext.dependencies["utilcode"])
+    //timber
+    api rootProject.ext.dependencies["timber"]
+    //anko
+    api(rootProject.ext.dependencies["anko"]) {
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+    api(rootProject.ext.dependencies["anko-coroutines"]) {
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+    api(rootProject.ext.dependencies["anko-support-v4-commons"]) {
+        exclude module: 'kotlin-stdlib-jre7'
+        exclude module: 'kotlin-stdlib-jre8'
+    }
+
+}

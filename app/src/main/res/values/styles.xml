@@ -1,11 +1,55 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MainTheme" parent="QMUI.Compat.NoActionBar">
         <!-- Customize your theme here. -->
+        <!-- colorPrimary 应用的主要色调，actionBar默认使用该颜色，Toolbar导航栏的底色-->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- colorPrimaryDark 应用的主要暗色调，statusBarColor默认使用该颜色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- colorAccent   CheckBox，RadioButton，SwitchCompat等一般控件的选中效果默认采用该颜色-->
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarSize">@dimen/title_bar_height</item>
+
+        <!-- 配置qmui提供的theme -->
+        <item name="qmui_content_spacing_horizontal">20dp</item>
+        <item name="qmui_content_padding_horizontal">@dimen/qmui_content_spacing_horizontal</item>
+        <item name="QMUITopBarStyle">@style/TopBar</item>
+        <item name="app_content_bg_color">@android:color/white</item>
+        <item name="qmui_topbar_height">@dimen/title_bar_height</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="TopBar">
+        <item name="qmui_topbar_title_text_size">@dimen/sp_18</item>
+        <item name="qmui_topbar_text_btn_text_size">@dimen/sp_16</item>
+        <item name="qmui_topbar_title_color">@color/white</item>
+        <item name="qmui_topbar_subtitle_color">@color/white</item>
+        <item name="qmui_topbar_text_btn_color_state_list">@color/white</item>
+        <item name="qmui_topbar_height">@dimen/title_bar_height</item>
+        <item name="qmui_topbar_image_btn_height">@dimen/title_bar_height</item>
+        <item name="qmui_topbar_image_btn_width">@dimen/title_bar_height</item>
+        <item name="qmui_topbar_need_separator">true</item>
+        <item name="qmui_topbar_left_back_drawable_id">@drawable/icon_back_red</item>
+        <item name="qmui_topbar_bg_color">@android:color/transparent</item>
+        <item name="qmui_topbar_separator_color">@android:color/transparent</item>
+        <item name="qmui_topbar_separator_height">@dimen/dp_0</item>
+    </style>
+
+    <style name="NoAnim" parent="MainTheme">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <!--<item name="android:backgroundDimEnabled">false</item>-->
+        <!-- 模糊 -->
+
+    </style>
+
+    <style name="BgThemeFullScreen" parent="MainTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
 </resources>

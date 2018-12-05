@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="title_bar_bg" type="color">@color/colorPrimary
+    </item>
+    <item name="title_bar_height" type="dimen">@dimen/dp_45
+    </item>
+    <item name="main_color" type="color">@color/colorPrimary
+    </item>
+
+    <item name="colorPrimary" type="color" />
+    <item name="colorPrimaryDark" type="color" />
+    <item name="colorAccent" type="color" />
+</resources>
