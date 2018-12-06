@@ -344,4 +344,14 @@ object EventConstant {
      *
      */
     const val NIM_LOGIN_SUCCESS = "nim_login_success"
+
+    /**
+     * 取消正在加载dialog
+     */
+    const val DISMISS_LOADING = "dismiss_loading"
+
+    /**
+     * 下载跟新
+     */
+    const val DOWNLOAD_PROGRESS = "download_progress"
 }

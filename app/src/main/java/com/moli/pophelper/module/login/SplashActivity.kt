@@ -114,8 +114,7 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
         RxPermissions(this).request(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE
-        )
-            .subscribe {
+        ).subscribe {
                 Timber.e("requestBasicPermission it=$it")
                 if (it) {
                     //申请的权限全部允许
@@ -133,6 +132,11 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
 
 
             }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0,R.anim.alpha_out)
     }
 
 

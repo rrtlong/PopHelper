@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            android:paddingLeft="@dimen/dp_10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingRight="@dimen/dp_13"
+            android:src="@drawable/icon_back_red"/>
+
+    <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            android:text="攻略站"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toRightOf="@id/ivBack"
+            android:textSize="@dimen/sp_17"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/color_2e2e2e"/>
+
+    <ImageView
+            android:id="@+id/ivLaunchGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingRight="@dimen/dp_14"
+            android:src="@drawable/icon_launcher_game"/>
+
+    <View
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:background="@color/color_dddddd"/>
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ptrFrame"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            cube_ptr:layout_constraintTop_toBottomOf="@id/topLine"
+            cube_ptr:layout_constraintBottom_toBottomOf="parent"
+            cube_ptr:ptr_duration_to_close="200"
+            cube_ptr:ptr_duration_to_close_header="1000"
+            cube_ptr:ptr_keep_header_when_refresh="true"
+            cube_ptr:ptr_pull_to_fresh="false"
+            cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+            cube_ptr:ptr_resistance="1.7">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</android.support.constraint.ConstraintLayout>

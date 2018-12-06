@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PopHelper</string>
+    <string name="app_exit">再按一次退出</string>
+    <string name="share_success">分享成功</string>
+    <string name="share_failed">分享失败</string>
+    <string name="share_cancel">分享取消</string>
+    <string name="uninstallWx">您未安装微信</string>
+    <string name="uninstallWB">您未安装微博</string>
+    <string name="uninstallQQ">您未安装QQ</string>
 </resources>

@@ -1,6 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+            android:id="@+id/ivWord"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_gravity="left|top"
+            android:scaleType="centerInside"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:src="@drawable/icon_act_word"/>
+
+    <ImageView
+            android:id="@+id/ivLaunchGame"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            android:scaleType="centerInside"
+            android:layout_marginRight="@dimen/dp_14"
+            android:layout_gravity="right|top"
+            android:src="@drawable/icon_launcher_game"/>
+
+
+    <com.moli.module.widget.widget.JudgeNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_38">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/topLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_305"
+                    android:background="@drawable/bg_sign">
+
+                <View
+                        android:id="@+id/bgSignDefault"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_9"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_marginRight="@dimen/dp_30"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginBottom="@dimen/dp_86"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:background="@drawable/bg_sign_default"/>
+
+                <View
+                        android:id="@+id/v0"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toLeftOf="@id/bgSignDefault"
+                        android:layout_marginLeft="@dimen/dp_2"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v1"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintRight_toLeftOf="@id/v2"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toLeftOf="@id/bgSignDefault"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v2"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintRight_toLeftOf="@id/v3"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toRightOf="@id/v1"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v3"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toRightOf="@id/v2"
+                        app:layout_constraintRight_toLeftOf="@id/v4"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v4"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toRightOf="@id/v3"
+                        app:layout_constraintRight_toLeftOf="@id/v5"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v5"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toRightOf="@id/v4"
+                        app:layout_constraintRight_toLeftOf="@id/v6"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v6"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintLeft_toRightOf="@id/v5"
+                        app:layout_constraintRight_toLeftOf="@id/v7"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <View
+                        android:id="@+id/v7"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        app:layout_constraintRight_toRightOf="@id/bgSignDefault"
+                        android:layout_marginRight="@dimen/dp_2"
+                        android:background="@drawable/circle_ffb15b"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v1"
+                        app:layout_constraintRight_toRightOf="@id/v1"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="1天"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v2"
+                        app:layout_constraintRight_toRightOf="@id/v2"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="2天"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v3"
+                        app:layout_constraintRight_toRightOf="@id/v3"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="3天"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v4"
+                        app:layout_constraintRight_toRightOf="@id/v4"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="4天"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v5"
+                        app:layout_constraintRight_toRightOf="@id/v5"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="5天"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v6"
+                        app:layout_constraintRight_toRightOf="@id/v6"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="6天"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_909090"
+                        android:textSize="@dimen/sp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        app:layout_constraintLeft_toLeftOf="@id/v7"
+                        app:layout_constraintRight_toRightOf="@id/v7"
+                        app:layout_constraintTop_toBottomOf="@id/bgSignDefault"
+                        android:text="7天"/>
+
+                <View
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="@dimen/dp_9"
+                        app:layout_constraintTop_toTopOf="@+id/bgSignDefault"
+                        app:layout_constraintLeft_toLeftOf="@id/bgSignDefault"
+                        app:layout_constraintRight_toRightOf="@id/ivCursor"
+                        android:layout_marginRight="@dimen/dp_22"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        android:background="@drawable/bg_ff6e26_radius9"/>
+
+                <ImageView
+                        android:id="@+id/ivCursor"
+                        android:layout_width="@dimen/dp_44"
+                        android:layout_height="@dimen/dp_49"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginBottom="@dimen/dp_18"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/bgSignDefault"
+                        app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
+                        android:src="@drawable/icon_gift_cursor"/>
+
+                <TextView
+                        android:id="@+id/tvSign"
+                        android:layout_width="@dimen/dp_120"
+                        android:layout_height="@dimen/dp_30"
+                        android:background="@drawable/bg_sign_selector"
+                        android:textIsSelectable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@+id/bgSignDefault"
+                        app:layout_constraintRight_toRightOf="@id/bgSignDefault"
+                        android:layout_marginBottom="@dimen/dp_22"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_80"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_recomand"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"/>
+
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/topLayout"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </com.moli.module.widget.widget.JudgeNestedScrollView>
+
+
+</FrameLayout>

@@ -32,6 +32,8 @@ abstract class ListPresenter<T>(val iListView: IListView) : BasePresenter<IListV
 
     protected var currentPage = 1
 
+    protected var forbidLoadMore = false
+
     protected var pageLimit = 20
 
     protected var isFirst = true
@@ -112,21 +114,25 @@ abstract class ListPresenter<T>(val iListView: IListView) : BasePresenter<IListV
                     loadData(true)
                 }
             })
-            recyclerView.addOnScrollListener(object : OnRcvScrollListener(3) {
-                override fun onBottom() {
-                    if (hasMore) {
-                        loadData(false)
+            if (!forbidLoadMore) {
+                recyclerView.addOnScrollListener(object : OnRcvScrollListener(3) {
+                    override fun onBottom() {
+                        if (hasMore) {
+                            loadData(false)
+                        }
                     }
-                }
-            })
+                })
+            }
         } else {
-            recyclerView.addOnScrollListener(object : OnRcvScrollListener(3) {
-                override fun onBottom() {
-                    if (hasMore) {
-                        loadData(false)
+            if (!forbidLoadMore) {
+                recyclerView.addOnScrollListener(object : OnRcvScrollListener(3) {
+                    override fun onBottom() {
+                        if (hasMore) {
+                            loadData(false)
+                        }
                     }
-                }
-            })
+                })
+            }
         }
     }
 

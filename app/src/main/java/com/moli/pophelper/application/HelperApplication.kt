@@ -33,7 +33,7 @@ class HelperApplication : BaseApplication() {
         initList.add(frescoInit!!)
         initList.add(RetrofitInit())
         initList.add(UmengInit())
-        initList.add(CusCrashInit())
+//        initList.add(CusCrashInit())
         initList.add(ARouterInit())
         initList.add(AnalyticsAgentInit())
         initList.forEach { it.init(this) }

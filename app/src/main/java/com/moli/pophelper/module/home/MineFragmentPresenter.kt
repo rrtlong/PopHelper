@@ -1,5 +1,10 @@
 package com.moli.pophelper.module.home
 
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.moli.module.framework.mvp.BasePresenter
+import com.moli.module.framework.mvp.IView
+import com.moli.module.net.http.provider.APIService
+
 /**
  * 项目名称：PopHelper
  * 类描述：
@@ -10,3 +15,7 @@ package com.moli.pophelper.module.home
  * 修改备注：
  * @version
  */
+class MineFragmentPresenter(iView: IView) : BasePresenter<IView>(iView) {
+    @Autowired
+    lateinit var api: APIService
+}

@@ -1,7 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+            android:id="@+id/ivWord"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_gravity="left|top"
+            android:scaleType="centerInside"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:src="@drawable/icon_logo_word"/>
+
+    <ImageView
+            android:id="@+id/ivLaunchGame"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            android:scaleType="centerInside"
+            android:layout_marginRight="@dimen/dp_14"
+            android:layout_gravity="right|top"
+            android:src="@drawable/icon_launcher_game"/>
+
+
+    <com.moli.module.widget.widget.JudgeNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_38">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_152"/>
+
+            <ImageView
+                    android:id="@+id/ivBannerLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/banner"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:src="@drawable/icon_banner_line"/>
+
+            <LinearLayout
+                    android:id="@+id/llDotContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_11"
+                    app:layout_constraintTop_toBottomOf="@id/banner"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/tvRecommandGoods"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_48"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivBannerLine"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:text="推荐商品"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_403333"
+                    android:textSize="@dimen/sp_16"/>
+
+            <ImageView
+                    android:id="@+id/ivGoodsMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_48"
+                    app:layout_constraintTop_toBottomOf="@id/ivBannerLine"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:paddingRight="@dimen/dp_16"
+                    android:src="@drawable/icon_more_word"/>
+
+            <com.moli.module.widget.widget.MLImageView
+                    android:id="@+id/ivGood1"
+                    android:layout_width="@dimen/dp_160"
+                    android:layout_height="@dimen/dp_0"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRecommandGoods"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    app:placeholderImageScaleType="centerCrop"
+                    app:actualImageScaleType="centerCrop"
+                    app:roundedCornerRadius="@dimen/dp_4"
+                    app:placeholderImage="@drawable/icon_default_recommand"
+                    app:layout_constraintDimensionRatio="160:74"/>
+
+            <com.moli.module.widget.widget.MLImageView
+                    android:id="@+id/ivGood2"
+                    android:layout_width="@dimen/dp_160"
+                    android:layout_height="@dimen/dp_0"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRecommandGoods"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="@dimen/dp_16"
+                    app:placeholderImageScaleType="centerCrop"
+                    app:actualImageScaleType="centerCrop"
+                    app:placeholderImage="@drawable/icon_default_recommand"
+                    app:roundedCornerRadius="@dimen/dp_4"
+                    app:layout_constraintDimensionRatio="160:74"
+                    android:scaleType="centerCrop"/>
+
+            <View
+                    android:id="@+id/tvRecommandLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:visibility="visible"
+                    android:layout_marginRight="@dimen/dp_16"
+                    app:layout_constraintTop_toBottomOf="@id/ivGood1"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:background="@color/black_10"/>
+
+            <TextView
+                    android:id="@+id/tvStrategy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRecommandLine"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="游戏攻略"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_403333"
+                    android:textSize="@dimen/sp_16"/>
+
+            <ImageView
+                    android:id="@+id/ivStrategyMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/tvStrategy"
+                    app:layout_constraintBottom_toBottomOf="@id/tvStrategy"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:paddingRight="@dimen/dp_16"
+                    android:src="@drawable/icon_more_word"/>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvStrategy"
+                    android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </com.moli.module.widget.widget.JudgeNestedScrollView>
+
+
+</FrameLayout>

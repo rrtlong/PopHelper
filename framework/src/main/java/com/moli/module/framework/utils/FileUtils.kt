@@ -1,8 +1,17 @@
 package com.moli.module.framework.utils
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.support.v4.content.FileProvider
 import com.blankj.utilcode.constant.MemoryConstants
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.Utils
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.io.File
+import java.io.*
 
 
 /**
@@ -34,6 +43,49 @@ fun File.isAvailableSpace(sizeMb: Int = 20): Boolean {
     }
     return isHasSpace
 }
+
+/**
+ * 将输入流写入文件
+ *
+ * @param inputString
+ * @param filePath
+ */
+fun writeFileFromIS(
+    file: File,
+    input: InputStream
+): Boolean {
+    var os: OutputStream? = null
+    try {
+        os = BufferedOutputStream(FileOutputStream(file))
+        val data = ByteArray(1024)
+        var len: Int = 0
+        do {
+            os.write(data, 0, len)
+            len = input.read(data, 0, 1024)
+        } while (len != -1)
+        return true
+    } catch (e: IOException) {
+        e.printStackTrace()
+        return false
+    } finally {
+        try {
+            input.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        try {
+            os?.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+    }
+
+}
+
+
+
 
 
 

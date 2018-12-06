@@ -146,7 +146,7 @@ class APIServiceImpl : APIService {
         return api.recommandOrHotMusics(response).toIoAndMain()
     }
 
-    override fun getBanner(bannerType: Int): Observable<BannerModel> {
+    override fun getBanner(bannerType: Int): Observable<List<BannerModel>> {
         return api.getBanner(bannerType).toIoAndMain()
     }
 

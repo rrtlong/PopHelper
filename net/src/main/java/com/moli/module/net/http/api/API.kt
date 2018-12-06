@@ -175,7 +175,7 @@ interface API {
      */
     @POST("/config/downloadUrl")
     @FormUrlEncoded
-    fun getBanner(@Field("bannerType") bannerType: Int): Observable<BannerModel>
+    fun getBanner(@Field("bannerType") bannerType: Int): Observable<List<BannerModel>>
 
 
 }

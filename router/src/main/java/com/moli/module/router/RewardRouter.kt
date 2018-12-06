@@ -432,6 +432,7 @@ class RewardRouter {
             const val PATH = "/publish/cover"
             const val VIDEO_PATH = "videoPath"
         }
+
         object MusicSelectActivity {
             const val PATH = "/music/selectActivity"
         }
@@ -722,10 +723,12 @@ class RewardRouter {
         object TwentyFourFragment {
             const val PATH = "/fragment/twentyFour"
         }
+
         object MusicChildFragment {
             const val PATH = "/music/childFragment"
             const val TYPE = "type"
         }
+
         object MusicFragment {
             const val PATH = "/music/fragment"
         }
@@ -754,6 +757,11 @@ class RewardRouter {
          * 接口PingxxAPI
          */
         const val PINGXX_API = "/api/PingXXAPIService"
+
+        /**
+         * 下载接口
+         */
+        const val DOWNLOAD = "/api/download"
 
     }
 }

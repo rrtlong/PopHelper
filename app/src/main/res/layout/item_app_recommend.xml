@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:paddingBottom="@dimen/dp_15">
+
+    <com.moli.module.widget.widget.MLImageView
+            android:id="@+id/mlIcon"
+            android:layout_width="@dimen/dp_64"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_height="@dimen/dp_64"
+            app:placeholderImageScaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/icon_default_wealth"
+            app:roundedCornerRadius="@dimen/dp_10"/>
+
+    <TextView
+            android:id="@+id/tvTitle"
+            android:text="羊驼免费小说"
+            android:textColor="@color/color_2e2e2e"
+            android:textSize="@dimen/sp_17"
+            app:layout_constraintTop_toTopOf="@id/mlIcon"
+            app:layout_constraintLeft_toRightOf="@id/mlIcon"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tvPeoples"
+            android:text="有5万人在试玩"
+            android:textColor="@color/color_7d7d7d"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:layout_marginTop="@dimen/dp_2"
+            app:layout_constraintLeft_toRightOf="@id/mlIcon"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/tvLabel"
+            android:text="掌上兼职、职位多、赚钱快！"
+            android:textColor="@color/color_7d7d7d"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintLeft_toRightOf="@id/mlIcon"
+            app:layout_constraintBottom_toBottomOf="@id/mlIcon"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:maxLines="1"
+            android:layout_width="@dimen/dp_0"
+            android:ellipsize="end"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="wrap_content"/>
+
+    <ImageView
+            android:id="@+id/ivTryPlay"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_try_play"/>
+
+    <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dp_14"
+            android:textColor="@color/color_2e2e2e"
+            app:layout_constraintTop_toBottomOf="@id/mlIcon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="临时工、实习、赚钱、在家兼职、网上兼职、找工作这里应有尽有！是一款能让你轻松兼职、赚钱的网络兼职手机应用。"/>
+
+    <com.moli.module.widget.widget.MLImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0"
+            app:layout_constraintDimensionRatio="328:140"
+            app:layout_constraintTop_toBottomOf="@id/tvDesc"
+            android:layout_marginTop="@dimen/dp_10"
+            app:placeholderImageScaleType="centerCrop"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/icon_default_recommand"
+            app:roundedCornerRadius="@dimen/dp_2"/>
+
+
+</android.support.constraint.ConstraintLayout>

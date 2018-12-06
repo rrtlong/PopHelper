@@ -70,7 +70,7 @@ dependencies {
     //统计 bugly
     api rootProject.ext.dependencies["crashreport"]
     api rootProject.ext.dependencies["nativecrashreport"]
-    implementation rootProject.ext.dependencies["ptrRefresh"]
+    api rootProject.ext.dependencies["ptrRefresh"]
 
 
 }

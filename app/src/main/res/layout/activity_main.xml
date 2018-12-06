@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             app:layout_constraintBottom_toTopOf="@id/tabBottomLayout"
-            android:background="@color/white_10"/>
+            android:background="@color/black_10"/>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/tabBottomLayout"
@@ -32,7 +32,7 @@
                 android:id="@+id/ivHome"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@drawable/bg_home_selector"
                 app:layout_constraintEnd_toStartOf="@+id/ivWealth"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -42,7 +42,7 @@
                 android:id="@+id/ivWealth"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@drawable/bg_wealth_selector"
                 app:layout_constraintEnd_toStartOf="@+id/ivActivity"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -53,7 +53,7 @@
                 android:id="@+id/ivActivity"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@drawable/bg_activity_selector"
                 app:layout_constraintEnd_toStartOf="@+id/ivMine"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -64,7 +64,7 @@
                 android:id="@+id/ivMine"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
+                android:scaleType="centerInside"
                 android:src="@drawable/bg_mine_selector"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

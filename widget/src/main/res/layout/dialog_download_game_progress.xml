@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_400"
+        android:layout_gravity="center">
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_400"
+            android:src="@drawable/bg_download"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1080:1200"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="游戏下载中…请不要退出"
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/layer1"
+            android:layout_marginTop="@dimen/dp_5"
+            android:textSize="@dimen/sp_14"/>
+
+    <View
+            android:id="@+id/layer1"
+            android:layout_width="@dimen/dp_0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:background="@drawable/bg_download_progress_layer1"
+            android:layout_height="@dimen/dp_12"/>
+
+    <View
+            android:id="@+id/layer2"
+            android:layout_width="@dimen/dp_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/dp_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:background="@drawable/bg_download_progress_layer2"
+            android:layout_height="@dimen/dp_12"/>
+
+    <TextView
+            android:id="@+id/tvPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#581E04"
+            app:layout_constraintLeft_toLeftOf="@id/layer1"
+            app:layout_constraintRight_toRightOf="@id/layer1"
+            app:layout_constraintTop_toTopOf="@id/layer1"
+            app:layout_constraintBottom_toBottomOf="@id/layer1"
+            android:textSize="@dimen/sp_13"
+            android:text="12%"/>
+
+</android.support.constraint.ConstraintLayout>

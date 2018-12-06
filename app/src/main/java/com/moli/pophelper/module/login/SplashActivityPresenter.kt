@@ -28,10 +28,10 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
      * 获取开屏广告
      */
     fun getBanner() {
-        api.getBanner(1).bindToLifecycle(owner).subscribe(object : HttpSubscriber<BannerModel>() {
-            override fun onNext(t: BannerModel) {
+        api.getBanner(1).bindToLifecycle(owner).subscribe(object : HttpSubscriber<List<BannerModel>>() {
+            override fun onNext(t: List<BannerModel>) {
                 if (t != null) {
-                    MVPMessage.obtain(rootView!!, 1, t).handleMessageToTarget()
+                    MVPMessage.obtain(rootView!!, 1, t[0]).handleMessageToTarget()
                 } else {
                     MVPMessage.obtain(rootView!!, 2).handleMessageToTarget()
                 }

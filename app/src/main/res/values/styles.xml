@@ -52,4 +52,26 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
+    <style name="bottomAnimTheme" parent="MainTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/bottomAnim</item>
+    </style>
+
+    <style name="alphaAnimTheme" parent="MainTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/alphaAnim</item>
+    </style>
+
+
+    <style name="bottomAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/bottom_in</item>
+    </style>
+    <style name="alphaAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/bottom_in</item>
+    </style>
+
+
+
 </resources>
