@@ -17,7 +17,6 @@ class DownloadInterceptor() : Interceptor {
 
     lateinit var downloadUrl: String
     fun progress(progress: Int) {
-        Timber.e("progress =$progress")
         EventBus.getDefault().post(ProgressModel(downloadUrl, progress),EventConstant.DOWNLOAD_PROGRESS)
     }
 

@@ -15,7 +15,7 @@ import com.moli.module.model.constant.RegularConstant
 import com.moli.module.widget.widget.dialog.LoadingDialog2
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.HelperArouter
-import com.moli.pophelper.constant.WebConstant
+import com.moli.pophelper.constant.Constant
 import com.moli.pophelper.utils.PageSkipUtils
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable
@@ -45,7 +45,7 @@ class LoginActivity : BaseMVPActivity<LoginActivityPresenter>(), IView {
     override fun initData(savedInstanceState: Bundle?) {
         QMUIStatusBarHelper.translucent(this)
         ivClose.clicksThrottle().subscribe { finish() }
-        tvProtocol.clicksThrottle().subscribe { PageSkipUtils.skipGenderWeb(WebConstant.USER_PROTOCOL, "用户协议", true) }
+        tvProtocol.clicksThrottle().subscribe { PageSkipUtils.skipGenderWeb(Constant.USER_PROTOCOL, "用户协议", true) }
         etPhone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!isTiming) {

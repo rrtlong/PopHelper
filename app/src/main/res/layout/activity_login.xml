@@ -40,6 +40,7 @@
             android:gravity="center_vertical"
             android:textSize="@dimen/sp_14"
             android:paddingLeft="@dimen/dp_54"
+            app:scaleSize="0.4"
             android:textColor="@color/color_0a0909"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/dp_163"/>

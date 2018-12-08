@@ -1,4 +1,4 @@
-package com.moli.reward.app.pay
+package com.moli.pophelper.module.pay
 
 import android.text.TextUtils
 
@@ -12,14 +12,14 @@ import android.text.TextUtils
  * 修改备注：
  */
 class AuthResult(rawResult: Map<String, String>?, removeBrackets: Boolean) {
-    
+
     var resultStatus: String? = null
     var result: String? = null
     var memo: String? = null
     var resultCode: String? = null
     var authCode: String? = null
     var alipayOpenId: String? = null
-    
+
     init {
         if (rawResult != null) {
             for (key in rawResult!!.keys) {
@@ -46,12 +46,12 @@ class AuthResult(rawResult: Map<String, String>?, removeBrackets: Boolean) {
                     continue
                 }
             }
-            
+
         }
-        
-        
+
+
     }
-    
+
     private fun removeBrackets(str: String, remove: Boolean): String? {
         var str = str
         if (remove) {
@@ -66,7 +66,7 @@ class AuthResult(rawResult: Map<String, String>?, removeBrackets: Boolean) {
         }
         return str
     }
-    
+
     private fun getValue(header: String, data: String): String {
         return data.substring(header.length, data.length)
     }

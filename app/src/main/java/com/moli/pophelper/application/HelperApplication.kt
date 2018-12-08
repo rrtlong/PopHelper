@@ -36,6 +36,7 @@ class HelperApplication : BaseApplication() {
 //        initList.add(CusCrashInit())
         initList.add(ARouterInit())
         initList.add(AnalyticsAgentInit())
+        initList.add(RxDownloadInit())
         initList.forEach { it.init(this) }
     }
 

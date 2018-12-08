@@ -5,8 +5,8 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.moli.module.framework.mvp.IListView
 import com.moli.module.framework.mvp.ListPresenter
 import com.moli.module.framework.utils.rx.bindToLifecycle
-import com.moli.module.model.base.MusicModel
-import com.moli.module.model.http.ResponseMusicList
+import com.moli.module.model.base.StrategyModel
+import com.moli.module.model.http.ResponseListPage
 import com.moli.module.net.http.HttpSubscriber
 import com.moli.module.net.http.provider.APIService
 import com.moli.module.widget.adapter.CommonRcvAdapter
@@ -26,16 +26,16 @@ import com.moli.pophelper.item.StrategyItem
  * 修改备注：
  * @version
  */
-class StrategyListActivityPresenter(iListView: IListView) : ListPresenter<MusicModel>(iListView) {
+class StrategyListActivityPresenter(iListView: IListView) : ListPresenter<StrategyModel>(iListView) {
     @Autowired
     lateinit var api: APIService
 
-    lateinit var adapter: CommonRcvAdapter<MusicModel>
+    lateinit var adapter: CommonRcvAdapter<StrategyModel>
 
-    override fun createAdapter(): RecyclerView.Adapter<RcvAdapterItem<MusicModel>> {
+    override fun createAdapter(): RecyclerView.Adapter<RcvAdapterItem<StrategyModel>> {
 //        forbidLoadMore = true
-        adapter = object : CommonRcvAdapter<MusicModel>(dataList) {
-            override fun createItem(type: Any): AdapterItem<MusicModel> {
+        adapter = object : CommonRcvAdapter<StrategyModel>(dataList) {
+            override fun createItem(type: Any): AdapterItem<StrategyModel> {
                 return StrategyItem()
             }
 
@@ -44,9 +44,9 @@ class StrategyListActivityPresenter(iListView: IListView) : ListPresenter<MusicM
     }
 
     override fun requestData(pullToRefresh: Boolean) {
-        api.recommandOrHotMusics(ResponseMusicList(currentPage, pageLimit, 1)).bindToLifecycle(owner)
-            .subscribe(object : HttpSubscriber<List<MusicModel>>() {
-                override fun onNext(t: List<MusicModel>) {
+        api.getStrategyList(ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
+            .subscribe(object : HttpSubscriber<List<StrategyModel>>() {
+                override fun onNext(t: List<StrategyModel>) {
                     onDataSuccess(t)
                 }
 

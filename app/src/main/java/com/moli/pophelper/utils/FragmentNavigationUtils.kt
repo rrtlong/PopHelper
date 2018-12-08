@@ -1,13 +1,14 @@
 package com.moli.pophelper.utils
 
-import android.support.v4.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
+import com.moli.module.model.http.ResponseOrder
 import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.module.home.ActivityFragment
 import com.moli.pophelper.module.home.HomeFragment
 import com.moli.pophelper.module.home.MineFragment
 import com.moli.pophelper.module.home.WealthFragment
+import com.moli.pophelper.module.pay.PayTypeListFragment
 
 /**
  * 项目名称：PopHelper
@@ -36,5 +37,12 @@ object FragmentNavigationUtils {
     fun mineFragment(): MineFragment {
         return ARouter.getInstance().build(HelperArouter.Fragment.MineFragment.PATH).navigation(Utils.getApp()) as MineFragment
     }
-
+    /**
+     * 支付菜单
+     */
+    fun payTypeListFragment(order: ResponseOrder): PayTypeListFragment {
+        return ARouter.getInstance().build(HelperArouter.Fragment.PayTypeList.PATH)
+            .withParcelable(HelperArouter.Fragment.PayTypeList.PAY_DATA, order)
+            .navigation() as PayTypeListFragment
+    }
 }

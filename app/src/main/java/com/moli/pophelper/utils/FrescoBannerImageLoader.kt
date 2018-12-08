@@ -26,7 +26,7 @@ class FrescoBannerImageLoader(val width: Int, val height: Int) : ImageLoader() {
                 imageView.loadImage(path, width, height)
             } else if (path is BannerModel) {
                 imageView.loadImage(
-                        if (path.image!!.isNotEmpty()) path.image else path.image,
+                        if (path.imgUrl!!.isNotEmpty()) path.imgUrl else path.imgUrl,
                         width,
                         height
                 )

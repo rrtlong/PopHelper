@@ -32,7 +32,6 @@ import javax.net.ssl.X509TrustManager
 object RetrofitUtils {
     @JvmField
     var domainName: String = BuildConfig.DOMAIN_NAME
-//    var domainName: String = BuildConfig.DOMAIN_NAME + "moli_helper/helper/"
 
     val retrofit: Retrofit by lazy {
         val gson = GsonBuilder().setLenient().create()

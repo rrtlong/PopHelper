@@ -67,6 +67,32 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_try_play"/>
 
+    <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_18"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_color_horizontal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+    <TextView
+            android:id="@+id/tvProgress"
+            android:text="立即试玩"
+            app:layout_constraintLeft_toLeftOf="@id/progressBar"
+            app:layout_constraintRight_toRightOf="@id/progressBar"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            android:textColor="@color/color_612716"
+            android:textSize="@dimen/sp_10"
+            android:gravity="center"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"/>
+
     <TextView
             android:id="@+id/tvDesc"
             android:layout_width="@dimen/dp_0"

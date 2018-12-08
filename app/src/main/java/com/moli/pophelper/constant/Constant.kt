@@ -10,6 +10,9 @@ package com.moli.pophelper.constant
  * 修改备注：
  * @version
  */
-object WebConstant {
+object Constant {
     const val USER_PROTOCOL = "/protocol"
+
+    var POP_DOWNLOAD_URL = "http://oss.5moligame.com/apk/helper/1.3.moligame.apk"
+    var POP_PACKAGE = "com.moligame.xxl"
 }

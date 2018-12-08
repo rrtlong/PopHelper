@@ -1,10 +1,9 @@
-package com.moli.reward.app.module.pay
+package com.moli.pophelper.module.pay
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
@@ -12,21 +11,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aletter.xin.app.model.http.ResponseOrder
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alipay.sdk.app.PayTask
-import com.blankj.utilcode.util.SnackbarUtils.dismiss
-import com.moli.reward.app.R
-import com.moli.reward.app.framework.base.BaseMVPDialogFragment
-import com.moli.reward.app.framework.mvp.IListView
-import com.moli.reward.app.framework.mvp.IView
-import com.moli.reward.app.framework.mvp.MVPMessage
-import com.moli.reward.app.framework.utils.LayoutManagerUtil
-import com.moli.reward.app.framework.utils.rx.clicksThrottle
-import com.moli.reward.app.pay.AuthResult
-import com.moli.reward.app.pay.PayResult
-import com.moli.reward.app.router.RewardRouter
+import com.moli.module.framework.base.BaseMVPDialogFragment
+import com.moli.module.framework.mvp.IListView
+import com.moli.module.framework.mvp.MVPMessage
+import com.moli.module.framework.utils.LayoutManagerUtil
+import com.moli.module.framework.utils.rx.clicksThrottle
+import com.moli.module.model.http.ResponseOrder
+import com.moli.pophelper.R
+import com.moli.pophelper.constant.HelperArouter
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlinx.android.synthetic.main.fragment_pay_list_layout.*
@@ -45,7 +40,7 @@ import java.lang.ref.WeakReference
  * 修改备注：
  * @version
  */
-@Route(path = RewardRouter.Fragment.PayTypeList.PATH)
+@Route(path = HelperArouter.Fragment.PayTypeList.PATH)
 class PayTypeListFragment : BaseMVPDialogFragment<PayTypeListFragmentPresenter>(), IListView {
     companion object {
         const val SDK_PAY_FLAG = 1
@@ -93,7 +88,7 @@ class PayTypeListFragment : BaseMVPDialogFragment<PayTypeListFragmentPresenter>(
                 payWx(jsonStr)
                 dismiss()
             }
-            2 -> {
+            0 -> {
                 val jsonStr = message.obj as String
                 Timber.e("zfb jsonstr=$jsonStr")
                 payZfb(jsonStr)

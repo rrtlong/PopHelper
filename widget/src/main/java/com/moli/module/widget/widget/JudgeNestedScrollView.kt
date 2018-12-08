@@ -2,10 +2,12 @@ package com.moli.module.widget.widget
 
 import android.content.Context
 import android.support.v4.widget.NestedScrollView
+import android.support.v4.widget.NestedScrollView.OnScrollChangeListener
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.ViewConfiguration
+import org.jetbrains.anko.dip
 import timber.log.Timber
 
 /**
@@ -17,13 +19,15 @@ import timber.log.Timber
  * @GitHub: https://github.com/SiberiaDante
  */
 
+
 class JudgeNestedScrollView : NestedScrollView {
     private var isNeedScroll = true
     private var xDistance: Float = 0.toFloat()
     private var yDistance: Float = 0.toFloat()
     private var xLast: Float = 0.toFloat()
     private var yLast: Float = 0.toFloat()
-    private var scaledTouchSlop: Int=0
+    private var scaledTouchSlop: Int = 0
+    private var headHeight = -1
 
     constructor(context: Context) : super(context, null) {}
 
@@ -44,17 +48,37 @@ class JudgeNestedScrollView : NestedScrollView {
             MotionEvent.ACTION_MOVE -> {
                 val curX = ev.x
                 val curY = ev.y
-
                 xDistance += Math.abs(curX - xLast)
                 yDistance += Math.abs(curY - yLast)
                 xLast = curX
                 yLast = curY
-                Log.e("SiberiaDante", "xDistance ：$xDistance---yDistance:$yDistance")
-                Timber.i("SiberiaDante--------%s",(!(xDistance > yDistance || yDistance < scaledTouchSlop) && isNeedScroll).toString())
+                if (headHeight == -1) {
+                    isNeedScroll = true
+                } else {
+                    isNeedScroll = (this.scrollY <= headHeight)
+                }
+                Log.e(
+                    "SiberiaDante",
+                    "xDistance ：$xDistance---yDistance:$yDistance isNeedScroll=$isNeedScroll   head=${headHeight}  scrollY = ${this.scrollY}  childHeight=${this.getChildAt(
+                        0
+                    ).getHeight()}  ${this.height}"
+                )
                 return !(xDistance > yDistance || yDistance < scaledTouchSlop) && isNeedScroll
             }
         }
         return super.onInterceptTouchEvent(ev)
+    }
+
+    fun setBottomListener(bottomListener: BottomListener) {
+        this.bottomListener = bottomListener
+        this.setOnScrollChangeListener(OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if ((this.getChildAt(0).height - this.dip(43) - this.height) <= this.scrollY) {
+                Timber.e("SiberiaDante bottom")
+                bottomListener?.let {
+                    it.onBottom()
+                }
+            }
+        })
     }
 
     /*
@@ -63,4 +87,12 @@ class JudgeNestedScrollView : NestedScrollView {
     fun setNeedScroll(isNeedScroll: Boolean) {
         this.isNeedScroll = isNeedScroll
     }
+
+
+    private var bottomListener: BottomListener? = null
+
+}
+
+interface BottomListener {
+    fun onBottom()
 }

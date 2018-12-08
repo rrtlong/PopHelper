@@ -26,6 +26,7 @@
 
 
     <com.moli.module.widget.widget.JudgeNestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_38">
@@ -35,6 +36,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/dp_16"
                 android:paddingRight="@dimen/dp_16"
+                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
@@ -73,7 +75,7 @@
                         android:id="@+id/tvMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="32,320.88"
+                        android:text="0"
                         app:layout_constraintLeft_toLeftOf="@+id/tvMoneyTitle"
                         android:paddingLeft="@dimen/dp_14"
                         app:layout_constraintTop_toBottomOf="@id/tvMoneyTitle"
@@ -85,7 +87,7 @@
                         android:id="@+id/tvDiamond"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100,321,313"
+                        android:text="0"
                         app:layout_constraintLeft_toLeftOf="@+id/tvDiamondTitle"
                         android:paddingLeft="@dimen/dp_14"
                         app:layout_constraintTop_toBottomOf="@id/tvDiamondTitle"
@@ -146,7 +148,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     app:layout_constraintTop_toBottomOf="@id/topLayout"
-                    android:layout_marginTop="@dimen/dp_2"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:layout_height="wrap_content">
 
             </android.support.v7.widget.RecyclerView>

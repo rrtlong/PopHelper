@@ -46,8 +46,9 @@ android {
          * 测试服*/
         offline {
             dimension "SERVER"
-//            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.api.5moligame.com/\"")
-            buildConfigField("String", "DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
+            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.api.moli2018.com/\"")
+//            buildConfigField("String", "DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
+//            buildConfigField("String", "DOMAIN_NAME", "\"http://www.youshang666.com/\"")
             buildConfigField("String", "SevicePlateform", "\"test\"")
             buildConfigField("String", "PING_DOMAIN_NAME", "\"http://218.244.151.190/\"")
             buildConfigField("String", "WEB_DOMAIN_NAME", "\"http://dev.reward.yourmoli.com/\"")
@@ -131,10 +132,10 @@ dependencies {
     //网络请求框架
     api rootProject.ext.dependencies["retrofit-url-manager"]
     // 下载框架
-    api(rootProject.ext.dependencies["rxdownload"]) {
-        exclude module: 'kotlin-stdlib-jre7'
-        exclude module: 'kotlin-stdlib-jre8'
-    }
+//    api(rootProject.ext.dependencies["rxdownload"]) {
+//        exclude module: 'kotlin-stdlib-jre7'
+//        exclude module: 'kotlin-stdlib-jre8'
+//    }
     api(rootProject.ext.dependencies["rxcache2"]) {
         exclude module: 'rxjava'
     }

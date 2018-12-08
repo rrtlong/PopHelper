@@ -11,6 +11,7 @@ import com.moli.module.framework.model.ListResponse
 import com.moli.module.widget.adapter.RcvAdapterWrapper
 import com.moli.module.widget.adapter.item.RcvAdapterItem
 import com.moli.module.widget.adapter.util.OnRcvScrollListener
+import com.moli.module.widget.widget.FooterView
 
 /**
  * 项目名称：Jasmine
@@ -172,6 +173,10 @@ abstract class ListPresenter<T>(val iListView: IListView) : BasePresenter<IListV
         isLoading = false
         if (!this::adapterWrapper.isInitialized) return
         hasMore = checkLoadMore(newData)
+        if (adapterWrapper.footerView != null) {
+            var footerView = adapterWrapper.footerView as FooterView
+            footerView.setMore(hasMore)
+        }
         val refreshLayout = iListView.getRefreshLayout()
         if (isClearList) {
             dataList.clear()
@@ -228,7 +233,7 @@ abstract class ListPresenter<T>(val iListView: IListView) : BasePresenter<IListV
             return listResponse?.nextPage == true
         }
         //        return newData != null && newData.size >= pageLimit
-        return newData != null && newData.size >= 0
+        return newData != null && newData.isNotEmpty()
     }
 
     override fun onDestroy() {

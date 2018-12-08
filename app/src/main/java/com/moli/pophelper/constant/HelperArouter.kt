@@ -46,5 +46,13 @@ object HelperArouter {
             const val PATH = "/main/mine"
         }
 
+        /**
+         * 支付-菜单
+         */
+        object PayTypeList {
+            const val PATH = "/main/payTypeList"
+            const val PAY_DATA = "payData"
+        }
+
     }
 }

@@ -27,8 +27,8 @@ object BoxStoreUtils {
 
 
     fun getBoxStore(): BoxStore? {
-        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, 0)
-        val storeName = if (userId == 0L) "visitor" else userId.toString()
+        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
+        val storeName = if (userId == 100000L) "visitor" else userId.toString()
         val boxStore = boxStores[userId.toInt()]
 
         return if (boxStore == null) {

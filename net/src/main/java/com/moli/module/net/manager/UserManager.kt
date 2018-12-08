@@ -1,12 +1,11 @@
 package com.moli.module.net.manager
 
+import com.blankj.utilcode.util.SPUtils
+import com.moli.module.framework.utils.rx.subscribeOnIo
 import com.moli.module.model.base.UserInfo
 import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.constant.SPConstant
 import com.moli.module.model.objectbox.BoxStoreUtils
-import com.blankj.utilcode.util.SPUtils
-import com.moli.module.framework.utils.CountUtils
-import com.moli.module.framework.utils.rx.subscribeOnIo
 import com.moli.module.net.http.ApiException
 import io.objectbox.rx.RxQuery
 import io.reactivex.Observable
@@ -51,7 +50,7 @@ object UserManager {
         if (selfUser != null) {
             return selfUser
         }
-        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID)
+        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
         if (userId == -1L)
             return null
         selfUser = BoxStoreUtils.getUserInfoBox()?.get(userId)
@@ -67,7 +66,7 @@ object UserManager {
      */
     private fun initialization(userInfo: UserInfo) {
         Timber.i("initialization")
-        CountUtils.onProfileSignIn(userInfo.name ?: "匿名", userInfo.id)
+//        CountUtils.onProfileSignIn(userInfo.name ?: "匿名", userInfo.id)
     }
 
 
@@ -77,15 +76,10 @@ object UserManager {
      */
     fun refreshUserInfo(userInfo: UserInfo, hasAccessToken: Boolean) {
         getSynSelf()
-        if (!hasAccessToken) {
-            if (selfUser != null) {
-                userInfo.accessToken = selfUser!!.accessToken
-            }
-        }
         selfUser = userInfo
-        var userId = SPUtils.getInstance().getLong(SPConstant.USER_ID)
+        var userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
         if (userId != userInfo.id) {
-            if (userInfo.id > 0) {
+            if (userInfo.id >= 0) {
                 userId = userInfo.id
                 SPUtils.getInstance().put(SPConstant.USER_ID, userId)
             }
@@ -107,13 +101,18 @@ object UserManager {
 
 
     fun isLogin(): Boolean {
-        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID)
-        return userId > 0
+        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
+        return userId >= 0
+    }
+
+    fun isBind(): Boolean {
+        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
+        return userId != 100000L
     }
 
     fun logout() {
-        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID)
-        if (userId > 0) {
+        val userId = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
+        if (userId >= 0) {
             val box = BoxStoreUtils.getUserInfoBox() ?: return
             box.remove(userId)
             selfUser = null

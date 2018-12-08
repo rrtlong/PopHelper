@@ -38,8 +38,8 @@ class CommonInterceptor : Interceptor {
             builder.addHeader("x-access-token", rule.accessToken)
         }
         builder.addHeader("x-version", rule.version)
-                .addHeader("x-device-id", rule.deviceId)
-                .addHeader("x-platform", rule.platform)
+            .addHeader("x-device-id", rule.deviceId)
+            .addHeader("x-platform", rule.platform)
         if (!rule.userId.isNullOrBlank()) {
             builder.addHeader("x-user-id", rule.userId)
         }
@@ -64,6 +64,8 @@ object Header {
         map["x-platform"] = rule.platform
         if (!rule.userId.isNullOrBlank()) {
             map["x-user-id"] = rule.userId
+        } else {
+            map["x-user-id"] = "-1"
         }
         map["x-timestamp"] = rule.timestamp
         map["x-ticket"] = rule.disgest
@@ -72,16 +74,25 @@ object Header {
 }
 
 private fun getDigestRule(): DigestRule {
-    val user=UserManager.getSynSelf()
-    val uid = user?.id?:0
-    val accessToken =user?.accessToken
+    val user = UserManager.getSynSelf()
+    val uid = user?.id
+    val accessToken = ""
     val utdId = getUtdid(Utils.getApp())
     var channel: String = BuildConfig.SevicePlateform
     try {
-        val applicationInfo = Utils.getApp().packageManager.getApplicationInfo(Utils.getApp().packageName, PackageManager.GET_META_DATA)
+        val applicationInfo =
+            Utils.getApp().packageManager.getApplicationInfo(Utils.getApp().packageName, PackageManager.GET_META_DATA)
         channel = applicationInfo.metaData.getString("UMENG_CHANNEL")
     } catch (e: Exception) {
         e.printStackTrace()
     }
-    return DigestRule(secretKey, accessToken, BuildConfig.versionNumber, utdId, channel, uid.toString(), System.currentTimeMillis().toString())
+    return DigestRule(
+        secretKey,
+        accessToken,
+        BuildConfig.versionNumber,
+        utdId,
+        channel,
+        uid?.toString(),
+        System.currentTimeMillis().toString()
+    )
 }

@@ -33,6 +33,7 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
@@ -55,8 +56,8 @@
 
                 <View
                         android:id="@+id/v0"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
                         app:layout_constraintLeft_toLeftOf="@id/bgSignDefault"
@@ -65,8 +66,8 @@
 
                 <View
                         android:id="@+id/v1"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintRight_toLeftOf="@id/v2"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
@@ -75,8 +76,8 @@
 
                 <View
                         android:id="@+id/v2"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintRight_toLeftOf="@id/v3"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
@@ -85,8 +86,8 @@
 
                 <View
                         android:id="@+id/v3"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
                         app:layout_constraintLeft_toRightOf="@id/v2"
@@ -95,8 +96,8 @@
 
                 <View
                         android:id="@+id/v4"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
                         app:layout_constraintLeft_toRightOf="@id/v3"
@@ -105,8 +106,8 @@
 
                 <View
                         android:id="@+id/v5"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
                         app:layout_constraintLeft_toRightOf="@id/v4"
@@ -115,8 +116,8 @@
 
                 <View
                         android:id="@+id/v6"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
                         app:layout_constraintLeft_toRightOf="@id/v5"
@@ -125,8 +126,8 @@
 
                 <View
                         android:id="@+id/v7"
-                        android:layout_width="@dimen/dp_5"
-                        android:layout_height="@dimen/dp_5"
+                        android:layout_width="@dimen/dp_6"
+                        android:layout_height="@dimen/dp_6"
                         app:layout_constraintTop_toTopOf="@id/bgSignDefault"
                         app:layout_constraintBottom_toBottomOf="@id/bgSignDefault"
                         app:layout_constraintRight_toRightOf="@id/bgSignDefault"
@@ -232,11 +233,22 @@
                         android:src="@drawable/icon_gift_cursor"/>
 
                 <TextView
+                        android:id="@+id/tvReward"
+                        app:layout_constraintLeft_toLeftOf="@id/ivCursor"
+                        app:layout_constraintRight_toRightOf="@id/ivCursor"
+                        app:layout_constraintTop_toTopOf="@id/ivCursor"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/sp_8"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:text="5000金币"
+                        android:textColor="@color/color_0a0909"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
                         android:id="@+id/tvSign"
                         android:layout_width="@dimen/dp_120"
                         android:layout_height="@dimen/dp_30"
                         android:background="@drawable/bg_sign_selector"
-                        android:textIsSelectable="true"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="@+id/bgSignDefault"
                         app:layout_constraintRight_toRightOf="@id/bgSignDefault"
@@ -247,6 +259,9 @@
             <com.youth.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
+                    app:indicator_drawable_selected="@drawable/circle_indicator_white"
+                    app:indicator_drawable_unselected="@drawable/circle_indicator_white50"
+                    app:indicator_margin="@dimen/dp_3"
                     android:layout_height="@dimen/dp_80"/>
 
             <ImageView

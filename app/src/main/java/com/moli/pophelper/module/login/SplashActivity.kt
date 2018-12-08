@@ -4,6 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import com.blankj.utilcode.util.DeviceUtils
+import com.blankj.utilcode.util.SPUtils
 import com.moli.module.framework.base.BaseMVPActivity
 import com.moli.module.framework.mvp.IView
 import com.moli.module.framework.mvp.MVPMessage
@@ -12,7 +14,9 @@ import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.framework.utils.rx.observeOnMain
 import com.moli.module.framework.utils.rx.toIoAndMain
 import com.moli.module.model.base.BannerModel
+import com.moli.module.model.constant.SPConstant
 import com.moli.module.net.imageloader.loadImage
+import com.moli.module.net.manager.UserManager
 import com.moli.pophelper.R
 import com.moli.pophelper.utils.PageSkipUtils
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -21,6 +25,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_splash.*
 import timber.log.Timber
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 /**
@@ -44,6 +49,7 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
 
     override fun initData(savedInstanceState: Bundle?) {
         QMUIStatusBarHelper.translucent(this)
+        getUserInfo()
         isContentToStatusBar = true
         presenter?.getBanner()
         requestBasicPermission()
@@ -59,7 +65,7 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
             1 -> {
                 isFinishRequest = true
                 bannerModel = message.obj as BannerModel
-                mlAdv.loadImage(bannerModel!!.image)
+                mlAdv.loadImage(bannerModel!!.imgUrl)
                 if (isFinishPermission) {
                     showAdv()
                 }
@@ -90,7 +96,7 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
             skipMain(false)
         }
         mlAdv.clicksThrottle().subscribe {
-            //advDispose?.dispose()
+            //            advDispose?.dispose()
 
         }
 
@@ -113,31 +119,52 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
     fun requestBasicPermission() {
         RxPermissions(this).request(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE
         ).subscribe {
-                Timber.e("requestBasicPermission it=$it")
-                if (it) {
-                    //申请的权限全部允许
-                } else {
-                    //至少有一个权限被拒绝
-                }
-                isFinishPermission = true
-                if (isFinishRequest) {
-                    if (bannerModel == null) {
-                        skipMain(true)
-                    } else {
-                        showAdv()
-                    }
-                }
-
-
+            Timber.e("requestBasicPermission it=$it")
+            if (it) {
+                //申请的权限全部允许
+            } else {
+                //至少有一个权限被拒绝
             }
+            readPhoneState()
+            isFinishPermission = true
+            if (isFinishRequest) {
+                if (bannerModel == null) {
+                    skipMain(true)
+                } else {
+                    showAdv()
+                }
+            }
+
+
+        }
     }
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(0,R.anim.alpha_out)
+        overridePendingTransition(0, R.anim.alpha_out)
     }
 
+
+    fun readPhoneState() {
+        try {
+            var brand = DeviceUtils.getModel()
+            SPUtils.getInstance().put(SPConstant.DEVICE_BRAND, brand)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun getUserInfo() {
+        if (UserManager.isLogin()) {
+            var user = UserManager.getSynSelf()?.let {
+                if (it.id != 100000L) {
+                    presenter?.getUserInfo()
+                }
+            }
+        }
+    }
 
 }

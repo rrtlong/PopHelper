@@ -13,13 +13,20 @@ import android.os.Parcelable
  * 修改备注：
  * @version
  */
-data class StragegyModel(
+data class StrategyModel(
+    @JvmField
     val title: String? = null,  //标题
+    @JvmField
     val imgUrl: String? = null, //图片地址
+    @JvmField
     val content: String? = null,    //简要内容
+    @JvmField
     val contentUrl: String? = null, //内容地址
+    @JvmField
     val contentType: Int = 0,   //攻略类型0普通99推荐
+    @JvmField
     val pv: Int = 0,    //浏览数
+    @JvmField
     val createTime: Long? = null    //创建时间
 ) : Parcelable {
     constructor(source: Parcel) : this(
@@ -46,9 +53,9 @@ data class StragegyModel(
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<StragegyModel> = object : Parcelable.Creator<StragegyModel> {
-            override fun createFromParcel(source: Parcel): StragegyModel = StragegyModel(source)
-            override fun newArray(size: Int): Array<StragegyModel?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<StrategyModel> = object : Parcelable.Creator<StrategyModel> {
+            override fun createFromParcel(source: Parcel): StrategyModel = StrategyModel(source)
+            override fun newArray(size: Int): Array<StrategyModel?> = arrayOfNulls(size)
         }
     }
 }

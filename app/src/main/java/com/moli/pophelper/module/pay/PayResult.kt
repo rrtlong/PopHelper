@@ -1,4 +1,4 @@
-package com.moli.reward.app.pay
+package com.moli.pophelper.module.pay
 
 import android.text.TextUtils
 
@@ -24,7 +24,7 @@ class PayResult(rawResult: Map<String, String>?) {
      * @return the memo
      */
     var memo: String? = null
-    
+
     init {
         if (rawResult != null) {
             for (key in rawResult.keys) {

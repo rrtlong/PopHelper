@@ -25,7 +25,7 @@ object CountUtils : Analyticsable {
     init {
 
         val channel = AnalyticsConfig.getChannel(Utils.getApp())
-        UMConfigure.init(Utils.getApp(), "5b9ccd7c8f4a9d23880001b6", channel, UMConfigure.DEVICE_TYPE_PHONE, null)
+        UMConfigure.init(Utils.getApp(), "5c0bafd9f1f5564ef10002fb", channel, UMConfigure.DEVICE_TYPE_PHONE, null)
         UMConfigure.setLogEnabled(BuildConfig.LOG_DEBUG)
         Timber.i("init-umeng channel=%s", channel)
         //禁止默认的页面统计方式，这样将不会再自动统计Activity。

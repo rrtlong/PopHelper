@@ -116,6 +116,8 @@ object SPConstant {
      */
     const val FIRST_LAUNCHER_APP = "first_launcher_app"
 
+    const val DEVICE_BRAND = "device_brand"
+
 
 
 

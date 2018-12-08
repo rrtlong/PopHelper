@@ -72,6 +72,28 @@
         <item name="android:activityOpenEnterAnimation">@anim/bottom_in</item>
     </style>
 
+    <style name="MainTheme.Transparent">
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <!-- 背景透明 -->
+    </style>
+
+    <!--  屏幕不变暗的dialogFragment-->
+    <style name="MLBottomDialogLight" parent="MainTheme.Transparent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowSoftInputMode">stateUnchanged</item>
+    </style>
+
+    <style name="progressBarHorizontal_indeter" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_color_horizontal</item>
+        <item name="android:minHeight">5dip</item>progress_indeterminate_horizontal
+        <item name="android:maxHeight">5dip</item>
+    </style>
 
 
 </resources>

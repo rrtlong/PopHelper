@@ -1,3 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <array name="payIdsArray">
+        <item>@id/payWX</item>
+        <item>@id/payAli</item>
+    </array>
+
+    <array name="payActionImage">
+        <item>@drawable/icon_weixin_pay</item>
+        <item>@drawable/icon_alipay_pay</item>
+    </array>
+
+    <string-array name="payNamesArray">
+        <item>微信支付</item>
+        <item>支付宝支付</item>
+    </string-array>
+
+    <integer-array name="payChannelArray">
+        <item>1</item>
+        <item>0</item>
+    </integer-array>
 </resources>

@@ -53,13 +53,16 @@
             app:layout_constraintLeft_toRightOf="@id/mlCover"
             app:layout_constraintTop_toTopOf="@id/mlCover"
             app:layout_constraintBottom_toBottomOf="@id/mlCover"
-            android:text="扯不完的犊子💋"/>
+            android:text="点击绑定游戏账号"/>
 
     <com.youth.banner.Banner
             android:id="@+id/banner"
             app:layout_constraintTop_toBottomOf="@id/mlCover"
             android:layout_marginTop="@dimen/dp_26"
             android:layout_width="@dimen/dp_0"
+            app:indicator_drawable_selected="@drawable/circle_indicator_white"
+            app:indicator_drawable_unselected="@drawable/circle_indicator_white50"
+            app:indicator_margin="@dimen/dp_3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintDimensionRatio="360:80"
@@ -145,6 +148,29 @@
             android:textColor="@color/color_2e2e2e"
             android:paddingRight="@dimen/dp_16"
             app:layout_constraintTop_toBottomOf="@id/bigLine2"
+            android:textSize="@dimen/sp_16"
+            android:drawableRight="@drawable/icon_more"
+            android:gravity="center_vertical|left"/>
+
+    <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_41"
+            app:layout_constraintTop_toBottomOf="@+id/tvSet"
+            android:background="@color/color_ededed"/>
+
+    <TextView
+            android:id="@+id/tvExit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:text="退出登录"
+            android:paddingLeft="@dimen/dp_16"
+            android:drawableLeft="@drawable/icon_set"
+            android:drawablePadding="@dimen/dp_9"
+            android:textColor="@color/color_2e2e2e"
+            android:paddingRight="@dimen/dp_16"
+            app:layout_constraintTop_toBottomOf="@id/line2"
             android:textSize="@dimen/sp_16"
             android:drawableRight="@drawable/icon_more"
             android:gravity="center_vertical|left"/>

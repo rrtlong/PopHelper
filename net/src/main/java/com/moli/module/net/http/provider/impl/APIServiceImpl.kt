@@ -2,9 +2,11 @@ package com.moli.module.net.http.provider.impl
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.Utils
 import com.moli.module.framework.utils.rx.toIoAndMain
 import com.moli.module.model.base.*
+import com.moli.module.model.constant.SPConstant
 import com.moli.module.model.http.*
 import com.moli.module.net.http.RetrofitUtils
 import com.moli.module.net.http.api.API
@@ -46,8 +48,8 @@ class APIServiceImpl : APIService {
         return api.version(responseVersion).toIoAndMain()
     }
 
-    override fun getPhoneCode(phone: String): Observable<String> {
-        return api.getPhoneCode(phone).toIoAndMain()
+    override fun getPhoneCode(codeRequest: CodeRequest): Observable<String> {
+        return api.getPhoneCode(codeRequest).toIoAndMain()
     }
 
 
@@ -55,9 +57,6 @@ class APIServiceImpl : APIService {
         return api.login(login).toIoAndMain()
     }
 
-    override fun getUserInfo(userId: Long): Observable<UserInfo> {
-        return api.getUserInfo(userId).toIoAndMain()
-    }
 
     override fun getAccountInfo(): Observable<UserInfo> {
         return api.getAccountInfo().toIoAndMain()
@@ -142,13 +141,43 @@ class APIServiceImpl : APIService {
         return api.addLog(response).toIoAndMain()
     }
 
-    override fun recommandOrHotMusics(response: ResponseMusicList): Observable<List<MusicModel>> {
+    override fun recommandOrHotMusics(response: ResponseMusicList): Observable<List<StrategyModel>> {
         return api.recommandOrHotMusics(response).toIoAndMain()
     }
 
-    override fun getBanner(bannerType: Int): Observable<List<BannerModel>> {
-        return api.getBanner(bannerType).toIoAndMain()
+    override fun getBanner(bannerRequest: BannerRequest): Observable<List<BannerModel>> {
+        var brand = SPUtils.getInstance().getString(SPConstant.DEVICE_BRAND, null)
+        bannerRequest.phoneTyep = brand
+        return api.getBanner(bannerRequest).toIoAndMain()
     }
 
+    override fun getStrategyList(responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
+        return api.getStrategyList(responseListPage).toIoAndMain()
+    }
+
+    override fun getRecommendList(responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
+        return api.getRecommendList(responseListPage).toIoAndMain()
+    }
+
+    override fun getAppList(responseListPage: ResponseListPage): Observable<List<AppModel>> {
+        return api.getAppList(responseListPage).toIoAndMain()
+    }
+
+    override fun getGoodsList(response: ResponseListPage): Observable<List<GoodsModel>> {
+        return api.getGoodsList(response).toIoAndMain()
+    }
+
+
+    override fun sign(): Observable<String> {
+        return api.sign().toIoAndMain()
+    }
+
+    override fun paySign(charge: ResponseOrder): Observable<String> {
+        return api.paySign(charge).toIoAndMain()
+    }
+
+    override fun getUserInfo(): Observable<UserInfo> {
+        return api.getUserInfo().toIoAndMain()
+    }
 
 }

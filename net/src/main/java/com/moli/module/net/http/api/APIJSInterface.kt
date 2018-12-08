@@ -78,12 +78,13 @@ class APIJSInterface(val webView: WebView) {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        val webUserModel: WebUserModel = if (user != null) {
-            WebUserModel(user.id, BuildConfig.versionNumber, channel, user.accessToken)
-        } else {
-            WebUserModel(null, BuildConfig.versionNumber, channel)
-        }
-        return Gson().toJson(webUserModel)
+//        val webUserModel: WebUserModel = if (user != null) {
+////            WebUserModel(user.id, BuildConfig.versionNumber, channel, user.accessToken)
+//        } else {
+//            WebUserModel(null, BuildConfig.versionNumber, channel)
+//        }
+//        return Gson().toJson(webUserModel)
+        return ""
     }
 
 

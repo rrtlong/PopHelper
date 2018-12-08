@@ -63,7 +63,7 @@ object Header {
 }
 
 private fun getDigestRule(): DigestRule {
-    val uid = SPUtils.getInstance().getLong(SPConstant.USER_ID, 0)
+    val uid = SPUtils.getInstance().getLong(SPConstant.USER_ID, -1)
     val accessToken = String()
     val utdId = getUtdid(Utils.getApp())
     var channel: String = BuildConfig.SevicePlateform

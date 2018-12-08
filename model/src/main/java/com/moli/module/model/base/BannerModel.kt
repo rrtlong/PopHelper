@@ -11,7 +11,13 @@ package com.moli.module.model.base
  * @version
  */
 data class BannerModel(
-    val image: String? = null,
-    val info: String? = null,
-    val downloadUrl: String? = null
+    @JvmField
+    val imgUrl: String? = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2908440987,1551648475&fm=27&gp=0.jpg",     //图片地址
+    @JvmField
+    val downloadUrl: String? = null,  //下载地址
+    @JvmField
+    val contentUrl: String? = null,  //内容地址
+    @JvmField
+    val bannerType: Int = 0  //类型，为0返回下载地址
+
 )

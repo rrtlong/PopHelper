@@ -14,20 +14,29 @@ import android.os.Parcelable
  * @version
  */
 data class ResponseOrder(
-        @JvmField
-        var channelId: Int? = null,
-        @JvmField
-        var goodsId: Long) : Parcelable {
+    @JvmField
+    var goodsId: Int? = null,   //商品id
+    @JvmField
+    var goodsNum: Int = 1,  ////商品数量
+    @JvmField
+    var platformTyp: Int? = null,   //支付平台0支付宝1微信
+    @JvmField
+    var userId: Long? = null   //用户id
+) : Parcelable {
     constructor(source: Parcel) : this(
-            source.readValue(Int::class.java.classLoader) as Int?,
-            source.readLong()
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readInt(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Long::class.java.classLoader) as Long?
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeValue(channelId)
-        writeLong(goodsId)
+        writeValue(goodsId)
+        writeInt(goodsNum)
+        writeValue(platformTyp)
+        writeValue(userId)
     }
 
     companion object {

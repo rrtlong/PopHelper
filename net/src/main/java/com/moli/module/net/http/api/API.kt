@@ -23,25 +23,6 @@ interface API {
     @POST("/version/version")
     fun version(@Body responseVersion: ResponseVersion): Observable<VersionModel>
 
-    /**
-     * 登录模块-获取验证码
-     */
-    @POST("getPhoneCode/{phone}")
-    fun getPhoneCode(@Path("phone") phone: String): Observable<String>
-
-
-    /**
-     *  登录接口
-     */
-    @POST("/user/login")
-    fun login(@Body login: ResonseLogin): Observable<UserInfo>
-
-
-    /**
-     * 获取用户信息 基本信息
-     */
-    @POST("user/userInfo/{userId}")
-    fun getUserInfo(@Path("userId") userId: Long): Observable<UserInfo>
 
     /**
      *  获取用户 账户信息
@@ -167,15 +148,56 @@ interface API {
      * 音乐列表（1推荐，2热门）
      */
     @POST("/music/musics")
-    fun recommandOrHotMusics(@Body response: ResponseMusicList): Observable<List<MusicModel>>
+    fun recommandOrHotMusics(@Body response: ResponseMusicList): Observable<List<StrategyModel>>
+
+    /******************POP Helper API**************************/
+
+    /**
+     * 登录模块-获取验证码
+     */
+    @POST("/moli_helper/helper/user/getPhoneAuth")
+    fun getPhoneCode(@Body codeRequest: CodeRequest): Observable<String>
+
+    /**
+     *  登录接口
+     */
+    @POST("/moli_helper/helper/user/register")
+    fun login(@Body login: ResonseLogin): Observable<UserInfo>
 
     /**
      * banner以及下载信息接口
      * bannerType->
      */
-    @POST("/config/downloadUrl")
-    @FormUrlEncoded
-    fun getBanner(@Field("bannerType") bannerType: Int): Observable<List<BannerModel>>
+    @POST("/moli_helper/helper/config/bannerContent")
+    fun getBanner(@Body bannerRequest: BannerRequest): Observable<List<BannerModel>>
+
+    //攻略列表
+    @POST("/moli_helper/helper/strategy/getStrategyList")
+    fun getStrategyList(@Body responseListPage: ResponseListPage): Observable<List<StrategyModel>>
+
+    //攻略推荐列表
+    @POST("/moli_helper/helper/strategy/getRecommendList")
+    fun getRecommendList(@Body responseListPage: ResponseListPage): Observable<List<StrategyModel>>
+
+    //app推荐
+    @POST("/moli_helper/helper/strategy/getSortRecommendList")
+    fun getAppList(@Body responseListPage: ResponseListPage): Observable<List<AppModel>>
+
+
+    //财富，获取商品列表
+    @POST("/moli_helper/helper/recharge/rechargeConfig")
+    fun getGoodsList(@Body response: ResponseListPage): Observable<List<GoodsModel>>
+
+    //签到
+    @POST("/moli_helper/helper/user/sign")
+    fun sign(): Observable<String>
+
+    //支付凭证
+    @POST("/moli_helper/helper/recharge/createBilling")
+    fun paySign(@Body charge: ResponseOrder): Observable<String>
+
+    @POST("/moli_helper/helper/user/getUserInfo")
+    fun getUserInfo(): Observable<UserInfo>
 
 
 }

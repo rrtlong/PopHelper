@@ -24,17 +24,15 @@ import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.ctx
-import android.Manifest.permission
-import android.graphics.ColorSpace
 import com.blankj.utilcode.util.AppUtils
-import com.moli.module.model.base.ProgressModel
-import com.moli.module.model.constant.EventConstant
+import com.moli.module.model.base.GoodsModel
 import com.moli.module.widget.widget.dialog.DownloadProcessDialog
-import com.moli.pophelper.R.id.recyclerView
+import com.moli.pophelper.MainActivity
+import com.moli.pophelper.constant.Constant
+import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
+import com.moli.pophelper.utils.PageSkipUtils
 import com.moli.pophelper.utils.downloadPop
 import com.tbruyelle.rxpermissions2.RxPermissions
-import org.simple.eventbus.EventBus
-import org.simple.eventbus.Subscriber
 import timber.log.Timber
 
 
@@ -51,7 +49,7 @@ import timber.log.Timber
 @Route(path = HelperArouter.Fragment.HomeFragment.PATH)
 class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
     var bannerList: List<BannerModel>? = null
-    var goods: List<MusicModel>? = null
+    var goods: List<GoodsModel>? = null
     var dotView = mutableListOf<TextView>()
     val downloadDialog by lazy { DownloadProcessDialog(ctx) }
     override fun initView(inflater: LayoutInflater, container: ViewGroup?): View? {
@@ -60,8 +58,8 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
 
     override fun initData() {
         ivLaunchGame.clicksThrottle().subscribe {
-            if (AppUtils.isAppInstalled("com.moli.reward.app")) {
-                AppUtils.launchApp("com.moli.reward.app")
+            if (AppUtils.isAppInstalled(Constant.POP_PACKAGE)) {
+                AppUtils.launchApp(Constant.POP_PACKAGE)
                 return@subscribe
             }
             RxPermissions(activity!!)
@@ -69,17 +67,17 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
                 .subscribe {
                     Timber.e("permission it=$it")
                     if (it) {
-                        downloadPop("http://a3.res.meizu.com/source/4314/7e02c314966340efa82d0400131a8f1f?auth_key=1544163256-0-0-cbeca98671ffdfa3e561f126000555b0&fname=com.moli.reward.app_276")
-                    }else{
+                        downloadPop(POP_DOWNLOAD_URL)
+                    } else {
                         showMessage("请打开写内存权限")
                     }
                 }
         }
         ivGoodsMore.clicksThrottle().subscribe {
-
+            (activity as MainActivity).setFragment(1)
         }
         ivStrategyMore.clicksThrottle().subscribe {
-
+            PageSkipUtils.skipStrategyList()
         }
         initBanner()
         presenter?.getBanner()
@@ -107,6 +105,7 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
         banner.setOnBannerListener {
             if (bannerList?.size ?: 0 > it) {
                 val item = bannerList!![it]
+                PageSkipUtils.skipGenderWeb(item.contentUrl?:"")
             }
         }
         banner.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -130,8 +129,9 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
     fun setBannerData() {
         banner.setImages(bannerList)
         for (i in 0 until bannerList!!.size) {
-            var dot = LayoutInflater.from(ctx).inflate(R.layout.dot_layout, null, false)
+            var dot = LayoutInflater.from(ctx).inflate(R.layout.dot_layout, null, false) as TextView
             dot.isSelected = (i == 0)
+            dotView.add(dot)
             llDotContainer.addView(dot)
         }
         banner.start()
@@ -146,15 +146,15 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
                 setBannerData()
             }
             2 -> {
-                goods = message.obj as List<MusicModel>
+                goods = message.obj as List<GoodsModel>
                 if (goods?.size ?: 0 > 0) {
-                    ivGood1.loadImage(goods!![0].thumb)
+                    ivGood1.loadImage(goods!![0].imge)
                     ivGood1.clicksThrottle().subscribe {
 
                     }
                 }
                 if (goods?.size ?: 0 > 1) {
-                    ivGood2.loadImage(goods!![1].thumb)
+                    ivGood2.loadImage(goods!![1].imge)
                     ivGood2.clicksThrottle().subscribe {
 
                     }

@@ -17,9 +17,9 @@ const val LOGIN_TYPE_QQ = 4
 const val LOGIN_TYPE_PHONE_CODE = 5 //验证码登录，（找回密码）
 
 class ResonseLogin(
-        val loginType: Int = 0, //登录类型 1密码登录 2wx 3wb 4qq 5验证码
+        val loginType: Int?=null, //登录类型 1密码登录 2wx 3wb 4qq 5验证码
         val phone: String? = null,
-        val phoneCode: String? = null, //验证码
+        val authCode: String? = null, //验证码
         val password: String? = null, //密码
         val accessToken: String? = null,
         val uid: String? = null,
