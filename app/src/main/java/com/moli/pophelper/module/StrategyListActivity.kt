@@ -84,6 +84,9 @@ class StrategyListActivity : BaseMVPActivity<StrategyListActivityPresenter>(), I
         if (ActivityUtils.getTopActivity() !is StrategyListActivity) {
             return
         }
+        if(model.downUrl != Constant.POP_DOWNLOAD_URL){
+            return
+        }
         if (!downloadDialog.isShowing) {
             downloadDialog.show()
         }

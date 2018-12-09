@@ -18,6 +18,7 @@ import com.moli.pophelper.item.AppRecommendItem
 import com.moli.module.model.base.AppModel
 import com.moli.module.model.http.BannerRequest
 import com.moli.pophelper.constant.Constant
+import com.moli.pophelper.utils.downloadPop
 
 /**
  * 项目名称：PopHelper
@@ -39,7 +40,7 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
         forbidLoadMore = true
         adapter = object : CommonRcvAdapter<AppModel>(dataList) {
             override fun createItem(type: Any): AdapterItem<AppModel> {
-                return AppRecommendItem()
+                return AppRecommendItem(this@ActivityFragmentPresenter::onClick)
             }
 
         }
@@ -57,7 +58,10 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
         if (!pullToRefresh) {
             return
         }
-        var newData = mutableListOf<AppModel>(AppModel(downloadUrl = Constant.POP_DOWNLOAD_URL))
+        var newData = mutableListOf<AppModel>(
+            AppModel(downloadUrl = "http://shouji.360tpcdn.com/170919/9f1c0f93a445d7d788519f38fdb3de77/com.UCMobile_704.apk?h==a"),
+            AppModel(downloadUrl = "http://shouji.360tpcdn.com/170918/f7aa8587561e4031553316ada312ab38/com.tencent.qqlive_13049.apk?h==a")
+        )
         onDataSuccess(newData)
     }
 
@@ -72,15 +76,16 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
     }
 
     fun getBanner() {
-        api.getBanner(BannerRequest("3")).bindToLifecycle(owner).subscribe(object : HttpSubscriber<List<BannerModel>>() {
-            override fun onNext(t: List<BannerModel>) {
-                var temp = t.filter { it.bannerType != 1 }
-                if(temp != null && temp.isNotEmpty()){
-                    MVPMessage.obtain(rootView!!, 1, t).handleMessageToTarget()
+        api.getBanner(BannerRequest("3")).bindToLifecycle(owner)
+            .subscribe(object : HttpSubscriber<List<BannerModel>>() {
+                override fun onNext(t: List<BannerModel>) {
+                    var temp = t.filter { it.bannerType != 1 }
+                    if (temp != null && temp.isNotEmpty()) {
+                        MVPMessage.obtain(rootView!!, 1, t).handleMessageToTarget()
+                    }
                 }
-            }
 
-        })
+            })
     }
 
     fun sign() {
@@ -95,5 +100,12 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
             }
         })
 
+    }
+
+    fun onClick(model: AppModel) {
+        model?.downloadUrl?.let {
+            rootView!!.showMessage("开始下载")
+            downloadPop(it)
+        }
     }
 }

@@ -30,7 +30,7 @@ object PageSkipUtils {
     /**
      * 跳转web
      */
-    fun skipGenderWeb(url: String, title: String? = String(), isUrlComplete: Boolean? = true) {
+    fun skipGenderWeb(url: String, title: String? = null, isUrlComplete: Boolean? = true) {
         val postcard = ARouter.getInstance().build(HelperArouter.Activity.GeneralWebActivity.PATH)
             .withString(HelperArouter.Activity.GeneralWebActivity.URL, url)
             .withBoolean(

@@ -45,7 +45,7 @@ class DownloadProcessDialog(context: Context) : AlertDialog(context) {
 
     fun setPercent(progress: Int) {
         layer2.layoutParams.width = (totalWidth!! * progress / 100.0f).toInt()
-        tvPercent.text = "%%%d".format(progress)
+        tvPercent.text = "%d%%".format(progress)
 
     }
 

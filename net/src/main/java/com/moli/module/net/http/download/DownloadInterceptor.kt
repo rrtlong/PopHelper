@@ -17,15 +17,16 @@ class DownloadInterceptor() : Interceptor {
 
     lateinit var downloadUrl: String
     fun progress(progress: Int) {
-        EventBus.getDefault().post(ProgressModel(downloadUrl, progress),EventConstant.DOWNLOAD_PROGRESS)
+        EventBus.getDefault().post(ProgressModel(downloadUrl, progress), EventConstant.DOWNLOAD_PROGRESS)
     }
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
         var url = chain.request().url().toString()
-        var index = url.indexOf("?")
-        downloadUrl = if (index > -1) url.substring(0, index) else url
+        downloadUrl = url
+//        var index = url.indexOf("?")
+//        downloadUrl = if (index > -1) url.substring(0, index) else url
 
         return response.newBuilder()
             .body(DownloadResponseBody(response.body()!!, this@DownloadInterceptor::progress))

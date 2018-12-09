@@ -184,6 +184,9 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
         if (ActivityUtils.getTopActivity() !is MainActivity) {
             return
         }
+        if(model.downUrl != Constant.POP_DOWNLOAD_URL){
+            return
+        }
         if (!downloadDialog.isShowing) {
             downloadDialog.show()
         }

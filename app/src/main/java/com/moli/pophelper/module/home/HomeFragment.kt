@@ -74,9 +74,11 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
                 }
         }
         ivGoodsMore.clicksThrottle().subscribe {
+            Timber.e("ivGoodsMore click")
             (activity as MainActivity).setFragment(1)
         }
         ivStrategyMore.clicksThrottle().subscribe {
+            Timber.e("ivStrategyMore click")
             PageSkipUtils.skipStrategyList()
         }
         initBanner()

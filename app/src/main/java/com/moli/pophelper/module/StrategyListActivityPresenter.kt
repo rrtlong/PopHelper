@@ -34,6 +34,8 @@ class StrategyListActivityPresenter(iListView: IListView) : ListPresenter<Strate
 
     override fun createAdapter(): RecyclerView.Adapter<RcvAdapterItem<StrategyModel>> {
 //        forbidLoadMore = true
+        pageLimit = 12
+        setMinHide(12)
         adapter = object : CommonRcvAdapter<StrategyModel>(dataList) {
             override fun createItem(type: Any): AdapterItem<StrategyModel> {
                 return StrategyItem()

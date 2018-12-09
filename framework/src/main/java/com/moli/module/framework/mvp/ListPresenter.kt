@@ -199,6 +199,19 @@ abstract class ListPresenter<T>(val iListView: IListView) : BasePresenter<IListV
             )
         }
         showEmpty()
+        if (minHide && dataList.size < 12) {
+            if (adapterWrapper.footerView != null) {
+                (adapterWrapper.footerView as FooterView).setMore(false)
+            }
+
+        }
+    }
+
+    var minNumHide = 12
+    var minHide = false
+    fun setMinHide(num: Int) {
+        minNumHide = num
+        minHide = true
     }
 
 

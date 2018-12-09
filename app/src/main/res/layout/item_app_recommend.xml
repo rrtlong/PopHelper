@@ -71,6 +71,7 @@
             android:id="@+id/progressBar"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_18"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@id/tvTitle"
             app:layout_constraintBottom_toBottomOf="@id/tvTitle"
             app:layout_constraintRight_toRightOf="parent"
@@ -81,6 +82,7 @@
     <TextView
             android:id="@+id/tvProgress"
             android:text="立即试玩"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@id/progressBar"
             app:layout_constraintRight_toRightOf="@id/progressBar"
             app:layout_constraintTop_toTopOf="@id/tvTitle"

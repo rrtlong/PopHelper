@@ -32,13 +32,14 @@ class StrategyItem : LayoutContainerItem<StrategyModel>() {
 
     override fun handleData(model: StrategyModel, position: Int) {
         this.model = model
-       /* tvTitle.text = model.title
+        tvTitle.text = model.content
         mlCover.loadImage(model.imgUrl)
-        tvType.text = when (model.contentType){
-            1->""
-            else->""
+        tvType.text = when (model.contentType) {
+            99 -> "推荐"
+            0 -> "普通"
+            else -> "普通"
         }
-        tvReads.text = "${model.pv}"*/
+        tvReads.text = "${model.pv}"
 
     }
 

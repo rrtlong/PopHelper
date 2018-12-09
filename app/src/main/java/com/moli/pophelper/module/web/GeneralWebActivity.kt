@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.util.Base64
 import android.view.KeyEvent
@@ -228,7 +229,7 @@ class GeneralWebActivity : BaseMVPActivity<BasePresenter<IView>>(), IView, LSWeb
             onBackPressed()
         }
         if (!title.isNullOrEmpty()) {
-            topBar.setTitle(title)
+            topBar.setTitle(title).setTextColor(ContextCompat.getColor(this,R.color.colorAccent))
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mWebView!!.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW

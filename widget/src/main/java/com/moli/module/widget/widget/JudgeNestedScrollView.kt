@@ -63,7 +63,7 @@ class JudgeNestedScrollView : NestedScrollView {
                         0
                     ).getHeight()}  ${this.height}"
                 )
-                return !(xDistance > yDistance || yDistance < scaledTouchSlop) && isNeedScroll
+                return (xDistance < yDistance && yDistance > scaledTouchSlop) && isNeedScroll
             }
         }
         return super.onInterceptTouchEvent(ev)
