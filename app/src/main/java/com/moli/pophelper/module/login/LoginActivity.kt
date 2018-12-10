@@ -43,7 +43,6 @@ class LoginActivity : BaseMVPActivity<LoginActivityPresenter>(), IView {
         get() = R.layout.activity_login
 
     override fun initData(savedInstanceState: Bundle?) {
-        QMUIStatusBarHelper.translucent(this)
         ivClose.clicksThrottle().subscribe { finish() }
         tvProtocol.clicksThrottle().subscribe { PageSkipUtils.skipGenderWeb(Constant.USER_PROTOCOL, "用户协议", true) }
         etPhone.addTextChangedListener(object : TextWatcher {

@@ -51,7 +51,6 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
         get() = R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {
-        QMUIStatusBarHelper.translucent(this)
         setFragment(mCurrentPosition)
         initClick()
 //        checkInstallDialog.show()

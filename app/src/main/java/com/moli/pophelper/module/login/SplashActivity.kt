@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SPUtils
+import com.blankj.utilcode.util.ScreenUtils
 import com.moli.module.framework.base.BaseMVPActivity
 import com.moli.module.framework.mvp.IView
 import com.moli.module.framework.mvp.MVPMessage
@@ -48,7 +49,6 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
         get() = R.layout.activity_splash
 
     override fun initData(savedInstanceState: Bundle?) {
-        QMUIStatusBarHelper.translucent(this)
         getUserInfo()
         isContentToStatusBar = true
         presenter?.getBanner()

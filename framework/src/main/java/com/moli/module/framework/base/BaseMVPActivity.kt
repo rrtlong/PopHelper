@@ -44,7 +44,8 @@ abstract class BaseMVPActivity<P : IPresenter> : AppCompatActivity() {
             setContentView(layoutResId)
         }
         initData(savedInstanceState)
-        initStatusBar()
+//        initStatusBar()
+        setTranslucentForStatusBar()
     }
 
     override fun onResume() {

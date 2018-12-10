@@ -17,6 +17,8 @@ data class AppModel(
     @JvmField
     var downloadUrl: String? = null,
     @JvmField
+    var packageName: String? = null,
+    @JvmField
     var title: String? = null,
     @JvmField
     var imgUrl: String? = null,
@@ -35,6 +37,7 @@ data class AppModel(
         source.readString(),
         source.readString(),
         source.readString(),
+        source.readString(),
         source.readValue(Int::class.java.classLoader) as Int?,
         source.readString(),
         source.readString(),
@@ -46,6 +49,7 @@ data class AppModel(
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(downloadUrl)
+        writeString(packageName)
         writeString(title)
         writeString(imgUrl)
         writeValue(pv)

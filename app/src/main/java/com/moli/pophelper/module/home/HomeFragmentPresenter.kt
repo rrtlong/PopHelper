@@ -70,7 +70,7 @@ class HomeFragmentPresenter(iListView: IListView) : ListPresenter<StrategyModel>
     }
 
     fun getRecommandGoods() {
-        api.getGoodsList(ResponseListPage(1, pageLimit)).bindToLifecycle(owner)
+        api.getGoodsList().bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<GoodsModel>>() {
                 override fun onNext(t: List<GoodsModel>) {
                     MVPMessage.obtain(rootView!!, 2,t.filter { it.hotFlag ==1 }).handleMessageToTarget()

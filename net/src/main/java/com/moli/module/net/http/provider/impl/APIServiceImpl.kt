@@ -163,8 +163,8 @@ class APIServiceImpl : APIService {
         return api.getAppList(responseListPage).toIoAndMain()
     }
 
-    override fun getGoodsList(response: ResponseListPage): Observable<List<GoodsModel>> {
-        return api.getGoodsList(response).toIoAndMain()
+    override fun getGoodsList(): Observable<List<GoodsModel>> {
+        return api.getGoodsList().toIoAndMain()
     }
 
 

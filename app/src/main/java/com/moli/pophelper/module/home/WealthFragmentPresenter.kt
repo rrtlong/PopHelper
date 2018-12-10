@@ -7,8 +7,6 @@ import com.moli.module.framework.mvp.ListPresenter
 import com.moli.module.framework.mvp.MVPMessage
 import com.moli.module.framework.utils.rx.bindToLifecycle
 import com.moli.module.model.base.GoodsModel
-import com.moli.module.model.http.ResponseListPage
-import com.moli.module.model.http.ResponseMusicList
 import com.moli.module.net.http.HttpSubscriber
 import com.moli.module.net.http.provider.APIService
 import com.moli.module.widget.adapter.CommonRcvAdapter
@@ -53,7 +51,7 @@ class WealthFragmentPresenter(iListView: IListView) : ListPresenter<GoodsModel>(
     }
 
     override fun requestData(pullToRefresh: Boolean) {
-        api.getGoodsList(ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
+        api.getGoodsList().bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<GoodsModel>>() {
                 override fun onNext(t: List<GoodsModel>) {
                     onDataSuccess(t.filter { it.hotFlag != 1 })

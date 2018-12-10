@@ -186,7 +186,7 @@ interface API {
 
     //财富，获取商品列表
     @POST("/moli_helper/helper/recharge/rechargeConfig")
-    fun getGoodsList(@Body response: ResponseListPage): Observable<List<GoodsModel>>
+    fun getGoodsList(): Observable<List<GoodsModel>>
 
     //签到
     @POST("/moli_helper/helper/user/sign")

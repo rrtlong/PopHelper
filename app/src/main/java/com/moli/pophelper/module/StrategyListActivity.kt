@@ -42,7 +42,6 @@ class StrategyListActivity : BaseMVPActivity<StrategyListActivityPresenter>(), I
         get() = R.layout.layout_refresh
 
     override fun initData(savedInstanceState: Bundle?) {
-        QMUIStatusBarHelper.translucent(this)
         ivBack.clicksThrottle().subscribe { finish() }
         ivLaunchGame.clicksThrottle().subscribe {
             if (AppUtils.isAppInstalled(Constant.POP_PACKAGE)) {
