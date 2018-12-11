@@ -1,11 +1,15 @@
 package com.moli.pophelper.item
 
+import android.Manifest
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.AppModel
 import com.moli.module.net.imageloader.loadImage
+import com.moli.pophelper.MainActivity
 import com.moli.pophelper.R
 import com.moli.pophelper.widget.LayoutContainerItem
+import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.item_app_recommend.*
@@ -42,37 +46,50 @@ class AppRecommendItem(val onClick: (model: AppModel) -> Unit) : LayoutContainer
             if (AppUtils.isAppInstalled(model.packageName!!)) {
                 AppUtils.launchApp(model.packageName)
             } else {
-                when (status) {
-                    is Normal -> {
-                        Timber.e("开始")
-                        RxDownload.start(model.downloadUrl!!).subscribe()
+                RxPermissions(ActivityUtils.getTopActivity()).request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (it) {
+                            when (status) {
+                                is Normal -> {
+                                    Timber.e("开始")
+                                    RxDownload.start(model.downloadUrl!!).subscribe()
+                                }
+                                is Suspend -> {
+                                    Timber.e("已暂停")
+                                    RxDownload.start(model.downloadUrl!!).subscribe()
+                                }
+                                is Waiting -> {
+                                    Timber.e("等待中")
+                                    RxDownload.stop(model.downloadUrl!!).subscribe()
+                                }
+                                is Downloading -> {
+                                    Timber.e("正在下载")
+                                    RxDownload.stop(model.downloadUrl!!).subscribe()
+                                }
+                                is Failed -> {
+                                    Timber.e("失败")
+                                }
+                                is Succeed -> {
+                                    RxDownload.extension(model.downloadUrl!!, ApkInstallExtension::class.java)
+                                        .subscribe()
+                                    Timber.e("安装")
+                                }
+                                is ApkInstallExtension.Installing -> Timber.e("安装中")
+                                is ApkInstallExtension.Installed -> {
+                                    AppUtils.launchApp(model.packageName)
+                                    Timber.e("打开")
+                                }
+                                else -> ""
+                            }
+                        } else {
+                            var activity = ActivityUtils.getTopActivity()
+                            if (activity != null && activity is MainActivity) {
+                                activity.showMessage("请开启读写权限")
+                            }
+
+                        }
                     }
-                    is Suspend -> {
-                        Timber.e("已暂停")
-                        RxDownload.start(model.downloadUrl!!).subscribe()
-                    }
-                    is Waiting -> {
-                        Timber.e("等待中")
-                        RxDownload.stop(model.downloadUrl!!).subscribe()
-                    }
-                    is Downloading -> {
-                        Timber.e("正在下载")
-                        RxDownload.stop(model.downloadUrl!!).subscribe()
-                    }
-                    is Failed -> {
-                        Timber.e("失败")
-                    }
-                    is Succeed -> {
-                        RxDownload.extension(model.downloadUrl!!, ApkInstallExtension::class.java).subscribe()
-                        Timber.e("安装")
-                    }
-                    is ApkInstallExtension.Installing -> Timber.e("安装中")
-                    is ApkInstallExtension.Installed -> {
-                        AppUtils.launchApp(model.packageName)
-                        Timber.e("打开")
-                    }
-                    else -> ""
-                }
             }
 
         }

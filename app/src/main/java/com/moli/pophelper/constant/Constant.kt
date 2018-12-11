@@ -1,5 +1,7 @@
 package com.moli.pophelper.constant
 
+import com.moli.pophelper.BuildConfig
+
 /**
  * 项目名称：PopHelper
  * 类描述：
@@ -11,8 +13,9 @@ package com.moli.pophelper.constant
  * @version
  */
 object Constant {
-    const val USER_PROTOCOL = "/protocol"
+    const val USER_PROTOCOL = BuildConfig.WEB_DOMAIN + "/gamehtml/agreement/useragreement.html"
 
     var POP_DOWNLOAD_URL = "http://oss.5moligame.com/apk/helper/1.3.moligame.apk"
     var POP_PACKAGE = "com.moligame.xxl"
+
 }
