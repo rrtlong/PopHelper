@@ -59,7 +59,8 @@ android {
          * */
         online {
             dimension "SERVER"
-            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.5moligame.com/\"")
+            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.api.moli2018.com/\"")
+//            buildConfigField("String", "DOMAIN_NAME", "\"http://helper.5moligame.com/\"")
             buildConfigField("String", "SevicePlateform", "\"guanwang\"")
             buildConfigField("String", "PING_DOMAIN_NAME", "\"http://218.244.151.190/\"")
             buildConfigField("String", "WEB_DOMAIN_NAME", "\"http://www.5youshang.com/\"")
