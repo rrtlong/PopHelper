@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.moli.module.framework.base.BaseMVPFragment
 import com.moli.module.framework.mvp.IListView
@@ -15,24 +17,27 @@ import com.moli.module.framework.mvp.MVPMessage
 import com.moli.module.framework.utils.LayoutManagerUtil
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.BannerModel
-import com.moli.module.model.base.MusicModel
+import com.moli.module.model.base.GoodsModel
+import com.moli.module.model.constant.SPConstant
+import com.moli.module.model.http.ResponseOrder
 import com.moli.module.net.imageloader.loadImage
+import com.moli.module.net.manager.UserManager
+import com.moli.module.router.RewardRouter
+import com.moli.module.widget.widget.dialog.DownloadProcessDialog
+import com.moli.pophelper.MainActivity
 import com.moli.pophelper.R
+import com.moli.pophelper.constant.Constant
+import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
 import com.moli.pophelper.constant.HelperArouter
+import com.moli.pophelper.utils.FragmentNavigationUtils
 import com.moli.pophelper.utils.FrescoBannerImageLoader
+import com.moli.pophelper.utils.PageSkipUtils
+import com.moli.pophelper.utils.downloadPop
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.ctx
-import com.blankj.utilcode.util.AppUtils
-import com.moli.module.model.base.GoodsModel
-import com.moli.module.widget.widget.dialog.DownloadProcessDialog
-import com.moli.pophelper.MainActivity
-import com.moli.pophelper.constant.Constant
-import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
-import com.moli.pophelper.utils.PageSkipUtils
-import com.moli.pophelper.utils.downloadPop
-import com.tbruyelle.rxpermissions2.RxPermissions
 import timber.log.Timber
 
 
@@ -52,26 +57,23 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
     var goods: List<GoodsModel>? = null
     var dotView = mutableListOf<TextView>()
     val downloadDialog by lazy { DownloadProcessDialog(ctx) }
+    var isDebug = false
+
+
     override fun initView(inflater: LayoutInflater, container: ViewGroup?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun initData() {
+        isDebug = SPUtils.getInstance().getInt(SPConstant.IS_DEBUG, 0) == 1
+        tvRecommandGoods.visibility = if (isDebug) View.GONE else View.VISIBLE
+        ivGoodsMore.visibility = if (isDebug) View.GONE else View.VISIBLE
+        ivGood1.visibility = if (isDebug) View.GONE else View.VISIBLE
+        ivGood2.visibility = if (isDebug) View.GONE else View.VISIBLE
+
         ivLaunchGame.clicksThrottle().subscribe {
-            if (AppUtils.isAppInstalled(Constant.POP_PACKAGE)) {
-                AppUtils.launchApp(Constant.POP_PACKAGE)
-                return@subscribe
-            }
-            RxPermissions(activity!!)
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe {
-                    Timber.e("permission it=$it")
-                    if (it) {
-                        downloadPop(POP_DOWNLOAD_URL)
-                    } else {
-                        showMessage("请打开写内存权限")
-                    }
-                }
+            Timber.e("Constant.POP_PACKAGE=${Constant.POP_PACKAGE}")
+            installOrLauncher()
         }
         ivGoodsMore.clicksThrottle().subscribe {
             Timber.e("ivGoodsMore click")
@@ -107,7 +109,7 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
         banner.setOnBannerListener {
             if (bannerList?.size ?: 0 > it) {
                 val item = bannerList!![it]
-                PageSkipUtils.skipGenderWeb(item.contentUrl?:"")
+                PageSkipUtils.skipGenderWeb(item.contentUrl ?: "")
             }
         }
         banner.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -152,16 +154,77 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
                 if (goods?.size ?: 0 > 0) {
                     ivGood1.loadImage(goods!![0].imge)
                     ivGood1.clicksThrottle().subscribe {
+                        if (!UserManager.isLogin()) {
+                            PageSkipUtils.skipCodeLogin()
+                            return@subscribe
+                        }
+                        if (!UserManager.isBind()) {
+                            showMessage("请绑定游戏账号")
+                            installOrLauncher()
+                            return@subscribe
+                        }
+                        val charge = ResponseOrder(
+                            goodsId = goods!![0].id,
+                            userId = UserManager.getSynSelf()?.id
+                        )
 
+                        val fragmentManager = childFragmentManager
+                        fragmentManager.let {
+                            val ft = it.beginTransaction()
+                            ft.add(
+                                FragmentNavigationUtils.payTypeListFragment(charge),
+                                RewardRouter.Fragment.PayTypeList.PATH
+                            )
+                            ft.commitAllowingStateLoss()
+                        }
                     }
                 }
                 if (goods?.size ?: 0 > 1) {
                     ivGood2.loadImage(goods!![1].imge)
                     ivGood2.clicksThrottle().subscribe {
+                        if (!UserManager.isLogin()) {
+                            PageSkipUtils.skipCodeLogin()
+                            return@subscribe
+                        }
+                        if (!UserManager.isBind()) {
+                            showMessage("请绑定游戏账号")
+                            installOrLauncher()
+                            return@subscribe
+                        }
+                        val charge = ResponseOrder(
+                            goodsId = goods!![1].id,
+                            userId = UserManager.getSynSelf()?.id
+                        )
 
+                        val fragmentManager = childFragmentManager
+                        fragmentManager.let {
+                            val ft = it.beginTransaction()
+                            ft.add(
+                                FragmentNavigationUtils.payTypeListFragment(charge),
+                                RewardRouter.Fragment.PayTypeList.PATH
+                            )
+                            ft.commitAllowingStateLoss()
+                        }
                     }
                 }
             }
         }
+    }
+
+    fun installOrLauncher() {
+        if (AppUtils.isAppInstalled(Constant.POP_PACKAGE)) {
+            AppUtils.launchApp(Constant.POP_PACKAGE)
+            return
+        }
+        RxPermissions(activity!!)
+            .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .subscribe {
+                Timber.e("permission it=$it")
+                if (it) {
+                    downloadPop(POP_DOWNLOAD_URL)
+                } else {
+                    showMessage("请打开写内存权限")
+                }
+            }
     }
 }

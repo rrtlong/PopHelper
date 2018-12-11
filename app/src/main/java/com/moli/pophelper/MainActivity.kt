@@ -4,25 +4,27 @@ import android.Manifest
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
 import android.view.View
+import com.aletter.xin.app.update.AppUpdateUtil
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.SPUtils
 import com.moli.module.framework.base.BaseMVPActivity
 import com.moli.module.framework.mvp.IView
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.ProgressModel
 import com.moli.module.model.constant.EventConstant
+import com.moli.module.model.constant.SPConstant
 import com.moli.module.net.manager.UserManager
 import com.moli.module.widget.widget.dialog.CheckIsInstallAppDialog
 import com.moli.module.widget.widget.dialog.DownloadProcessDialog
 import com.moli.pophelper.constant.Constant
-import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
+import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.module.home.*
 import com.moli.pophelper.utils.FragmentNavigationUtils
 import com.moli.pophelper.utils.PageSkipUtils
 import com.moli.pophelper.utils.downloadPop
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.*
 import org.simple.eventbus.Subscriber
@@ -30,6 +32,7 @@ import timber.log.Timber
 
 @Route(path = HelperArouter.Activity.MainActivity.PATH)
 class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
+    var isDebug = false
     private var lastBackTime: Long = 0
     private val mFragmentManager by lazy { supportFragmentManager }
     lateinit var mHomeFragment: HomeFragment
@@ -51,11 +54,19 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
         get() = R.layout.activity_main
 
     override fun initData(savedInstanceState: Bundle?) {
+        isDebug = SPUtils.getInstance().getInt(SPConstant.IS_DEBUG, 0) == 1
+        ivWealth.visibility = if (isDebug) View.GONE else View.VISIBLE
         setFragment(mCurrentPosition)
         initClick()
 //        checkInstallDialog.show()
 //        downloadDialog.show()
 //        downloadDialog.setPercent(100)
+        AppUpdateUtil(this).compareVersionFromJson(false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter?.getUserInfo()
     }
 
     override fun createPresenter(): MainActivityPresenter? {
@@ -183,7 +194,7 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
         if (ActivityUtils.getTopActivity() !is MainActivity) {
             return
         }
-        if(model.downUrl != Constant.POP_DOWNLOAD_URL){
+        if (model.downUrl != Constant.POP_DOWNLOAD_URL) {
             return
         }
         if (!downloadDialog.isShowing) {

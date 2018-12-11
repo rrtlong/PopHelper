@@ -1,23 +1,15 @@
 package com.moli.pophelper.module.home
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
-import android.support.v4.content.FileProvider
 import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.blankj.utilcode.util.Utils
+import com.blankj.utilcode.util.SPUtils
 import com.moli.module.framework.mvp.BasePresenter
 import com.moli.module.framework.mvp.IView
-import com.moli.module.framework.utils.FileDirUtils
-import com.moli.module.framework.utils.writeFileFromIS
-import com.moli.module.net.http.api.APIDownload
+import com.moli.module.model.base.UserInfo
+import com.moli.module.model.constant.SPConstant
+import com.moli.module.model.http.CodeRequest
+import com.moli.module.net.http.HttpSubscriber
 import com.moli.module.net.http.provider.APIService
-import com.moli.pophelper.MainActivity
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.io.File
-import java.io.IOException
+import com.moli.module.net.manager.UserManager
 
 /**
  * 项目名称：PopHelper
@@ -32,6 +24,26 @@ import java.io.IOException
 class MainActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
     @Autowired
     lateinit var api: APIService
+
+    fun getUserInfo() {
+        if (UserManager.isLogin()) {
+            UserManager.getSynSelf()?.let {
+                var phone = SPUtils.getInstance().getString(SPConstant.LOGIN_PHONE)
+                if (phone == null || phone.isNullOrEmpty()) {
+                    return
+                }
+                api.getUserInfo("", CodeRequest(phone)).subscribe(object : HttpSubscriber<UserInfo>() {
+                    override fun onNext(t: UserInfo) {
+                        if (t != null) {
+                            UserManager.refreshUserInfo(t, false)
+                        }
+                    }
+
+                })
+            }
+        }
+
+    }
 
 
 }

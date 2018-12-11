@@ -40,7 +40,9 @@
             android:layout_marginLeft="@dimen/dp_16"
             app:layout_constraintTop_toBottomOf="@id/topLine"
             android:layout_marginTop="@dimen/dp_18"
-            app:placeholderImage="@drawable/icon_default_wealth"
+            app:placeholderImageScaleType="centerCrop"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/icon_default_header"
             app:roundAsCircle="true"/>
 
     <TextView
@@ -89,6 +91,7 @@
             android:id="@+id/bigLine1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_5"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/tvOrder"
             android:background="@color/color_f9f9f9"/>
 
@@ -102,6 +105,7 @@
             android:drawablePadding="@dimen/dp_9"
             android:textColor="@color/color_2e2e2e"
             android:paddingRight="@dimen/dp_16"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/bigLine1"
             android:textSize="@dimen/sp_16"
             android:drawableRight="@drawable/icon_more"
@@ -166,7 +170,7 @@
             android:layout_height="@dimen/dp_50"
             android:text="退出登录"
             android:paddingLeft="@dimen/dp_16"
-            android:drawableLeft="@drawable/icon_set"
+            android:drawableLeft="@drawable/icon_exit"
             android:drawablePadding="@dimen/dp_9"
             android:textColor="@color/color_2e2e2e"
             android:paddingRight="@dimen/dp_16"

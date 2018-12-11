@@ -4,7 +4,7 @@
                minSdkVersion    : 19,
                targetSdkVersion : 27,
                versionCode      : 1,
-               versionName      : "0.9.6"]
+               versionName      : "1.0.0"]
 
     version = [kotlinVersion           : "1.2.71",
                androidSupportSdkVersion: "27.1.1",

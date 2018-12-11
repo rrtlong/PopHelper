@@ -153,6 +153,18 @@
 
             </android.support.v7.widget.RecyclerView>
 
+            <TextView
+                    android:id="@+id/noMoreData"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_43"
+                    android:layout_centerInParent="true"
+                    android:text="没有更多数据了"
+                    android:gravity="center"
+                    android:textColor="#7b7b7b"
+                    android:textSize="12sp"
+                    android:visibility="visible"/>
+
         </LinearLayout>
 
     </com.moli.module.widget.widget.JudgeNestedScrollView>

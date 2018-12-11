@@ -26,10 +26,10 @@ public class ReflectKit {
                     field.setAccessible(true);
                     Object obj = field.get(digestRule);
                     if (obj == null) {
-                        field.set(digestRule, "");
+                        field.set(digestRule, null);
                     }
                     if (!isEncryptField(field)) {
-                        field.set(digestRule, "");
+                        field.set(digestRule, null);
                     }
                 }
             }

@@ -19,7 +19,7 @@ data class ResponseOrder(
     @JvmField
     var goodsNum: Int = 1,  ////商品数量
     @JvmField
-    var platformTyp: Int? = null,   //支付平台0支付宝1微信
+    var platformType: Int? = null,   //支付平台0支付宝1微信
     @JvmField
     var userId: Long? = null   //用户id
 ) : Parcelable {
@@ -35,7 +35,7 @@ data class ResponseOrder(
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeValue(goodsId)
         writeInt(goodsNum)
-        writeValue(platformTyp)
+        writeValue(platformType)
         writeValue(userId)
     }
 

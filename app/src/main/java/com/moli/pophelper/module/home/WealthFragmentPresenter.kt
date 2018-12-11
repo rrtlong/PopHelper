@@ -51,7 +51,7 @@ class WealthFragmentPresenter(iListView: IListView) : ListPresenter<GoodsModel>(
     }
 
     override fun requestData(pullToRefresh: Boolean) {
-        api.getGoodsList().bindToLifecycle(owner)
+        api.getGoodsList("").bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<GoodsModel>>() {
                 override fun onNext(t: List<GoodsModel>) {
                     onDataSuccess(t.filter { it.hotFlag != 1 })

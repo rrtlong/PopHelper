@@ -18,7 +18,10 @@ import com.moli.module.framework.mvp.MVPMessage
 import com.moli.module.framework.utils.LayoutManagerUtil
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.BannerModel
+import com.moli.module.model.constant.EventConstant
 import com.moli.module.net.manager.UserManager
+import com.moli.module.widget.widget.BottomListener
+import com.moli.module.widget.widget.FooterView
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.Constant
 import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
@@ -31,6 +34,7 @@ import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_activity.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.ctx
+import org.simple.eventbus.Subscriber
 import timber.log.Timber
 
 /**
@@ -61,19 +65,8 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
         rightPoint = ScreenUtils.getScreenWidth() - leftPoint
         deltaX = (rightPoint - leftPoint) / 7
         tvSign.isSelected = true
-        var user = UserManager.getSynSelf()
-        user?.let {
-            if (it.signTimes == 0) {
-                tvReward.text = "0"
-            } else {
-                tvReward.text = it.signConfig!![it.signTimes - 1].signText
-            }
-            if (it.signDate == null) {
-                tvSign.isSelected = true
-            } else {
-                tvSign.isSelected = !TimeUtils.isToday(it.signDate!!)
-            }
-        }
+        tvReward.text ="0"
+        refreshSign()
 
         ivLaunchGame.clicksThrottle().subscribe {
             installOrLauncher()
@@ -91,6 +84,13 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
             }
             startSign()
         }
+        scrollView.setBottomListener(object : BottomListener {
+            override fun onBottom() {
+                presenter?.loadMore()
+            }
+
+        })
+
 
     }
 
@@ -108,6 +108,7 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
             3 -> {
                 //签到成功
                 signing = false
+                tvSign.isSelected = false
                 var user = UserManager.getSynSelf()
                 user?.let {
                     user.signTimes = user.signTimes + 1
@@ -219,5 +220,48 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
                     showMessage("请打开写内存权限")
                 }
             }
+    }
+
+    override fun getFooterView(): View? {
+        return FooterView(ctx)
+    }
+
+    override fun useEventBus(): Boolean {
+        return true
+    }
+
+    @Subscriber(tag = EventConstant.LOGIN_SUCCESS)
+    fun loginSuccess(msg: String) {
+        refreshSign()
+    }
+
+    @Subscriber(tag = EventConstant.USER_LOGOUT)
+    fun logout(msg: String) {
+        tvSign.isSelected = true
+        var left = ctx.dip(12)
+        var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
+        param.leftMargin = left
+        ivCursor.layoutParams = param
+        tvReward.text = "0"
+    }
+
+    fun refreshSign() {
+        var user = UserManager.getSynSelf()
+        user?.let {
+            if (it.signTimes == 0) {
+                tvReward.text = "0"
+            } else {
+                tvReward.text = it.signConfig!![it.signTimes - 1].signText
+                var left = deltaX * (it.signTimes) + ctx.dip(12)
+                var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
+                param.leftMargin = left
+                ivCursor.layoutParams = param
+            }
+            if (it.signDate == null) {
+                tvSign.isSelected = true
+            } else {
+                tvSign.isSelected = !TimeUtils.isToday(it.signDate!!)
+            }
+        }
     }
 }

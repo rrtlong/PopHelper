@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              style="@style/UpdateDialogLayout"
+              android:minWidth="@dimen/dp_320"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+
+    <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/ic_close_update_dialog"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dialog_normal"
+            android:orientation="vertical">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/ic_update_head_bg"
+                    android:scaleType="centerCrop"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|center_vertical"
+                        android:text="发现新版本"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold"/>
+
+                <TextView
+                        android:id="@+id/tvVersion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:text="1.0.1"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start|center_vertical"
+                android:text="是否升级到最新版本？"
+                android:textStyle="bold"
+                android:textColor="#444444"
+                android:textSize="14dp"/>
+
+        <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="14dp"
+                android:gravity="start|center_vertical"
+                android:text="已在wifi环境下为你准备好了新版安装包"
+                android:textColor="#9B9B9B"
+                android:textSize="14dp"/>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="14dp">
+
+            <TextView
+                    android:id="@+id/tvUpdateInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    tools:text="跟新了bug"
+                    android:textColor=" #444444"
+                    android:textSize="14dp"/>
+
+        </ScrollView>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/color_EDEDED"
+                android:layout_marginTop="10dp"/>
+
+        <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:text="立即更新"
+                android:textColor="#4A4A4A"
+                android:textSize="18dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

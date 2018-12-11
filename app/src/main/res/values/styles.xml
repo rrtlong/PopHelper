@@ -68,8 +68,9 @@
     <style name="bottomAnim" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/bottom_in</item>
     </style>
+
     <style name="alphaAnim" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/bottom_in</item>
+        <item name="android:activityOpenEnterAnimation">@anim/alpha_in</item>
     </style>
 
     <style name="MainTheme.Transparent">
@@ -95,5 +96,30 @@
         <item name="android:maxHeight">5dip</item>
     </style>
 
+    <style name="UpdateDialogLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginLeft">38dp</item>
+        <item name="android:layout_marginRight">38dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--屏幕变暗的DialogFragment-->
+    <style name="MLBottomDialogDark" parent="MainTheme.Transparent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!--强制跟新进度条-->
+    <style name="StyleProgressUpdateApp" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">50dip</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/shape_progress_update_app</item>
+    </style>
 
 </resources>

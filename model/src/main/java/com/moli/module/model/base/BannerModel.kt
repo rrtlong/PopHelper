@@ -18,6 +18,8 @@ data class BannerModel(
     @JvmField
     val contentUrl: String? = null,  //内容地址
     @JvmField
-    val bannerType: Int = 0  //类型，为0返回下载地址
+    val bannerType: Int = 0 , //类型，为0返回下载地址
+    @JvmField
+    val packageName:String?=null    //包名
 
 )

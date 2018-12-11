@@ -1,7 +1,9 @@
 package com.moli.pophelper.item
 
+import com.blankj.utilcode.util.AppUtils
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.AppModel
+import com.moli.module.net.imageloader.loadImage
 import com.moli.pophelper.R
 import com.moli.pophelper.widget.LayoutContainerItem
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,6 +13,7 @@ import timber.log.Timber
 import zlc.season.rxdownload3.RxDownload
 import zlc.season.rxdownload3.core.*
 import zlc.season.rxdownload3.extension.ApkInstallExtension
+import zlc.season.rxdownload3.extension.ApkOpenExtension
 
 /**
  * 项目名称：PopHelper
@@ -36,30 +39,41 @@ class AppRecommendItem(val onClick: (model: AppModel) -> Unit) : LayoutContainer
         tvProgress.clicksThrottle().subscribe {
             //            onClick(model)
             Timber.e("status = ${status?.percent()}  ->${status?.toString()}")
-            when (status) {
-                is Normal -> {
-                    Timber.e("开始")
-                    RxDownload.start(model.downloadUrl!!).subscribe()
+            if (AppUtils.isAppInstalled(model.packageName!!)) {
+                AppUtils.launchApp(model.packageName)
+            } else {
+                when (status) {
+                    is Normal -> {
+                        Timber.e("开始")
+                        RxDownload.start(model.downloadUrl!!).subscribe()
+                    }
+                    is Suspend -> {
+                        Timber.e("已暂停")
+                        RxDownload.start(model.downloadUrl!!).subscribe()
+                    }
+                    is Waiting -> {
+                        Timber.e("等待中")
+                        RxDownload.stop(model.downloadUrl!!).subscribe()
+                    }
+                    is Downloading -> {
+                        Timber.e("正在下载")
+                        RxDownload.stop(model.downloadUrl!!).subscribe()
+                    }
+                    is Failed -> {
+                        Timber.e("失败")
+                    }
+                    is Succeed -> {
+                        RxDownload.extension(model.downloadUrl!!, ApkInstallExtension::class.java).subscribe()
+                        Timber.e("安装")
+                    }
+                    is ApkInstallExtension.Installing -> Timber.e("安装中")
+                    is ApkInstallExtension.Installed -> {
+                        AppUtils.launchApp(model.packageName)
+                        Timber.e("打开")
+                    }
+                    else -> ""
                 }
-                is Suspend -> {
-                    Timber.e("已暂停")
-                    RxDownload.start(model.downloadUrl!!).subscribe()
-                }
-                is Waiting -> {
-                    Timber.e("等待中")
-                    RxDownload.stop(model.downloadUrl!!).subscribe()
-                }
-                is Downloading -> {
-                    Timber.e("正在下载")
-                    RxDownload.stop(model.downloadUrl!!).subscribe()
-                }
-                is Failed -> Timber.e("失败")
-                is Succeed -> Timber.e("安装")
-                is ApkInstallExtension.Installing -> Timber.e("安装中")
-                is ApkInstallExtension.Installed -> Timber.e("打开")
-                else -> ""
             }
-
 
         }
 
@@ -67,6 +81,14 @@ class AppRecommendItem(val onClick: (model: AppModel) -> Unit) : LayoutContainer
 
     override fun handleData(model: AppModel, position: Int) {
         this.model = model
+        progressBar.max = 100
+        mlIcon.loadImage(model.headImgUrl)
+        tvTitle.text = model.title
+        tvPeoples.text = "有${model.pv}人在试玩"
+        tvLabel.text = model.tagText
+        tvProgress.text = "立即试玩"
+        tvDesc.text = model.content
+        mlBigCover.loadImage(model.imgUrl)
     }
 
     override fun onAttach() {
@@ -81,19 +103,73 @@ class AppRecommendItem(val onClick: (model: AppModel) -> Unit) : LayoutContainer
     }
 
     fun updateStatus(status: Status) {
-        if (status.percent() == "0.00%") {
-            tvProgress.text = "立即试玩"
-            progressBar.progress = 0
-        } else if (status.percent() == "100.00%") {
+        if (AppUtils.isAppInstalled(model.packageName!!)) {
             tvProgress.text = "立即试玩"
             progressBar.progress = 100
         } else {
-            var percent = (status.downloadSize * 100.0 / status.totalSize).toInt()
-            if (percent > 100) {
-                percent = 100
+            when (status) {
+                is Normal -> {
+                    tvProgress.text = "立即试玩"
+                    progressBar.progress = 0
+                }
+                is Suspend -> {
+                    var percent = (status.downloadSize * 100.0 / status.totalSize).toInt()
+                    if (percent > 100) {
+                        percent = 100
+                    }
+                    tvProgress.text = "立即试玩"
+                    progressBar.progress = (status.downloadSize * 100.0 / status.totalSize).toInt()
+                    Timber.e("已暂停")
+                }
+                is Waiting -> {
+                    Timber.e("等待中")
+                    var percent = (status.downloadSize * 100.0 / status.totalSize).toInt()
+                    if (percent > 100) {
+                        percent = 100
+                    }
+                    tvProgress.text = "$percent%"
+                    progressBar.progress = (status.downloadSize * 100.0 / status.totalSize).toInt()
+                }
+                is Downloading -> {
+                    Timber.e("正在下载")
+                    var percent = (status.downloadSize * 100.0 / status.totalSize).toInt()
+                    if (percent > 100) {
+                        percent = 100
+                    }
+                    tvProgress.text = "$percent%"
+                    progressBar.progress = (status.downloadSize * 100.0 / status.totalSize).toInt()
+                }
+                is Failed -> {
+                    tvProgress.text = "立即试玩"
+                    progressBar.progress = 0
+                    Timber.e("失败")
+                }
+                is Succeed -> {
+                    Timber.e("安装")
+                    tvProgress.text = "立即试玩"
+                    progressBar.progress = 100
+//                    RxDownload.extension(model.downloadUrl!!, ApkInstallExtension::class.java).subscribe()
+                }
+                is ApkInstallExtension.Installing -> {
+                    tvProgress.text = "安装中"
+                    progressBar.progress = 100
+                    Timber.e("安装中")
+                }
+                is ApkInstallExtension.Installed -> {
+                    tvProgress.text = "立即试玩"
+                    progressBar.progress = 100
+                    RxDownload.extension(model.downloadUrl!!, ApkOpenExtension::class.java).subscribe()
+                    Timber.e("打开")
+                }
+                else -> ""
             }
-            tvProgress.text = "$percent%"
-            progressBar.progress = (status.downloadSize * 100.0 / status.totalSize).toInt()
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        if (disposable != null && !disposable!!.isDisposed) {
+            disposable?.dispose()
         }
     }
 

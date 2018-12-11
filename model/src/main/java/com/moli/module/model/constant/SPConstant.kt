@@ -33,7 +33,7 @@ object SPConstant {
     /**
      * 找回密码请求验证码的手机号
      */
-    const val FIND_BACK_PASSWORD_REQUEST_PHONE="find_back_password_request_phone"
+    const val FIND_BACK_PASSWORD_REQUEST_PHONE = "find_back_password_request_phone"
 
     /**
      *  找回密码请求验证码的时间
@@ -99,7 +99,7 @@ object SPConstant {
     /**
      * 邀请码
      */
-    const val INVITATION_CODE="invitation_code"
+    const val INVITATION_CODE = "invitation_code"
 
     /**
      * 显示滑动引导次数，显示一次后不再显示
@@ -118,7 +118,9 @@ object SPConstant {
 
     const val DEVICE_BRAND = "device_brand"
 
+    const val LOGIN_PHONE = "login_phone"
 
+    const val IS_DEBUG = "is_debug"
 
 
 }

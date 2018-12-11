@@ -130,7 +130,9 @@ class PayTypeListFragment : BaseMVPDialogFragment<PayTypeListFragmentPresenter>(
     fun payZfb(orderInfo: String) {
         val payRunnable = Runnable {
             val alipay = PayTask(this@PayTypeListFragment.activity)
-            val result = alipay.payV2(orderInfo, true)
+            var json = JSONObject(orderInfo)
+            var rechargeInfo = json.getString("rechargeInfo")
+            val result = alipay.payV2(rechargeInfo, true)
             Log.i("msp", result.toString())
 
             val msg = Message()

@@ -17,12 +17,10 @@ import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.http.ResponseOrder
 import com.moli.module.net.manager.UserManager
 import com.moli.module.router.RewardRouter
-import com.moli.module.widget.widget.BottomListener
-import com.moli.module.widget.widget.FooterView
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.Constant
-import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
+import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.utils.FragmentNavigationUtils
 import com.moli.pophelper.utils.PageSkipUtils
 import com.moli.pophelper.utils.downloadPop
@@ -54,12 +52,6 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
         ivLaunchGame.clicksThrottle().subscribe {
             installOrLauncher()
         }
-        scrollView.setBottomListener(object : BottomListener {
-            override fun onBottom() {
-                presenter?.loadMore()
-            }
-
-        })
 
         ivMoney.clicksThrottle().subscribe {
             if (!UserManager.isLogin()) {
@@ -147,9 +139,6 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
         return recyclerView
     }
 
-    override fun getFooterView(): View? {
-        return FooterView(ctx)
-    }
 
 
     override fun useEventBus(): Boolean {

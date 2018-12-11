@@ -6,7 +6,10 @@ import com.moli.module.framework.mvp.IListView
 import com.moli.module.framework.mvp.ListPresenter
 import com.moli.module.framework.mvp.MVPMessage
 import com.moli.module.framework.utils.rx.bindToLifecycle
+import com.moli.module.model.base.AppModel
 import com.moli.module.model.base.BannerModel
+import com.moli.module.model.http.BannerRequest
+import com.moli.module.model.http.ResponseListPage
 import com.moli.module.net.http.HttpSubscriber
 import com.moli.module.net.http.provider.APIService
 import com.moli.module.widget.adapter.CommonRcvAdapter
@@ -15,9 +18,6 @@ import com.moli.module.widget.adapter.item.RcvAdapterItem
 import com.moli.module.widget.adapter.itemDecoration.HorizontalDividerItemDecoration
 import com.moli.pophelper.R
 import com.moli.pophelper.item.AppRecommendItem
-import com.moli.module.model.base.AppModel
-import com.moli.module.model.http.BannerRequest
-import com.moli.pophelper.constant.Constant
 import com.moli.pophelper.utils.downloadPop
 
 /**
@@ -37,7 +37,6 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
     lateinit var adapter: CommonRcvAdapter<AppModel>
 
     override fun createAdapter(): RecyclerView.Adapter<RcvAdapterItem<AppModel>> {
-        forbidLoadMore = true
         adapter = object : CommonRcvAdapter<AppModel>(dataList) {
             override fun createItem(type: Any): AdapterItem<AppModel> {
                 return AppRecommendItem(this@ActivityFragmentPresenter::onClick)
@@ -48,21 +47,13 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
     }
 
     override fun requestData(pullToRefresh: Boolean) {
-//        api.getAppList(ResponseMusicList(currentPage, pageLimit, 1)).bindToLifecycle(owner)
-//            .subscribe(object : HttpSubscriber<List<AppModel>>() {
-//                override fun onNext(t: List<AppModel>) {
-//                    onDataSuccess(t)
-//                }
-//
-//            })
-        if (!pullToRefresh) {
-            return
-        }
-        var newData = mutableListOf<AppModel>(
-            AppModel(downloadUrl = "http://shouji.360tpcdn.com/170919/9f1c0f93a445d7d788519f38fdb3de77/com.UCMobile_704.apk?h==a"),
-            AppModel(downloadUrl = "http://shouji.360tpcdn.com/170918/f7aa8587561e4031553316ada312ab38/com.tencent.qqlive_13049.apk?h==a")
-        )
-        onDataSuccess(newData)
+        api.getAppList("",ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
+            .subscribe(object : HttpSubscriber<List<AppModel>>() {
+                override fun onNext(t: List<AppModel>) {
+                    onDataSuccess(t)
+                }
+
+            })
     }
 
     override fun initRecyclerView() {
@@ -76,7 +67,7 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
     }
 
     fun getBanner() {
-        api.getBanner(BannerRequest("3")).bindToLifecycle(owner)
+        api.getBanner("",BannerRequest("3")).bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<BannerModel>>() {
                 override fun onNext(t: List<BannerModel>) {
                     var temp = t.filter { it.bannerType != 1 }
@@ -89,7 +80,7 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
     }
 
     fun sign() {
-        api.sign().bindToLifecycle(owner).subscribe(object : HttpSubscriber<String>() {
+        api.sign("").bindToLifecycle(owner).subscribe(object : HttpSubscriber<String>() {
             override fun onNext(t: String) {
                 MVPMessage.obtain(rootView!!, 3).handleMessageToTarget()
             }
@@ -106,6 +97,12 @@ class ActivityFragmentPresenter(iListView: IListView) : ListPresenter<AppModel>(
         model?.downloadUrl?.let {
             rootView!!.showMessage("开始下载")
             downloadPop(it)
+        }
+    }
+
+    fun loadMore() {
+        if (hasMore) {
+            loadData(false)
         }
     }
 }

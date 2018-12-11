@@ -12,6 +12,7 @@ import com.moli.module.net.http.provider.APIService
 import com.moli.module.widget.adapter.CommonRcvAdapter
 import com.moli.module.widget.adapter.item.AdapterItem
 import com.moli.module.widget.adapter.item.RcvAdapterItem
+import com.moli.module.widget.adapter.itemDecoration.HorizontalDividerItemDecoration
 import com.moli.module.widget.adapter.itemDecoration.VerticalDividerItemDecoration
 import com.moli.pophelper.R
 import com.moli.pophelper.item.StrategyItem
@@ -46,7 +47,7 @@ class StrategyListActivityPresenter(iListView: IListView) : ListPresenter<Strate
     }
 
     override fun requestData(pullToRefresh: Boolean) {
-        api.getStrategyList(ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
+        api.getStrategyList("",ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<StrategyModel>>() {
                 override fun onNext(t: List<StrategyModel>) {
                     onDataSuccess(t)
@@ -60,7 +61,7 @@ class StrategyListActivityPresenter(iListView: IListView) : ListPresenter<Strate
         val recyclerView = iListView.getRecyclerView()
         val context = recyclerView.context
         recyclerView.addItemDecoration(
-            VerticalDividerItemDecoration.Builder(context).sizeResId(R.dimen.dp_1).colorResId(
+            HorizontalDividerItemDecoration.Builder(context).sizeResId(R.dimen.dp_1).colorResId(
                 R.color.black_10
             ).marginResId(R.dimen.dp_16, R.dimen.dp_16).build()
         )

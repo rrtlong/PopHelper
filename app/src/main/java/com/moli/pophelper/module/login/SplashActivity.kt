@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import com.blankj.utilcode.util.DeviceUtils
 import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ScreenUtils
 import com.moli.module.framework.base.BaseMVPActivity
 import com.moli.module.framework.mvp.IView
 import com.moli.module.framework.mvp.MVPMessage
@@ -15,18 +14,18 @@ import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.framework.utils.rx.observeOnMain
 import com.moli.module.framework.utils.rx.toIoAndMain
 import com.moli.module.model.base.BannerModel
+import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.constant.SPConstant
 import com.moli.module.net.imageloader.loadImage
 import com.moli.module.net.manager.UserManager
 import com.moli.pophelper.R
 import com.moli.pophelper.utils.PageSkipUtils
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_splash.*
+import org.simple.eventbus.Subscriber
 import timber.log.Timber
-import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 /**
@@ -44,15 +43,14 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
     var bannerModel: BannerModel? = null
     var isFinishRequest = false
     var isFinishPermission = false
+    private var isForceUpdate: Boolean = false
 
     override val layoutResId: Int
         get() = R.layout.activity_splash
 
     override fun initData(savedInstanceState: Bundle?) {
-        getUserInfo()
         isContentToStatusBar = true
-        presenter?.getBanner()
-        requestBasicPermission()
+        presenter?.getVersion()
     }
 
     override fun createPresenter(): SplashActivityPresenter? {
@@ -76,6 +74,11 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
                 if (isFinishPermission) {
                     skipMain(true)
                 }
+            }
+            3 -> {
+                //跟新请求失败
+                isForceUpdate = false
+                finish()
             }
         }
     }
@@ -160,11 +163,39 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
     fun getUserInfo() {
         if (UserManager.isLogin()) {
             var user = UserManager.getSynSelf()?.let {
-                if (it.id != 100000L) {
-                    presenter?.getUserInfo()
-                }
+                presenter?.getUserInfo()
             }
         }
+    }
+
+    @Subscriber(tag = EventConstant.SPLASH_FORCE_UPDATE)
+    fun updateForceState(flag: Boolean) {
+        if (isAfterVersion) {
+            return
+        }
+        isAfterVersion = true
+        isForceUpdate = flag
+        if (isForceUpdate) {
+            pbUpdate.visibility = View.VISIBLE
+            tvUpdate.visibility = View.VISIBLE
+        } else {
+            afterVersion()
+
+        }
+    }
+
+    @Subscriber(tag = EventConstant.APP_UPDATE_PROGRESS)
+    fun setUpdateProgress(progress: Int) {
+        if (isForceUpdate) {
+            pbUpdate.progress = progress
+        }
+    }
+
+    var isAfterVersion = false
+    fun afterVersion() {
+        getUserInfo()
+        presenter?.getBanner()
+        requestBasicPermission()
     }
 
 }

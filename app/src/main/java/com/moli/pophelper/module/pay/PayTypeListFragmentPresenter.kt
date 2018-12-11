@@ -48,9 +48,9 @@ class PayTypeListFragmentPresenter(iListView: IListView, val order: ResponseOrde
 
     fun itemClick(itemModel: PayActionModel) {
         if (order == null) return
-        order.platformTyp = itemModel.channel
+        order.platformType = itemModel.channel
         channelId = itemModel.channel
-        api.paySign(order!!).bindToLifecycle(owner)
+        api.paySign("",order!!).bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<String>() {
                 override fun onNext(t: String) {
                     MVPMessage.obtain(rootView!!, itemModel.channel, t).handleMessageToTarget()

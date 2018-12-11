@@ -27,7 +27,6 @@
             android:layout_width="@dimen/dp_92"
             android:layout_height="@dimen/dp_62"
             app:placeholderImageScaleType="centerCrop"
-            app:placeholderImage="@drawable/icon_strategy_default"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/dp_16"
             app:roundedCornerRadius="@dimen/dp_4"

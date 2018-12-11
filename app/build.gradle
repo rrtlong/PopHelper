@@ -124,7 +124,7 @@ android {
             buildConfigField("String", "AppID_MEIZU", "\"116422\"")
             buildConfigField("String", "AppKey_MEIZU", "\"c885797e7c4c4a3c86af8eaa616fa3f9\"")
             buildConfigField("String", "AppSecret_MEIZU", "\"282751aa153c43ff951b3b5c89b01f68\"")
-            buildConfigField("String", "Channel", "\"test\"")
+            buildConfigField("String", "Channel", "\"guanwang\"")
             versionName getTestVersionName()
         }
 

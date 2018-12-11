@@ -109,6 +109,7 @@
             android:text="临时工、实习、赚钱、在家兼职、网上兼职、找工作这里应有尽有！是一款能让你轻松兼职、赚钱的网络兼职手机应用。"/>
 
     <com.moli.module.widget.widget.MLImageView
+            android:id="@+id/mlBigCover"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
             app:layout_constraintDimensionRatio="328:140"

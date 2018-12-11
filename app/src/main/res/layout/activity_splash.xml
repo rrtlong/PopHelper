@@ -5,12 +5,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <ProgressBar
+            android:id="@+id/pbUpdate"
+            style="@style/StyleProgressUpdateApp"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginStart="@dimen/dp_62"
+            android:layout_marginEnd="@dimen/dp_62"
+            android:max="100"
+            android:layout_centerInParent="true"
+            android:progress="0"
+            android:visibility="gone"/>
+
+    <TextView
+            android:id="@+id/tvUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="更新中…"
+            android:textColor="@color/color_0a0909"
+            android:textSize="13sp"
+            android:visibility="gone"
+            android:layout_below="@id/pbUpdate"
+            android:layout_centerHorizontal="true"/>
+
+
     <com.moli.module.widget.widget.MLImageView
             android:id="@+id/mlAdv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dp_90"
-            app:placeholderImage="@drawable/icon_adv"/>
+            android:layout_marginBottom="@dimen/dp_90"/>
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
             android:id="@+id/skipBtn"
@@ -23,6 +47,7 @@
             app:qmui_borderWidth="@dimen/dp_0"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_10"
+            android:visibility="gone"
             app:qmui_backgroundColor="@color/black_30"
             android:text="3 s"/>
 

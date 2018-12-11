@@ -25,7 +25,7 @@ class MineFragmentPresenter(iView: IView) : BasePresenter<IView>(iView) {
     lateinit var api: APIService
 
     fun getBanner() {
-        api.getBanner(BannerRequest("4")).bindToLifecycle(owner).subscribe(object : HttpSubscriber<List<BannerModel>>() {
+        api.getBanner("",BannerRequest("4")).bindToLifecycle(owner).subscribe(object : HttpSubscriber<List<BannerModel>>() {
             override fun onNext(t: List<BannerModel>) {
                 var temp = t.filter { it.bannerType != 0 }
                 if(temp != null && temp.isNotEmpty()){

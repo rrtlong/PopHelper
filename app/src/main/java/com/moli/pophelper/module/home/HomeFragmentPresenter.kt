@@ -17,6 +17,7 @@ import com.moli.module.net.http.provider.APIService
 import com.moli.module.widget.adapter.CommonRcvAdapter
 import com.moli.module.widget.adapter.item.AdapterItem
 import com.moli.module.widget.adapter.item.RcvAdapterItem
+import com.moli.module.widget.adapter.itemDecoration.HorizontalDividerItemDecoration
 import com.moli.module.widget.adapter.itemDecoration.VerticalDividerItemDecoration
 import com.moli.pophelper.R
 import com.moli.pophelper.item.StrategyItem
@@ -49,7 +50,7 @@ class HomeFragmentPresenter(iListView: IListView) : ListPresenter<StrategyModel>
     }
 
     override fun requestData(pullToRefresh: Boolean) {
-        api.getRecommendList(ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
+        api.getRecommendList("",ResponseListPage(currentPage, pageLimit)).bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<StrategyModel>>() {
                 override fun onNext(t: List<StrategyModel>) {
                     onDataSuccess(t)
@@ -63,14 +64,14 @@ class HomeFragmentPresenter(iListView: IListView) : ListPresenter<StrategyModel>
         val recyclerView = iListView.getRecyclerView()
         val context = recyclerView.context
         recyclerView.addItemDecoration(
-            VerticalDividerItemDecoration.Builder(context).sizeResId(R.dimen.dp_1).colorResId(
+            HorizontalDividerItemDecoration.Builder(context).sizeResId(R.dimen.dp_1).colorResId(
                 R.color.black_10
             ).marginResId(R.dimen.dp_16, R.dimen.dp_16).build()
         )
     }
 
     fun getRecommandGoods() {
-        api.getGoodsList().bindToLifecycle(owner)
+        api.getGoodsList("").bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<GoodsModel>>() {
                 override fun onNext(t: List<GoodsModel>) {
                     MVPMessage.obtain(rootView!!, 2,t.filter { it.hotFlag ==1 }).handleMessageToTarget()
@@ -81,7 +82,7 @@ class HomeFragmentPresenter(iListView: IListView) : ListPresenter<StrategyModel>
     }
 
     fun getBanner() {
-        api.getBanner(BannerRequest("2")).bindToLifecycle(owner)
+        api.getBanner("",BannerRequest("2")).bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<List<BannerModel>>() {
                 override fun onNext(t: List<BannerModel>) {
                     var temp = t.filter { it.bannerType != 1 }

@@ -117,6 +117,7 @@ object UserManager {
             box.remove(userId)
             selfUser = null
             SPUtils.getInstance().remove(SPConstant.USER_ID)
+            SPUtils.getInstance().remove(SPConstant.LOGIN_PHONE)
             EventBus.getDefault().post("", EventConstant.USER_LOGOUT)
         }
     }

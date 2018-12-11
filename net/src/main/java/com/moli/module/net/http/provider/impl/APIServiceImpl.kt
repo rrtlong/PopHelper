@@ -16,6 +16,7 @@ import com.moli.module.net.json.jolyglot
 import com.moli.module.router.RewardRouter
 import io.reactivex.Observable
 import io.rx_cache2.internal.RxCache
+import timber.log.Timber
 
 /**
  * 项目名称：Aletter
@@ -44,140 +45,64 @@ class APIServiceImpl : APIService {
 
     }
 
-    override fun version(responseVersion: ResponseVersion): Observable<VersionModel> {
-        return api.version(responseVersion).toIoAndMain()
+    override fun getVersion(request: VersionRequest): Observable<VersionModel> {
+        return api.getVersion(request).toIoAndMain()
     }
 
-    override fun getPhoneCode(codeRequest: CodeRequest): Observable<String> {
-        return api.getPhoneCode(codeRequest).toIoAndMain()
-    }
-
-
-    override fun login(login: ResonseLogin): Observable<UserInfo> {
-        return api.login(login).toIoAndMain()
+    //helper/user/getPhoneAuth
+    override fun getPhoneCode(url: String, codeRequest: CodeRequest): Observable<String> {
+        var url = RetrofitUtils.domainName + "helper/user/getPhoneAuth"
+        return api.getPhoneCode(url, codeRequest).toIoAndMain()
     }
 
 
-    override fun getAccountInfo(): Observable<UserInfo> {
-        return api.getAccountInfo().toIoAndMain()
+    override fun login(url: String, login: ResonseLogin): Observable<UserInfo> {
+        var url = RetrofitUtils.domainName + "helper/user/register"
+        return api.login(url, login).toIoAndMain()
     }
 
-    override fun delectComment(commentId: Long): Observable<String> {
-        return api.delectComment(commentId).toIoAndMain()
-    }
-
-
-    override fun getToken(fileKey: TokenRequest): Observable<String> {
-        return api.getToken(fileKey).toIoAndMain()
-    }
-
-    override fun publishGifts(): Observable<List<GiftModel>> {
-        return api.publishGifts().toIoAndMain()
-    }
-
-    override fun follow(toUserId: Long): Observable<Int> {
-        return api.follow(toUserId).toIoAndMain()
-    }
-
-    override fun attentionUsers(listPage: ResponseListPage): Observable<List<UserLiteModel>> {
-        return api.attentionUsers(listPage).toIoAndMain()
-    }
-
-    override fun createOrder(order: ResponseOrder): Observable<OrderModel> {
-        return api.createOrder(order).toIoAndMain()
-    }
-
-    override fun searchList(pageList: ResponseSearch): Observable<List<UserLiteModel>> {
-        return api.searchList(pageList).toIoAndMain()
-    }
-
-
-    override fun bannerInfos(): Observable<List<BannerModel>> {
-        return api.bannerInfos().toIoAndMain()
-    }
-
-    override fun greenBanner(): Observable<List<BannerModel>> {
-        return api.greenBanner().toIoAndMain()
-    }
-
-    override fun removeBindInfo(loginType: Int): Observable<String> {
-        return api.removeBindInfo(loginType).toIoAndMain()
-    }
-
-    override fun accountInfo(): Observable<AccountInfo> {
-        return api.accountInfo().toIoAndMain()
-    }
-
-    override fun delectStory(id: Long): Observable<String> {
-        return api.delectStory(id).toIoAndMain()
-    }
-
-    override fun commentLike(commentId: Long): Observable<String> {
-        return api.commentLike(commentId).toIoAndMain()
-    }
-
-    override fun commentDelect(id: Long): Observable<String> {
-        return api.commentDelect(id).toIoAndMain()
-    }
-
-    override fun pullBlackUser(userId: Long): Observable<String> {
-        return api.pullBlackUser(userId).toIoAndMain()
-    }
-
-    override fun userWallet(): Observable<UserWallet> {
-        return api.userWallet().toIoAndMain()
-    }
-
-    override fun searchRecommendUsers(listPage: ResponseListPage): Observable<List<UserLiteModel>> {
-        return api.searchRecommendUsers(listPage).toIoAndMain()
-    }
-
-    override fun downLoadUrl(url: DownLoadRespone): Observable<String> {
-        return api.downLoadUrl(url).toIoAndMain()
-    }
-
-
-    override fun addLog(response: ResponseLogModel): Observable<String> {
-        return api.addLog(response).toIoAndMain()
-    }
-
-    override fun recommandOrHotMusics(response: ResponseMusicList): Observable<List<StrategyModel>> {
-        return api.recommandOrHotMusics(response).toIoAndMain()
-    }
-
-    override fun getBanner(bannerRequest: BannerRequest): Observable<List<BannerModel>> {
+    override fun getBanner(url: String, bannerRequest: BannerRequest): Observable<List<BannerModel>> {
         var brand = SPUtils.getInstance().getString(SPConstant.DEVICE_BRAND, null)
         bannerRequest.phoneTyep = brand
-        return api.getBanner(bannerRequest).toIoAndMain()
+        var url = RetrofitUtils.domainName + "helper/config/bannerContent"
+        return api.getBanner(url, bannerRequest).toIoAndMain()
     }
 
-    override fun getStrategyList(responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
-        return api.getStrategyList(responseListPage).toIoAndMain()
+    override fun getStrategyList(url: String, responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
+        var url = RetrofitUtils.domainName + "helper/strategy/getStrategyList"
+        return api.getStrategyList(url, responseListPage).toIoAndMain()
     }
 
-    override fun getRecommendList(responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
-        return api.getRecommendList(responseListPage).toIoAndMain()
+    override fun getRecommendList(url: String, responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
+        var url = RetrofitUtils.domainName + "helper/strategy/getRecommendList"
+        return api.getRecommendList(url, responseListPage).toIoAndMain()
     }
 
-    override fun getAppList(responseListPage: ResponseListPage): Observable<List<AppModel>> {
-        return api.getAppList(responseListPage).toIoAndMain()
+    override fun getAppList(url: String, responseListPage: ResponseListPage): Observable<List<AppModel>> {
+        var url = RetrofitUtils.domainName + "helper/strategy/getSortRecommendList"
+        return api.getAppList(url, responseListPage).toIoAndMain()
     }
 
-    override fun getGoodsList(): Observable<List<GoodsModel>> {
-        return api.getGoodsList().toIoAndMain()
+    override fun getGoodsList(url: String): Observable<List<GoodsModel>> {
+        var url = RetrofitUtils.domainName + "helper/recharge/rechargeConfig"
+        return api.getGoodsList(url).toIoAndMain()
     }
 
 
-    override fun sign(): Observable<String> {
-        return api.sign().toIoAndMain()
+    override fun sign(url: String): Observable<String> {
+        var url = RetrofitUtils.domainName + "helper/user/sign"
+        return api.sign(url).toIoAndMain()
     }
 
-    override fun paySign(charge: ResponseOrder): Observable<String> {
-        return api.paySign(charge).toIoAndMain()
+    override fun paySign(url: String, charge: ResponseOrder): Observable<String> {
+        var url = RetrofitUtils.domainName + "helper/recharge/createBilling"
+        return api.paySign(url, charge).toIoAndMain()
     }
 
-    override fun getUserInfo(): Observable<UserInfo> {
-        return api.getUserInfo().toIoAndMain()
+    override fun getUserInfo(url: String,request: CodeRequest): Observable<UserInfo> {
+        var url = RetrofitUtils.domainName + "helper/user/getUserInfo"
+        return api.getUserInfo(url,request).toIoAndMain()
     }
+
 
 }
