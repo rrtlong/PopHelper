@@ -48,7 +48,7 @@ object CountUtils : Analyticsable {
         strategy.isEnableUserInfo = true
         strategy.isUploadProcess = AppUtils.isMainProcess(context)
         //        CrashReport.initCrashReport(Utils.getApp(), "42cd1936ad", BuildConfig.LOG_DEBUG, strategy)
-        CrashReport.initCrashReport(Utils.getApp(), "2e9cce17d8", BuildConfig.LOG_DEBUG, strategy)
+        CrashReport.initCrashReport(Utils.getApp(), "8c3024d5f6", BuildConfig.LOG_DEBUG, strategy)
     }
 
     /**

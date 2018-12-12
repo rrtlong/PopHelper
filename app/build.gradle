@@ -70,7 +70,7 @@ android {
                     JPUSH_PKGNAME: "com.moli.pophelper",
                     JPUSH_APPKEY : "22107acec4f8855730d34cb3", //JPush上注册的包名对应的appkey.
                     JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
-                    channelID    : "test",
+                    channelID    : "guanwang",
                     APP_NAME     : "CC短视频",
                     NIM_APPKEY   : "a14e5c4cf4d5b1fd1924c6fe78c82cb3"]
         }

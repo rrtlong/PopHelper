@@ -1,5 +1,6 @@
 package com.moli.module.net.http.converter
 
+import com.moli.module.model.base.VersionModel
 import java.lang.reflect.Type
 
 /**
@@ -21,6 +22,7 @@ object EmptyNullModleUtils {
             Boolean::class.java -> false
             Int::class.java -> -1
             Long::class.java -> -1L
+            VersionModel::class.java -> VersionModel()
             else -> {
 
             }
