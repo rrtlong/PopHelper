@@ -44,33 +44,33 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
      */
     fun getBanner() {
         api.getBanner("", BannerRequest("1")).subscribe(object : HttpSubscriber<List<BannerModel>>() {
-                override fun onNext(t: List<BannerModel>) {
-                    var downModel = t.find { it.bannerType == 1 }
-                    downModel?.let {
-                        Constant.POP_DOWNLOAD_URL = it.downloadUrl!!
-                        Constant.POP_PACKAGE = it.packageName!!
-                    }
-                    var advModel = t.find { it.bannerType == 0 }
-                    if (advModel != null) {
-                        MVPMessage.obtain(rootView!!, 1, advModel).handleMessageToTarget()
-                    } else {
-                        MVPMessage.obtain(rootView!!, 2).handleMessageToTarget()
-                    }
+            override fun onNext(t: List<BannerModel>) {
+                var downModel = t.find { it.bannerType == 1 }
+                downModel?.let {
+                    Constant.POP_DOWNLOAD_URL = it.downloadUrl!!
+                    Constant.POP_PACKAGE = it.packageName!!
                 }
-
-                override fun onError(e: Throwable) {
-                    super.onError(e)
-                    e.printStackTrace()
+                var advModel = t.find { it.bannerType == 0 }
+                if (advModel != null) {
+                    MVPMessage.obtain(rootView!!, 1, advModel).handleMessageToTarget()
+                } else {
                     MVPMessage.obtain(rootView!!, 2).handleMessageToTarget()
                 }
+            }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
+                e.printStackTrace()
+                MVPMessage.obtain(rootView!!, 2).handleMessageToTarget()
+            }
 
 
-            })
+        })
     }
 
     fun getUserInfo() {
         var phone = SPUtils.getInstance().getString(SPConstant.LOGIN_PHONE)
-        if(phone == null || phone.isNullOrEmpty()){
+        if (phone == null || phone.isNullOrEmpty()) {
             return
         }
         api.getUserInfo("", CodeRequest(phone)).subscribe(object : HttpSubscriber<UserInfo>() {
@@ -90,7 +90,9 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
             .subscribe(object : HttpSubscriber<VersionModel>() {
                 override fun onNext(t: VersionModel) {
                     if (t.serverwebUrl != null && !t.serverwebUrl.isNullOrEmpty()) {
-                        RetrofitUtils.domainName = t.serverwebUrl!!
+                        SPUtils.getInstance().put(SPConstant.DYNAMIC_DOMAIN_URL, t.serverwebUrl)
+                    } else {
+                        SPUtils.getInstance().put(SPConstant.DYNAMIC_DOMAIN_URL, com.moli.module.net.BuildConfig.DOMAIN_NAME)
                     }
                     SPUtils.getInstance().put(SPConstant.IS_DEBUG, t.isDebug ?: 0)
                     SPUtils.getInstance().put("version_model", Gson().toJson(t))

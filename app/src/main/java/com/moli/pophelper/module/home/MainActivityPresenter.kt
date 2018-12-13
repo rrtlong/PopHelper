@@ -5,11 +5,13 @@ import com.blankj.utilcode.util.SPUtils
 import com.moli.module.framework.mvp.BasePresenter
 import com.moli.module.framework.mvp.IView
 import com.moli.module.model.base.UserInfo
+import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.constant.SPConstant
 import com.moli.module.model.http.CodeRequest
 import com.moli.module.net.http.HttpSubscriber
 import com.moli.module.net.http.provider.APIService
 import com.moli.module.net.manager.UserManager
+import org.simple.eventbus.EventBus
 
 /**
  * 项目名称：PopHelper
@@ -36,6 +38,7 @@ class MainActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
                     override fun onNext(t: UserInfo) {
                         if (t != null) {
                             UserManager.refreshUserInfo(t, false)
+                            EventBus.getDefault().post("", EventConstant.REFRESH_USER_INFO)
                         }
                     }
 

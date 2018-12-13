@@ -144,7 +144,7 @@ class MineFragment : BaseMVPFragment<MineFragmentPresenter>(), IView {
         var user = UserManager.getSynSelf()
         if (user == null) {
             mlCover.loadImage("")
-            tvName.text = "点击绑定游戏账号"
+            tvName.text = "消消小助手"
         } else {
             mlCover.loadImage(user.iconImg)
             if (user.id == 100000L) {
@@ -161,11 +161,24 @@ class MineFragment : BaseMVPFragment<MineFragmentPresenter>(), IView {
 
     @Subscriber(tag = EventConstant.USER_LOGOUT)
     fun logout(msg: String) {
-        refreshView()
+        if (rootView != null) {
+            refreshView()
+        }
+
     }
 
     @Subscriber(tag = EventConstant.LOGIN_SUCCESS)
     fun loginSuccess(msg: String) {
-        refreshView()
+        if (rootView != null) {
+            refreshView()
+        }
+    }
+
+    @Subscriber(tag = EventConstant.REFRESH_USER_INFO)
+    fun refreshUser(msg: String) {
+        if (rootView != null) {
+            Timber.e("refresh mine data")
+            refreshView()
+        }
     }
 }

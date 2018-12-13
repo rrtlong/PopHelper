@@ -122,5 +122,7 @@ object SPConstant {
 
     const val IS_DEBUG = "is_debug"
 
+    const val DYNAMIC_DOMAIN_URL = "dynamic_domain_url"
+
 
 }

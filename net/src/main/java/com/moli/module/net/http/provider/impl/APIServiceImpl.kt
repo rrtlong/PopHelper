@@ -51,57 +51,67 @@ class APIServiceImpl : APIService {
 
     //helper/user/getPhoneAuth
     override fun getPhoneCode(url: String, codeRequest: CodeRequest): Observable<String> {
-        var url = RetrofitUtils.domainName + "helper/user/getPhoneAuth"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/user/getPhoneAuth"
         return api.getPhoneCode(url, codeRequest).toIoAndMain()
     }
 
 
     override fun login(url: String, login: ResonseLogin): Observable<UserInfo> {
-        var url = RetrofitUtils.domainName + "helper/user/register"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/user/register"
         return api.login(url, login).toIoAndMain()
     }
 
     override fun getBanner(url: String, bannerRequest: BannerRequest): Observable<List<BannerModel>> {
         var brand = SPUtils.getInstance().getString(SPConstant.DEVICE_BRAND, null)
         bannerRequest.phoneTyep = brand
-        var url = RetrofitUtils.domainName + "helper/config/bannerContent"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/config/bannerContent"
         return api.getBanner(url, bannerRequest).toIoAndMain()
     }
 
     override fun getStrategyList(url: String, responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
-        var url = RetrofitUtils.domainName + "helper/strategy/getStrategyList"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/strategy/getStrategyList"
         return api.getStrategyList(url, responseListPage).toIoAndMain()
     }
 
     override fun getRecommendList(url: String, responseListPage: ResponseListPage): Observable<List<StrategyModel>> {
-        var url = RetrofitUtils.domainName + "helper/strategy/getRecommendList"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/strategy/getRecommendList"
         return api.getRecommendList(url, responseListPage).toIoAndMain()
     }
 
     override fun getAppList(url: String, responseListPage: ResponseListPage): Observable<List<AppModel>> {
-        var url = RetrofitUtils.domainName + "helper/strategy/getSortRecommendList"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/strategy/getSortRecommendList"
         return api.getAppList(url, responseListPage).toIoAndMain()
     }
 
     override fun getGoodsList(url: String): Observable<List<GoodsModel>> {
-        var url = RetrofitUtils.domainName + "helper/recharge/rechargeConfig"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/recharge/rechargeConfig"
         return api.getGoodsList(url).toIoAndMain()
     }
 
 
     override fun sign(url: String): Observable<String> {
-        var url = RetrofitUtils.domainName + "helper/user/sign"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/user/sign"
         return api.sign(url).toIoAndMain()
     }
 
     override fun paySign(url: String, charge: ResponseOrder): Observable<String> {
-        var url = RetrofitUtils.domainName + "helper/recharge/createBilling"
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/recharge/createBilling"
         return api.paySign(url, charge).toIoAndMain()
     }
 
-    override fun getUserInfo(url: String,request: CodeRequest): Observable<UserInfo> {
-        var url = RetrofitUtils.domainName + "helper/user/getUserInfo"
-        return api.getUserInfo(url,request).toIoAndMain()
+    override fun getUserInfo(url: String, request: CodeRequest): Observable<UserInfo> {
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/user/getUserInfo"
+        return api.getUserInfo(url, request).toIoAndMain()
     }
 
 

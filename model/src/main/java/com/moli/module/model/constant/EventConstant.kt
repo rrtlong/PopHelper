@@ -311,7 +311,7 @@ object EventConstant {
 
     const val REFRESH_HOME_FRAGMENT_END = "refresh_home_fragment_end"
 
-     /** 开始视频播放
+    /** 开始视频播放
      */
     const val START_VIDEO = "start_video"
     /**
@@ -354,4 +354,9 @@ object EventConstant {
      * 下载跟新
      */
     const val DOWNLOAD_PROGRESS = "download_progress"
+
+    /**
+     * 刷新用户信息
+     */
+    const val REFRESH_USER_INFO = "refresh_user_info"
 }
