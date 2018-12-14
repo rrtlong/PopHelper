@@ -3,11 +3,14 @@ package com.moli.pophelper.module.home
 import android.Manifest
 import android.animation.ValueAnimator
 import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
+import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ScreenUtils
@@ -18,6 +21,7 @@ import com.moli.module.framework.mvp.MVPMessage
 import com.moli.module.framework.utils.LayoutManagerUtil
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.BannerModel
+import com.moli.module.model.base.UserInfo
 import com.moli.module.model.constant.EventConstant
 import com.moli.module.net.manager.UserManager
 import com.moli.module.widget.widget.BottomListener
@@ -61,11 +65,11 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
     override fun initData() {
         initBanner()
         presenter?.getBanner()
-        leftPoint = ctx.dip(30 + 2 + 3)
+        leftPoint = ctx.dip(30 + 2 + 7)
         rightPoint = ScreenUtils.getScreenWidth() - leftPoint
         deltaX = (rightPoint - leftPoint) / 7
         tvSign.isSelected = true
-        tvReward.text ="0"
+        tvReward.text = "0"
         refreshSign()
 
         ivLaunchGame.clicksThrottle().subscribe {
@@ -174,7 +178,7 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
     fun signAnim(day: Int, reset: Boolean = false) {
         var user = UserManager.getSynSelf()
         signing = true
-        var left = deltaX * (day + 1) + ctx.dip(12)
+        var left = deltaX * (day + 1) + ctx.dip(17)
         var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
         var oldLeft = param.leftMargin
         var valueAnim = ValueAnimator.ofInt(oldLeft, left)
@@ -184,19 +188,13 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
             ivCursor.layoutParams = param
             if (tempLeft == left) {
                 if (!reset) {
-                    if (user!!.signTimes == 0) {
-                        tvReward.text = user?.signConfig!![0].signText
-                    } else {
-                        tvReward.text = user?.signConfig!![user.signTimes].signText
-                    }
+                    setReward(user!!, user.signTimes + 1)
+                    setTips(user, user!!.signTimes + 1)
                     presenter?.sign()
                 } else {
                     signing = false
-                    if (user!!.signTimes == 0) {
-                        tvReward.text = "0"
-                    } else {
-                        tvReward.text = user?.signConfig!![user.signTimes - 1].signText
-                    }
+                    setReward(user!!, user.signTimes)
+                    setTips(user, user!!.signTimes)
                 }
             }
         }
@@ -238,25 +236,23 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
     @Subscriber(tag = EventConstant.USER_LOGOUT)
     fun logout(msg: String) {
         tvSign.isSelected = true
-        var left = ctx.dip(12)
+        var left = ctx.dip(17)
         var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
         param.leftMargin = left
         ivCursor.layoutParams = param
-        tvReward.text = "0"
+        setReward(null, 0)
+        setTips(null, 0)
     }
 
     fun refreshSign() {
         var user = UserManager.getSynSelf()
         user?.let {
-            if (it.signTimes == 0) {
-                tvReward.text = "0"
-            } else {
-                tvReward.text = it.signConfig!![it.signTimes - 1].signText
-                var left = deltaX * (it.signTimes) + ctx.dip(12)
-                var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
-                param.leftMargin = left
-                ivCursor.layoutParams = param
-            }
+            setReward(it, it.signTimes)
+            setTips(it, it.signTimes)
+            var left = deltaX * (it.signTimes) + ctx.dip(17)
+            var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
+            param.leftMargin = left
+            ivCursor.layoutParams = param
             if (it.signDate == null) {
                 tvSign.isSelected = true
             } else {
@@ -264,4 +260,61 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
             }
         }
     }
+
+    fun setTips(user: UserInfo?, day: Int) {
+        if (user == null) {
+            setTip(t1, v1, 0, "500", false)
+            setTip(t2, v2, 0, "500", false)
+            setTip(t3, v3, 0, "1000", false)
+            setTip(t4, v4, 0, "1000", false)
+            setTip(t5, v5, 0, "1500", false)
+            setTip(t6, v6, 0, "1500", false)
+            setTip(t7, v7, 0, "2500", false)
+        } else {
+            setTip(t1, v1, user.signConfig!![0].rewardType, user.signConfig!![0].rewardNum!!, day >= 1)
+            setTip(t2, v2, user.signConfig!![1].rewardType, user.signConfig!![1].rewardNum!!, day >= 2)
+            setTip(t3, v3, user.signConfig!![2].rewardType, user.signConfig!![2].rewardNum!!, day >= 3)
+            setTip(t4, v4, user.signConfig!![3].rewardType, user.signConfig!![3].rewardNum!!, day >= 4)
+            setTip(t5, v5, user.signConfig!![4].rewardType, user.signConfig!![4].rewardNum!!, day >= 5)
+            setTip(t6, v6, user.signConfig!![5].rewardType, user.signConfig!![5].rewardNum!!, day >= 6)
+            setTip(t7, v7, user.signConfig!![6].rewardType, user.signConfig!![6].rewardNum!!, day >= 7)
+        }
+    }
+
+    fun setTip(tv: TextView, iv: ImageView, type: Int, rewardNum: String, isFinish: Boolean) {
+        tv.setBackgroundResource(if (isFinish) R.drawable.shape_322200_corner_50 else R.drawable.shape_e2e2e2_corner_50)
+        tv.setTextColor(ContextCompat.getColor(ctx, if (isFinish) R.color.color_fdf055 else R.color.color_909090))
+        tv.text = rewardNum
+        var drawableId = if (type == 0) {
+            if (isFinish) R.drawable.icon_gold_light else R.drawable.icon_gold_dark
+        } else {
+            if (isFinish) R.drawable.icon_diamond_light else R.drawable.icon_diamond_drak
+        }
+        iv.setImageResource(drawableId)
+    }
+
+
+    fun setReward(user: UserInfo?, day: Int) {
+        var drawableId = 0
+        var reward = ""
+        if (day == 0) {
+            drawableId = R.drawable.icon_gold_light
+            reward = "0"
+        } else {
+            drawableId = if (user!!.signConfig!![day - 1].rewardType == 0) {
+                R.drawable.icon_gold_light
+            } else {
+                R.drawable.icon_diamond_light
+            }
+            reward = user!!.signConfig!![day - 1].rewardNum!!
+        }
+
+        var drawableLeft = resources.getDrawable(drawableId)
+        drawableLeft.setBounds(0, 0, drawableLeft.minimumWidth, drawableLeft.minimumHeight)
+        tvReward.setCompoundDrawables(drawableLeft, null, null, null)
+        tvReward.text = reward
+
+    }
+
+
 }

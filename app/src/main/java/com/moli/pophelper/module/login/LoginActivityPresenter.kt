@@ -44,10 +44,18 @@ class LoginActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
         api.login("", ResonseLogin(phone = phone, authCode = code)).bindToLifecycle(owner)
             .subscribe(object : HttpSubscriber<UserInfo>() {
                 override fun onNext(t: UserInfo) {
+                    t.signConfig?.forEach {
+                        if (it.signText.substring(it.signText.length - 2, it.signText.length) == "金币") {
+                            it.rewardType = 0
+                        } else {
+                            it.rewardType = 1
+                        }
+                        it.rewardNum = it.signText.substring(0, it.signText.length - 2)
+                    }
                     SPUtils.getInstance().put(SPConstant.LOGIN_PHONE, phone)
                     UserManager.refreshUserInfo(userInfo = t, hasAccessToken = false)
                     MVPMessage.obtain(rootView!!, 2, t).handleMessageToTarget()
-                    EventBus.getDefault().post("",EventConstant.LOGIN_SUCCESS)
+                    EventBus.getDefault().post("", EventConstant.LOGIN_SUCCESS)
                     Timber.e("user->${UserManager.getSynSelf().toString()}")
                 }
 

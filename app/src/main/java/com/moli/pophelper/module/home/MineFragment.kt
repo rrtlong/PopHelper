@@ -26,11 +26,14 @@ import com.moli.pophelper.utils.PageSkipUtils
 import com.moli.pophelper.utils.downloadPop
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.youth.banner.BannerConfig
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.ctx
 import org.simple.eventbus.Subscriber
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 /**
  * 项目名称：PopHelper
@@ -78,7 +81,11 @@ class MineFragment : BaseMVPFragment<MineFragmentPresenter>(), IView {
                 "取消",
                 object : CommonDialogWithoutTitle.DialogCallback {
                     override fun okCallback(dialog: DialogInterface?) {
-                        UserManager.logout()
+                        Observable.timer(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+                            .subscribe {
+                                UserManager.logout()
+                            }
+
                     }
 
                     override fun cancelCallback(dialog: DialogInterface?) {

@@ -75,9 +75,15 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
         }
         api.getUserInfo("", CodeRequest(phone)).subscribe(object : HttpSubscriber<UserInfo>() {
             override fun onNext(t: UserInfo) {
-                if (t != null) {
-                    UserManager.refreshUserInfo(t, false)
+                t.signConfig?.forEach {
+                    if (it.signText.substring(it.signText.length - 2, it.signText.length) == "金币") {
+                        it.rewardType = 0
+                    } else {
+                        it.rewardType = 1
+                    }
+                    it.rewardNum = it.signText.substring(0, it.signText.length - 2)
                 }
+                UserManager.refreshUserInfo(t, false)
             }
 
         })
@@ -92,7 +98,8 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
                     if (t.serverwebUrl != null && !t.serverwebUrl.isNullOrEmpty()) {
                         SPUtils.getInstance().put(SPConstant.DYNAMIC_DOMAIN_URL, t.serverwebUrl)
                     } else {
-                        SPUtils.getInstance().put(SPConstant.DYNAMIC_DOMAIN_URL, com.moli.module.net.BuildConfig.DOMAIN_NAME)
+                        SPUtils.getInstance()
+                            .put(SPConstant.DYNAMIC_DOMAIN_URL, com.moli.module.net.BuildConfig.DOMAIN_NAME)
                     }
                     SPUtils.getInstance().put(SPConstant.IS_DEBUG, t.isDebug ?: 0)
                     SPUtils.getInstance().put("version_model", Gson().toJson(t))

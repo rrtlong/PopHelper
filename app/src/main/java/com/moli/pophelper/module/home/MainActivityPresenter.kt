@@ -37,6 +37,14 @@ class MainActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
                 api.getUserInfo("", CodeRequest(phone)).subscribe(object : HttpSubscriber<UserInfo>() {
                     override fun onNext(t: UserInfo) {
                         if (t != null) {
+                            t.signConfig?.forEach {
+                                if (it.signText.substring(it.signText.length - 2, it.signText.length) == "金币") {
+                                    it.rewardType = 0
+                                } else {
+                                    it.rewardType = 1
+                                }
+                                it.rewardNum = it.signText.substring(0, it.signText.length - 2)
+                            }
                             UserManager.refreshUserInfo(t, false)
                             EventBus.getDefault().post("", EventConstant.REFRESH_USER_INFO)
                         }
