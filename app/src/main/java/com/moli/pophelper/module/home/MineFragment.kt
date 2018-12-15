@@ -73,6 +73,9 @@ class MineFragment : BaseMVPFragment<MineFragmentPresenter>(), IView {
                 }
             }
         }
+
+        tvFeedback.clicksThrottle().subscribe { PageSkipUtils.skipFeedback() }
+        tvSet.clicksThrottle().subscribe{PageSkipUtils.skipSet()}
         tvExit.clicksThrottle().subscribe {
             CommonDialogWithoutTitle.showConfirm(
                 ctx,

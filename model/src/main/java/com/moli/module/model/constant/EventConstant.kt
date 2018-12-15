@@ -359,4 +359,9 @@ object EventConstant {
      * 刷新用户信息
      */
     const val REFRESH_USER_INFO = "refresh_user_info"
+
+    /**
+     * 已是最新版本
+     */
+    const val BE_LATEST_VERSION = "be_latest_version"
 }

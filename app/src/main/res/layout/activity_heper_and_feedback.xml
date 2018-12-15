@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            android:paddingLeft="@dimen/dp_10"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:paddingRight="@dimen/dp_13"
+            android:src="@drawable/icon_back_red"/>
+
+    <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            android:text="帮助与反馈"
+            android:gravity="center_vertical"
+            app:layout_constraintLeft_toRightOf="@id/ivBack"
+            android:textSize="@dimen/sp_17"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/color_2e2e2e"/>
+
+
+    <View
+            android:id="@+id/topLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:background="@color/color_dddddd"/>
+
+    <TextView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_4"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/color_050505"
+            app:layout_constraintTop_toBottomOf="@id/topLine"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="联系官方"/>
+
+    <TextView
+            android:id="@+id/tvTip1"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginRight="@dimen/dp_4"
+            android:gravity="left"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/color_050505"
+            app:layout_constraintTop_toBottomOf="@id/title1"
+            android:text="1、官方用户QQ群（群号：531783918），加入官方QQ群与群管理员沟通。"/>
+
+    <TextView
+            android:id="@+id/tvTip2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/dp_4"
+            android:gravity="left"
+            android:textColor="@color/color_050505"
+            android:textSize="@dimen/sp_13"
+            android:layout_marginTop="@dimen/dp_4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTip1"
+            android:text="2、官方公众微信号，通过微信搜索&quot;莫离游戏&quot;关注公众号进行与官方客服沟通。"/>
+
+
+</android.support.constraint.ConstraintLayout>

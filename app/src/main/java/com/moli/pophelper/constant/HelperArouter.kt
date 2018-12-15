@@ -15,18 +15,34 @@ object HelperArouter {
         object MainActivity {
             const val PATH = "/home/Main"
         }
+
         object StrategyListActivity {
             const val PATH = "/list/strategy"
         }
+
         object GeneralWebActivity {
             const val PATH = "/web/general"
             const val TITLE = "title"
             const val URL = "url"
             const val IS_URL_COMPLETE = "isUrlComplete"
         }
+
         object LoginActivity {
             const val PATH = "/login/code"
         }
+
+        object HelperAndFeedback {
+            const val PATH = "/mine/feedback"
+        }
+
+        object SetActivity {
+            const val PATH = "/mine/set"
+        }
+
+        object AboutUsActivity {
+            const val PATH = "/mine/aboutus"
+        }
+
     }
 
     object Fragment {

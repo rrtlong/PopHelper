@@ -47,4 +47,16 @@ object PageSkipUtils {
     fun skipCodeLogin() {
         ARouter.getInstance().build(HelperArouter.Activity.LoginActivity.PATH).navigation()
     }
+
+    fun skipFeedback() {
+        ARouter.getInstance().build(HelperArouter.Activity.HelperAndFeedback.PATH).navigation()
+    }
+
+    fun skipAboutUs() {
+        ARouter.getInstance().build(HelperArouter.Activity.AboutUsActivity.PATH).navigation()
+    }
+
+    fun skipSet() {
+        ARouter.getInstance().build(HelperArouter.Activity.SetActivity.PATH).navigation()
+    }
 }

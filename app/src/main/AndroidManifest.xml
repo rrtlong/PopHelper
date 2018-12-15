@@ -57,17 +57,26 @@
         <activity
                 android:name=".module.web.GeneralWebActivity"
                 android:screenOrientation="portrait"/>
+
+        <activity android:name=".module.mine.HelperAndFeedbackActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".module.mine.SetActivity"
+                  android:screenOrientation="portrait"/>
+
+        <activity android:name=".module.mine.AboutUsActivity"
+                  android:screenOrientation="portrait"/>
         <service
                 android:name=".update.services.DownloadService"
                 android:enabled="true"
-                android:exported="false" />
+                android:exported="false"/>
 
         <meta-data
                 android:name="UMENG_APPKEY"
-                android:value="5c0bafd9f1f5564ef10002fb" />
+                android:value="5c0bafd9f1f5564ef10002fb"/>
         <meta-data
                 android:name="UMENG_CHANNEL"
-                android:value="${channelID}" />
+                android:value="${channelID}"/>
     </application>
 
 </manifest>

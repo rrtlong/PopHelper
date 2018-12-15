@@ -65,11 +65,10 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
     override fun initData() {
         initBanner()
         presenter?.getBanner()
-        leftPoint = ctx.dip(30 + 2 + 7)
+        leftPoint = ctx.dip(30 + 2 + 6)
         rightPoint = ScreenUtils.getScreenWidth() - leftPoint
-        deltaX = (rightPoint - leftPoint) / 7
+        deltaX = (rightPoint - leftPoint) / 6
         tvSign.isSelected = true
-        tvReward.text = "0"
         refreshSign()
 
         ivLaunchGame.clicksThrottle().subscribe {
@@ -164,6 +163,7 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
         if (signing) {
             return
         }
+        signing = true
         var user = UserManager.getSynSelf()
         user?.let {
             if (it.signDate != null && TimeUtils.isToday(it.signDate!!)) {
@@ -177,8 +177,18 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
     var signing = false
     fun signAnim(day: Int, reset: Boolean = false) {
         var user = UserManager.getSynSelf()
-        signing = true
-        var left = deltaX * (day + 1) + ctx.dip(17)
+        if (!reset && day == 0) {
+            setReward(user!!, 1)
+            setTips(user, 1)
+            presenter?.sign()
+            return
+        } else if (reset && day == -1) {
+            setReward(user!!, 0)
+            setTips(user, 0)
+            return
+        }
+
+        var left = deltaX * (day) + ctx.dip(17)
         var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
         var oldLeft = param.leftMargin
         var valueAnim = ValueAnimator.ofInt(oldLeft, left)
@@ -235,24 +245,20 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
 
     @Subscriber(tag = EventConstant.USER_LOGOUT)
     fun logout(msg: String) {
-        tvSign.isSelected = true
-        var left = ctx.dip(17)
-        var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
-        param.leftMargin = left
-        ivCursor.layoutParams = param
-        setReward(null, 0)
-        setTips(null, 0)
+        refreshSign()
     }
 
     fun refreshSign() {
         var user = UserManager.getSynSelf()
+        if (user == null) {
+            setReward(null, 0)
+            setTips(null, 0)
+            tvSign.isSelected = true
+            return
+        }
         user?.let {
             setReward(it, it.signTimes)
             setTips(it, it.signTimes)
-            var left = deltaX * (it.signTimes) + ctx.dip(17)
-            var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
-            param.leftMargin = left
-            ivCursor.layoutParams = param
             if (it.signDate == null) {
                 tvSign.isSelected = true
             } else {
@@ -300,7 +306,12 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
         if (day == 0) {
             drawableId = R.drawable.icon_gold_light
             reward = "0"
+            setCursorPosition(0)
+            setCursorShow(false)
         } else {
+            var left = deltaX * (day - 1) + ctx.dip(17)
+            setCursorPosition(left)
+            setCursorShow(true)
             drawableId = if (user!!.signConfig!![day - 1].rewardType == 0) {
                 R.drawable.icon_gold_light
             } else {
@@ -316,5 +327,16 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
 
     }
 
+    fun setCursorShow(isShow: Boolean) {
+        tvReward.visibility = if (isShow) View.VISIBLE else View.INVISIBLE
+        ivCursor.visibility = if (isShow) View.VISIBLE else View.INVISIBLE
+    }
+
+    fun setCursorPosition(lpx:Int) {
+        var left = lpx
+        var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
+        param.leftMargin = left
+        ivCursor.layoutParams = param
+    }
 
 }
