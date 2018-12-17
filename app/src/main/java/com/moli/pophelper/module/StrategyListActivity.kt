@@ -20,9 +20,8 @@ import com.moli.pophelper.R
 import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.constant.Constant
 import com.moli.pophelper.utils.downloadPop
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.layout_refresh.*
+import kotlinx.android.synthetic.main.activity_strategy_list.*
 import org.simple.eventbus.Subscriber
 
 /**
@@ -39,7 +38,7 @@ import org.simple.eventbus.Subscriber
 class StrategyListActivity : BaseMVPActivity<StrategyListActivityPresenter>(), IListView {
     val downloadDialog by lazy { DownloadProcessDialog(this) }
     override val layoutResId: Int
-        get() = R.layout.layout_refresh
+        get() = R.layout.activity_strategy_list
 
     override fun initData(savedInstanceState: Bundle?) {
         ivBack.clicksThrottle().subscribe { finish() }

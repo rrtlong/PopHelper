@@ -52,8 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
             android:visibility="visible"
+            android:layout_marginLeft="@dimen/dp_16"
             app:layout_constraintTop_toBottomOf="@+id/tvOrder"
-            android:background="@color/color_f9f9f9"/>
+            android:background="@color/color_ededed"/>
 
     <TextView
             android:id="@+id/tvAboutUs"
@@ -69,4 +70,12 @@
             android:textSize="@dimen/sp_16"
             android:drawableRight="@drawable/icon_more"
             android:gravity="center_vertical|left"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:visibility="visible"
+            android:layout_marginLeft="@dimen/dp_16"
+            app:layout_constraintTop_toBottomOf="@+id/tvOrder"
+            android:background="@color/color_ededed"/>
 </LinearLayout>

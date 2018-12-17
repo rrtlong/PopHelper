@@ -22,7 +22,6 @@ import com.moli.module.model.constant.SPConstant
 import com.moli.module.model.http.ResponseOrder
 import com.moli.module.net.imageloader.loadImage
 import com.moli.module.net.manager.UserManager
-import com.moli.module.router.RewardRouter
 import com.moli.module.widget.widget.dialog.DownloadProcessDialog
 import com.moli.pophelper.MainActivity
 import com.moli.pophelper.R
@@ -154,57 +153,13 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
                 if (goods?.size ?: 0 > 0) {
                     ivGood1.loadImage(goods!![0].imge)
                     ivGood1.clicksThrottle().subscribe {
-                        if (!UserManager.isLogin()) {
-                            PageSkipUtils.skipCodeLogin()
-                            return@subscribe
-                        }
-                        if (!UserManager.isBind()) {
-                            showMessage("请绑定游戏账号")
-                            installOrLauncher()
-                            return@subscribe
-                        }
-                        val charge = ResponseOrder(
-                            goodsId = goods!![0].id,
-                            userId = UserManager.getSynSelf()?.id
-                        )
-
-                        val fragmentManager = childFragmentManager
-                        fragmentManager.let {
-                            val ft = it.beginTransaction()
-                            ft.add(
-                                FragmentNavigationUtils.payTypeListFragment(charge),
-                                RewardRouter.Fragment.PayTypeList.PATH
-                            )
-                            ft.commitAllowingStateLoss()
-                        }
+                        openPayFragment(goods!![0])
                     }
                 }
                 if (goods?.size ?: 0 > 1) {
                     ivGood2.loadImage(goods!![1].imge)
                     ivGood2.clicksThrottle().subscribe {
-                        if (!UserManager.isLogin()) {
-                            PageSkipUtils.skipCodeLogin()
-                            return@subscribe
-                        }
-                        if (!UserManager.isBind()) {
-                            showMessage("请绑定游戏账号")
-                            installOrLauncher()
-                            return@subscribe
-                        }
-                        val charge = ResponseOrder(
-                            goodsId = goods!![1].id,
-                            userId = UserManager.getSynSelf()?.id
-                        )
-
-                        val fragmentManager = childFragmentManager
-                        fragmentManager.let {
-                            val ft = it.beginTransaction()
-                            ft.add(
-                                FragmentNavigationUtils.payTypeListFragment(charge),
-                                RewardRouter.Fragment.PayTypeList.PATH
-                            )
-                            ft.commitAllowingStateLoss()
-                        }
+                        openPayFragment(goods!![1])
                     }
                 }
             }
@@ -226,5 +181,38 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
                     showMessage("请打开写内存权限")
                 }
             }
+    }
+
+    fun openPayFragment(goodsModel: GoodsModel) {
+        if (!checkSkip()) return
+
+        val orderRequest = ResponseOrder(
+            goodsId = goodsModel.id,
+            userId = UserManager.getSynSelf()?.id
+        )
+
+        val fragmentManager = childFragmentManager
+        fragmentManager.let {
+            val ft = it.beginTransaction()
+            ft.add(
+                FragmentNavigationUtils.payFragment(orderRequest),
+                HelperArouter.Fragment.PayFragment.PATH
+            )
+            ft.commitAllowingStateLoss()
+        }
+    }
+
+    fun checkSkip(): Boolean {
+        var canSkip = false
+        if (!UserManager.isLogin()) {
+            PageSkipUtils.skipCodeLogin()
+            return canSkip
+        }
+        if (!UserManager.isBind()) {
+            showMessage("请绑定游戏账号")
+            installOrLauncher()
+            return canSkip
+        }
+        return true
     }
 }

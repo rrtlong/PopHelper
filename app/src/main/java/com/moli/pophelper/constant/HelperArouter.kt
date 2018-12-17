@@ -43,6 +43,22 @@ object HelperArouter {
             const val PATH = "/mine/aboutus"
         }
 
+        /**
+         * 零钱记录
+         */
+        object ChangeRecordActivity {
+            const val PATH = "/record/change"
+            const val TYPE = "type" //0:零钱记录 1：钻石记录
+        }
+
+        /**
+         * 体现
+         */
+        object GetCashActivity {
+            const val PATH = "/money/getCash"
+        }
+
+
     }
 
     object Fragment {
@@ -68,6 +84,21 @@ object HelperArouter {
         object PayTypeList {
             const val PATH = "/main/payTypeList"
             const val PAY_DATA = "payData"
+        }
+
+        /**
+         * 支付宝，微信支付fragment
+         */
+        object PayFragment {
+            const val PATH = "/pay/fragment"
+            const val ORDER_REQUEST = "orderRequest"
+        }
+
+        /**
+         * 兑换钻石弹框fragment
+         */
+        object ExchangeDiamondFragment {
+            const val PATH = "/exchange/diamond"
         }
 
     }

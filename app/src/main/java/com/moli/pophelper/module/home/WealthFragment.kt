@@ -16,7 +16,6 @@ import com.moli.module.model.base.GoodsModel
 import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.http.ResponseOrder
 import com.moli.module.net.manager.UserManager
-import com.moli.module.router.RewardRouter
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.Constant
 import com.moli.pophelper.constant.Constant.POP_DOWNLOAD_URL
@@ -53,52 +52,36 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
             installOrLauncher()
         }
 
+
         ivMoney.clicksThrottle().subscribe {
-            if (!UserManager.isLogin()) {
-                PageSkipUtils.skipCodeLogin()
-                return@subscribe
-            }
-            if (!UserManager.isBind()) {
-                showMessage("请绑定游戏账号")
-                installOrLauncher()
-                return@subscribe
+            //零钱记录
+            if (checkSkip()) {
+                PageSkipUtils.skipChangeRecord(0)
             }
         }
+
         ivDiamond.clicksThrottle().subscribe {
-            if (!UserManager.isLogin()) {
-                PageSkipUtils.skipCodeLogin()
-                return@subscribe
-            }
-            if (!UserManager.isBind()) {
-                showMessage("请绑定游戏账号")
-                installOrLauncher()
-                return@subscribe
+            //钻石记录
+            if (checkSkip()) {
+                PageSkipUtils.skipChangeRecord(1)
             }
         }
+
         tvReflect.clicksThrottle().subscribe {
-            if (!UserManager.isLogin()) {
-                PageSkipUtils.skipCodeLogin()
-                return@subscribe
-            }
-            if (!UserManager.isBind()) {
-                showMessage("请绑定游戏账号")
-                installOrLauncher()
-                return@subscribe
+            //体现
+            if (checkSkip()) {
+                PageSkipUtils.skipGetCash()
             }
         }
 
         tvExchangeDiamond.clicksThrottle().subscribe {
-            if (!UserManager.isLogin()) {
-                PageSkipUtils.skipCodeLogin()
-                return@subscribe
-            }
-            if (!UserManager.isBind()) {
-                showMessage("请绑定游戏账号")
-                installOrLauncher()
-                return@subscribe
+            //换钻石
+            if (checkSkip()) {
+                childFragmentManager.beginTransaction()
+                    .add(FragmentNavigationUtils.exchangeDiamond(), HelperArouter.Fragment.ExchangeDiamondFragment.PATH)
+                    .commitAllowingStateLoss()
             }
         }
-
     }
 
     override fun createPresenter(): WealthFragmentPresenter? {
@@ -116,7 +99,7 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
                 }
                 Timber.e("pay click good")
                 val good = message.obj as GoodsModel
-                val charge = ResponseOrder(
+                val orderRequest = ResponseOrder(
                     goodsId = good.id,
                     userId = UserManager.getSynSelf()?.id
                 )
@@ -124,7 +107,7 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
                 val fragmentManager = childFragmentManager
                 fragmentManager.let {
                     val ft = it.beginTransaction()
-                    ft.add(FragmentNavigationUtils.payTypeListFragment(charge), RewardRouter.Fragment.PayTypeList.PATH)
+                    ft.add(FragmentNavigationUtils.payFragment(orderRequest), HelperArouter.Fragment.PayFragment.PATH)
                     ft.commitAllowingStateLoss()
                 }
             }
@@ -138,7 +121,6 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
     override fun getRecyclerView(): RecyclerView {
         return recyclerView
     }
-
 
 
     override fun useEventBus(): Boolean {
@@ -178,10 +160,23 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
             tvMoney.text = "0"
             tvDiamond.text = "0"
         } else {
-            tvMoney.text = formatNumberWithCommaSplit(user?.change, 2)
+            tvMoney.text = formatNumberWithCommaSplit(user?.change!! / 100.0, 2)
             tvDiamond.text = formatNumberWithCommaSplit(user?.cash, 0)
         }
     }
 
+    fun checkSkip(): Boolean {
+        var canSkip = false
+        if (!UserManager.isLogin()) {
+            PageSkipUtils.skipCodeLogin()
+            return canSkip
+        }
+        if (!UserManager.isBind()) {
+            showMessage("请绑定游戏账号")
+            installOrLauncher()
+            return canSkip
+        }
+        return true
+    }
 
 }

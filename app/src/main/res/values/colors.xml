@@ -26,4 +26,10 @@
     <color name="color_fdf055">#fdf055</color>
     <color name="color_e2e2e2">#e2e2e2</color>
     <color name="color_322200">#322200</color>
+    <color name="color_777575_10">#1a777575</color>
+    <color name="color_reduce">@color/color_fe6257</color>
+    <color name="color_add">#7ed321</color>
+    <color name="color_fa3e6f">#FA3E6F</color>
+    <color name="color_eaeaea">#eaeaea</color>
+    <color name="color_fafafa">#fafafa</color>
 </resources>

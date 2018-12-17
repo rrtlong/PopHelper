@@ -8,7 +8,9 @@ import com.moli.pophelper.module.home.ActivityFragment
 import com.moli.pophelper.module.home.HomeFragment
 import com.moli.pophelper.module.home.MineFragment
 import com.moli.pophelper.module.home.WealthFragment
+import com.moli.pophelper.module.pay.PayFragment
 import com.moli.pophelper.module.pay.PayTypeListFragment
+import com.moli.pophelper.module.wealth.ExchangeDiamondFragment
 
 /**
  * 项目名称：PopHelper
@@ -37,6 +39,7 @@ object FragmentNavigationUtils {
     fun mineFragment(): MineFragment {
         return ARouter.getInstance().build(HelperArouter.Fragment.MineFragment.PATH).navigation(Utils.getApp()) as MineFragment
     }
+
     /**
      * 支付菜单
      */
@@ -44,5 +47,14 @@ object FragmentNavigationUtils {
         return ARouter.getInstance().build(HelperArouter.Fragment.PayTypeList.PATH)
             .withParcelable(HelperArouter.Fragment.PayTypeList.PAY_DATA, order)
             .navigation() as PayTypeListFragment
+    }
+
+    fun payFragment(order: ResponseOrder): PayFragment {
+        return ARouter.getInstance().build(HelperArouter.Fragment.PayFragment.PATH)
+            .withParcelable(HelperArouter.Fragment.PayFragment.ORDER_REQUEST, order).navigation() as PayFragment
+    }
+
+    fun exchangeDiamond(): ExchangeDiamondFragment {
+        return ARouter.getInstance().build(HelperArouter.Fragment.ExchangeDiamondFragment.PATH).navigation() as ExchangeDiamondFragment
     }
 }

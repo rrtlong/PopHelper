@@ -81,5 +81,8 @@ interface API {
     @POST
     fun getUserInfo(@Url url: String, @Body request: CodeRequest): Observable<UserInfo>
 
+    @POST  ///moli_helper/helper/user/moneyLog
+    fun getRecordList(@Url url:String, @Body request: RecordRequest): Observable<List<RecordModel>>
+
 
 }

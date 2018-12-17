@@ -2,6 +2,7 @@ package com.moli.pophelper.utils
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
+import com.moli.module.net.manager.UserManager
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.HelperArouter
 
@@ -59,4 +60,14 @@ object PageSkipUtils {
     fun skipSet() {
         ARouter.getInstance().build(HelperArouter.Activity.SetActivity.PATH).navigation()
     }
+
+    fun skipChangeRecord(type: Int) {
+        ARouter.getInstance().build(HelperArouter.Activity.ChangeRecordActivity.PATH)
+            .withInt(HelperArouter.Activity.ChangeRecordActivity.TYPE, type).navigation()
+    }
+
+    fun skipGetCash() {
+        ARouter.getInstance().build(HelperArouter.Activity.GetCashActivity.PATH).navigation()
+    }
+
 }

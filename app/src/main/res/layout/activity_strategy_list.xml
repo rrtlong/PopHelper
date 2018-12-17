@@ -20,12 +20,21 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_38"
-            android:text="标题"
+            android:text="攻略站"
             android:gravity="center_vertical"
             app:layout_constraintLeft_toRightOf="@id/ivBack"
             android:textSize="@dimen/sp_17"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/color_2e2e2e"/>
+
+    <ImageView
+            android:id="@+id/ivLaunchGame"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_38"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingRight="@dimen/dp_14"
+            android:src="@drawable/icon_launcher_game"/>
 
     <View
             android:id="@+id/topLine"
@@ -46,7 +55,7 @@
             cube_ptr:ptr_keep_header_when_refresh="true"
             cube_ptr:ptr_pull_to_fresh="false"
             cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-            cube_ptr:ptr_resistance="2.7">
+            cube_ptr:ptr_resistance="1.7">
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

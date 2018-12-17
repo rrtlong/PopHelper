@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -15,94 +14,92 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alipay.sdk.app.PayTask
 import com.moli.module.framework.base.BaseMVPDialogFragment
-import com.moli.module.framework.mvp.IListView
+import com.moli.module.framework.mvp.IView
 import com.moli.module.framework.mvp.MVPMessage
-import com.moli.module.framework.utils.LayoutManagerUtil
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.http.ResponseOrder
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.HelperArouter
+import com.moli.pophelper.module.pay.PayTypeListFragment.Companion.SDK_AUTH_FLAG
+import com.moli.pophelper.module.pay.PayTypeListFragment.Companion.SDK_PAY_FLAG
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
-import kotlinx.android.synthetic.main.fragment_pay_list_layout.*
+import kotlinx.android.synthetic.main.fragment_dialog_pay.*
 import org.jetbrains.anko.support.v4.ctx
 import org.json.JSONObject
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
 /**
- * 项目名称：Reward-App
+ * 项目名称：PopHelper
  * 类描述：
- * 创建人：yuliyan
- * 创建时间：2018/10/10 上午11:51
- * 修改人：yuliyan
- * 修改时间：2018/10/10 上午11:51
- * 修改备注：支付列表fragment，支持多中支付
+ * 创建人：lijilong
+ * 创建时间：2018/12/17 11:50
+ * 修改人：lijilong
+ * 修改时间：2018/12/17 11:50
+ * 修改备注：支付包，微信支付fragmnet
  * @version
  */
-@Route(path = HelperArouter.Fragment.PayTypeList.PATH)
-class PayTypeListFragment : BaseMVPDialogFragment<PayTypeListFragmentPresenter>(), IListView {
-    companion object {
-        const val SDK_PAY_FLAG = 1
-        const val SDK_AUTH_FLAG = 2
-    }
-
-    private lateinit var mHandler: MyHandler
+@Route(path = HelperArouter.Fragment.PayFragment.PATH)
+class PayFragment : BaseMVPDialogFragment<PayFragmentPresenter>(), IView {
+    private lateinit var mHandler: PayFragment.MyHandler
+    val SDK_PAY_FLAG = 1
+    val SDK_AUTH_FLAG = 2
 
     @JvmField
     @Autowired
-    var payData: ResponseOrder? = null
+    var orderRequest: ResponseOrder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.MLBottomDialogDark)
-        mHandler = MyHandler(this)
+        mHandler = PayFragment.MyHandler(this)
     }
 
+
     override fun initView(inflater: LayoutInflater, container: ViewGroup?): View? {
-        return inflater.inflate(R.layout.fragment_pay_list_layout, container, false)
+        return inflater.inflate(R.layout.fragment_dialog_pay, container, false)
     }
 
     override fun initData() {
         dialog?.window?.let {
             it.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             it.setGravity(Gravity.BOTTOM)
+            it.setWindowAnimations(R.style.windowBottom300)
         }
         dialog?.setCanceledOnTouchOutside(true)
         ivClose.clicksThrottle().subscribe {
             dismiss()
         }
+        ivWx.clicksThrottle().subscribe {
+            presenter?.requestOrder(1)
+        }
+        ivZfb.clicksThrottle().subscribe {
+            presenter?.requestOrder(0)
+        }
     }
 
-    override fun createPresenter(): PayTypeListFragmentPresenter? {
-        return PayTypeListFragmentPresenter(this, payData)
+    override fun createPresenter(): PayFragmentPresenter? {
+        return PayFragmentPresenter(this, orderRequest!!)
     }
-
 
     override fun handleMessage(message: MVPMessage) {
         super.handleMessage(message)
         when (message.what) {
+            0 -> {
+                val jsonStr = message.obj as String
+                Timber.e("zfb jsonstr=$jsonStr")
+                payZfb(jsonStr)
+            }
+
             1 -> {
                 val jsonStr = message.obj as String
                 Timber.e("wx str=$jsonStr")
                 payWx(jsonStr)
                 dismiss()
             }
-            0 -> {
-                val jsonStr = message.obj as String
-                Timber.e("zfb jsonstr=$jsonStr")
-                payZfb(jsonStr)
-            }
+
         }
-    }
-
-
-    override fun getLayoutManager(): RecyclerView.LayoutManager {
-        return LayoutManagerUtil.getLinearLayoutManager(ctx)
-    }
-
-    override fun getRecyclerView(): RecyclerView {
-        return recyclerView
     }
 
 
@@ -129,14 +126,14 @@ class PayTypeListFragment : BaseMVPDialogFragment<PayTypeListFragmentPresenter>(
      */
     fun payZfb(orderInfo: String) {
         val payRunnable = Runnable {
-            val alipay = PayTask(this@PayTypeListFragment.activity)
+            val alipay = PayTask(this@PayFragment.activity)
             var json = JSONObject(orderInfo)
             var rechargeInfo = json.getString("rechargeInfo")
             val result = alipay.payV2(rechargeInfo, true)
             Log.i("msp", result.toString())
 
             val msg = Message()
-            msg.what = Companion.SDK_PAY_FLAG
+            msg.what = PayTypeListFragment.SDK_PAY_FLAG
             msg.obj = result
             mHandler.sendMessage(msg)
         }
@@ -156,14 +153,14 @@ class PayTypeListFragment : BaseMVPDialogFragment<PayTypeListFragmentPresenter>(
             req.timeStamp = json.getString("timestamp")
             req.packageValue = json.getString("package")
             req.sign = json.getString("sign")
-            var api = WXAPIFactory.createWXAPI(this@PayTypeListFragment.context, req.appId)
+            var api = WXAPIFactory.createWXAPI(this@PayFragment.context, req.appId)
             api.sendReq(req)
         }
     }
 
-    internal class MyHandler(fragment: PayTypeListFragment) : Handler() {
+    internal class MyHandler(fragment: PayFragment) : Handler() {
         // WeakReference to the outer class's instance.
-        var mOuter: WeakReference<PayTypeListFragment> = WeakReference<PayTypeListFragment>(fragment)
+        var mOuter: WeakReference<PayFragment> = WeakReference<PayFragment>(fragment)
 
         override fun handleMessage(msg: Message): Unit {
             val outer = mOuter.get()

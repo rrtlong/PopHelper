@@ -14,6 +14,7 @@ import com.moli.module.net.http.cache.APICache
 import com.moli.module.net.http.provider.APIService
 import com.moli.module.net.json.jolyglot
 import com.moli.module.router.RewardRouter
+import com.qiniu.android.dns.Domain
 import io.reactivex.Observable
 import io.rx_cache2.internal.RxCache
 import timber.log.Timber
@@ -112,6 +113,12 @@ class APIServiceImpl : APIService {
         var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
         var url = domain + "helper/user/getUserInfo"
         return api.getUserInfo(url, request).toIoAndMain()
+    }
+
+    override fun getRecordList(url: String, request: RecordRequest): Observable<List<RecordModel>> {
+        var domain = SPUtils.getInstance().getString(SPConstant.DYNAMIC_DOMAIN_URL)
+        var url = domain + "helper/user/moneyLog"
+        return api.getRecordList(url, request).toIoAndMain()
     }
 
 

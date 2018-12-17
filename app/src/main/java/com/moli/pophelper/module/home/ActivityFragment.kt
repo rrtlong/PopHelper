@@ -95,6 +95,8 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
         })
 
 
+
+
     }
 
     override fun createPresenter(): ActivityFragmentPresenter? {

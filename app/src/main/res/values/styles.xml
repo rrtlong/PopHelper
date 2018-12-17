@@ -73,6 +73,16 @@
         <item name="android:activityOpenEnterAnimation">@anim/alpha_in</item>
     </style>
 
+    <style name="windowBottom300">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_300</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_300</item>
+    </style>
+
+    <style name="windowScale300">
+        <item name="android:windowEnterAnimation">@anim/scale_in_300</item>
+        <item name="android:windowExitAnimation">@anim/scale_out_300</item>
+    </style>
+
     <style name="MainTheme.Transparent">
         <item name="android:windowIsTranslucent">true</item>
         <!-- 半透明 -->

@@ -106,6 +106,35 @@ private fun installAPk(apkFile: File) {
  * @param number 12345678.12345
  * @return 123, 456, 78.12345
  */
+fun formatNumberWithCommaSplit(number: Double?, decimalNumber: Int): String {
+    if (number == null) {
+        if (decimalNumber == 0) {
+            return "0"
+        } else if (decimalNumber == 1) {
+            return "0.0"
+        } else if (decimalNumber == 2) {
+            return "0.00"
+        } else if (decimalNumber == 3) {
+            return "0.000"
+        } else if (decimalNumber == 4) {
+            return "0.0000"
+        }
+        return ""
+    }
+    val numberFormat = NumberFormat.getInstance()
+    numberFormat.roundingMode = RoundingMode.HALF_UP
+    numberFormat.isGroupingUsed = true//使用000,000,00.0000方式显示
+    numberFormat.minimumFractionDigits = decimalNumber//设置固定4位小数位
+    numberFormat.maximumFractionDigits = decimalNumber
+    return numberFormat.format(number)
+
+}
+
+/***
+ * //格式化数字，用逗号分割
+ * @param number 12345678.12345
+ * @return 123, 456, 78.12345
+ */
 fun formatNumberWithCommaSplit(number: Long?, decimalNumber: Int): String {
     if (number == null) {
         if (decimalNumber == 0) {

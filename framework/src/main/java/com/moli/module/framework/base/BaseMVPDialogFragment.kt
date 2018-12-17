@@ -58,11 +58,14 @@ abstract class BaseMVPDialogFragment<P : IPresenter> : DialogFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         rootView = initView(inflater, container)
         return rootView
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -86,9 +89,9 @@ abstract class BaseMVPDialogFragment<P : IPresenter> : DialogFragment() {
      */
     fun autoClose(seconds: Int) {
         Observable.timer(seconds.toLong(), TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .bindToLifecycle(this)
-                .subscribe { dismissAllowingStateLoss() }
+            .observeOn(AndroidSchedulers.mainThread())
+            .bindToLifecycle(this)
+            .subscribe { dismissAllowingStateLoss() }
     }
 
     /**

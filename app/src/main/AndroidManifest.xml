@@ -66,6 +66,11 @@
 
         <activity android:name=".module.mine.AboutUsActivity"
                   android:screenOrientation="portrait"/>
+
+        <activity android:name=".module.mine.ChangeRecordActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".module.mine.GetCashActivity"
+                  android:screenOrientation="portrait"/>
         <service
                 android:name=".update.services.DownloadService"
                 android:enabled="true"
