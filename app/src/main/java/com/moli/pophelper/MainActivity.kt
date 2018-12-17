@@ -56,12 +56,12 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
     override fun initData(savedInstanceState: Bundle?) {
         isDebug = SPUtils.getInstance().getInt(SPConstant.IS_DEBUG, 0) == 1
         ivWealth.visibility = if (isDebug) View.GONE else View.VISIBLE
+        removeCacheFragment()
         setFragment(mCurrentPosition)
         initClick()
-//        checkInstallDialog.show()
-//        downloadDialog.show()
-//        downloadDialog.setPercent(100)
-        AppUpdateUtil(this).compareVersionFromJson(false)
+        if (!checkFirstLaunch()) {
+            AppUpdateUtil(this).compareVersionFromJson(false)
+        }
     }
 
     override fun onResume() {
@@ -82,7 +82,7 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
             0 -> {
                 if (!this::mHomeFragment.isInitialized) {
                     mHomeFragment = FragmentNavigationUtils.homeFragment() as HomeFragment
-                    ft.add(R.id.homeContentLayout, mHomeFragment)
+                    ft.add(R.id.homeContentLayout, mHomeFragment, HelperArouter.Fragment.HomeFragment.PATH)
                 } else {
                     ft.show(mHomeFragment)
                 }
@@ -90,7 +90,7 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
             1 -> {
                 if (!this::mWealthFragment.isInitialized) {
                     mWealthFragment = FragmentNavigationUtils.wealthFragment()
-                    ft.add(R.id.homeContentLayout, mWealthFragment)
+                    ft.add(R.id.homeContentLayout, mWealthFragment, HelperArouter.Fragment.WealthFragment.PATH)
                 } else {
                     ft.show(mWealthFragment)
                 }
@@ -99,7 +99,7 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
             2 -> {
                 if (!this::mActFragment.isInitialized) {
                     mActFragment = FragmentNavigationUtils.actFragment()
-                    ft.add(R.id.homeContentLayout, mActFragment)
+                    ft.add(R.id.homeContentLayout, mActFragment, HelperArouter.Fragment.ActFragment.PATH)
                 } else {
                     ft.show(mActFragment)
                 }
@@ -107,7 +107,7 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
             3 -> {
                 if (!this::mMineFragment.isInitialized) {
                     mMineFragment = FragmentNavigationUtils.mineFragment()
-                    ft.add(R.id.homeContentLayout, mMineFragment)
+                    ft.add(R.id.homeContentLayout, mMineFragment, HelperArouter.Fragment.MineFragment.PATH)
                 } else {
                     ft.show(mMineFragment)
                 }
@@ -209,6 +209,27 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
     @Subscriber(tag = EventConstant.USER_LOGOUT)
     fun logout(msg: String) {
         ivHome.performClick()
+    }
+
+
+    fun removeCacheFragment() {
+        var transaction = mFragmentManager.beginTransaction()
+        mFragmentManager.findFragmentByTag(HelperArouter.Fragment.HomeFragment.PATH)?.let { transaction.remove(it) }
+        mFragmentManager.findFragmentByTag(HelperArouter.Fragment.WealthFragment.PATH)?.let { transaction.remove(it) }
+        mFragmentManager.findFragmentByTag(HelperArouter.Fragment.ActFragment.PATH)?.let { transaction.remove(it) }
+        mFragmentManager.findFragmentByTag(HelperArouter.Fragment.MineFragment.PATH)?.let { transaction.remove(it) }
+        transaction.commitAllowingStateLoss()
+
+    }
+
+    fun checkFirstLaunch(): Boolean {
+        var isFirst = false
+        if (SPUtils.getInstance().getInt(SPConstant.FIRST_LAUNCHER_APP, 0) == 0) {
+            isFirst = true
+            SPUtils.getInstance().put(SPConstant.FIRST_LAUNCHER_APP, 1)
+            checkInstallDialog.show()
+        }
+        return isFirst
     }
 
 

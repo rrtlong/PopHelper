@@ -79,7 +79,7 @@
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_61"
-        android:text="1、零钱可以直接转化成为《红包消消乐》游戏内的钻石\n2、离ing钱转化的比例为10元=115钻石\n3、转化的钻石将以邮件的形式发送至助手APP手机号相同的游戏账号上，请注意查收哦～"
+        android:text="1、零钱可以直接转化成为《红包消消乐》游戏内的钻石\n2、零钱转化的比例为10元=115钻石\n3、转化的钻石将以邮件的形式发送至助手APP手机号相同的游戏账号上，请注意查收哦～"
         android:textColor="@color/color_c6c6c6"
         android:textSize="@dimen/sp_14"
         app:layout_constraintLeft_toLeftOf="@id/etDiamond"
