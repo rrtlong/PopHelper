@@ -179,4 +179,12 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
         return true
     }
 
+    @Subscriber(tag = EventConstant.REFRESH_USER_INFO)
+    fun refreshUser(msg: String) {
+        if (rootView != null) {
+            Timber.e("refresh mine data")
+            refreshView()
+        }
+    }
+
 }

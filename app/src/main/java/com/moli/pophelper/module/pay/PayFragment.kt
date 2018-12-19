@@ -17,7 +17,11 @@ import com.moli.module.framework.base.BaseMVPDialogFragment
 import com.moli.module.framework.mvp.IView
 import com.moli.module.framework.mvp.MVPMessage
 import com.moli.module.framework.utils.rx.clicksThrottle
+import com.moli.module.model.base.RechargeInfo
+import com.moli.module.model.base.WxOrderModel
+import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.http.ResponseOrder
+import com.moli.module.net.json.jolyglot
 import com.moli.pophelper.R
 import com.moli.pophelper.constant.HelperArouter
 import com.moli.pophelper.module.pay.PayTypeListFragment.Companion.SDK_AUTH_FLAG
@@ -27,6 +31,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlinx.android.synthetic.main.fragment_dialog_pay.*
 import org.jetbrains.anko.support.v4.ctx
 import org.json.JSONObject
+import org.simple.eventbus.EventBus
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
@@ -71,12 +76,14 @@ class PayFragment : BaseMVPDialogFragment<PayFragmentPresenter>(), IView {
         ivClose.clicksThrottle().subscribe {
             dismiss()
         }
-        ivWx.clicksThrottle().subscribe {
-            presenter?.requestOrder(1)
-        }
         ivZfb.clicksThrottle().subscribe {
-            presenter?.requestOrder(0)
+            presenter?.requestOrder(3)
         }
+
+        ivWx.clicksThrottle().subscribe {
+            presenter?.requestOrder(4)
+        }
+
     }
 
     override fun createPresenter(): PayFragmentPresenter? {
@@ -86,13 +93,13 @@ class PayFragment : BaseMVPDialogFragment<PayFragmentPresenter>(), IView {
     override fun handleMessage(message: MVPMessage) {
         super.handleMessage(message)
         when (message.what) {
-            0 -> {
+            3 -> {
                 val jsonStr = message.obj as String
                 Timber.e("zfb jsonstr=$jsonStr")
                 payZfb(jsonStr)
             }
 
-            1 -> {
+            4 -> {
                 val jsonStr = message.obj as String
                 Timber.e("wx str=$jsonStr")
                 payWx(jsonStr)
@@ -143,16 +150,17 @@ class PayFragment : BaseMVPDialogFragment<PayFragmentPresenter>(), IView {
     }
 
     fun payWx(jsonStr: String) {
-        var json = JSONObject(jsonStr)
-        if (json != null) {
+        var wxOrderModel = jolyglot.fromJson<WxOrderModel>(jsonStr, WxOrderModel::class.java)
+        var rechargeInfo = jolyglot.fromJson<RechargeInfo>(wxOrderModel.rechargeInfo, RechargeInfo::class.java)
+        if (rechargeInfo != null) {
             var req = PayReq()
-            req.appId = json.getString("appid")
-            req.partnerId = json.getString("partnerid")
-            req.prepayId = json.getString("prepayid")
-            req.nonceStr = json.getString("noncestr")
-            req.timeStamp = json.getString("timestamp")
-            req.packageValue = json.getString("package")
-            req.sign = json.getString("sign")
+            req.appId = rechargeInfo.appid
+            req.partnerId = rechargeInfo.partnerid
+            req.prepayId = rechargeInfo.prepayid
+            req.nonceStr = rechargeInfo.noncestr
+            req.timeStamp = rechargeInfo.timestamp
+            req.packageValue = rechargeInfo.`package`
+            req.sign = rechargeInfo.sign
             var api = WXAPIFactory.createWXAPI(this@PayFragment.context, req.appId)
             api.sendReq(req)
         }
@@ -178,6 +186,7 @@ class PayFragment : BaseMVPDialogFragment<PayFragmentPresenter>(), IView {
                         if (TextUtils.equals(resultStatus, "9000")) {
                             // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                             outer.showMessage("支付成功")
+                            EventBus.getDefault().post("", EventConstant.PAY_SUCCESS)
                         } else {
                             // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                             outer.showMessage("支付失败")
@@ -190,7 +199,11 @@ class PayFragment : BaseMVPDialogFragment<PayFragmentPresenter>(), IView {
 
                         // 判断resultStatus 为“9000”且result_code
                         // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
-                        if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.resultCode, "200")) {
+                        if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(
+                                authResult.resultCode,
+                                "200"
+                            )
+                        ) {
                             // 获取alipay_open_id，调支付时作为参数extern_token 的value
                             // 传入，则支付账户为该授权账户
                             outer.showMessage("授权成功")

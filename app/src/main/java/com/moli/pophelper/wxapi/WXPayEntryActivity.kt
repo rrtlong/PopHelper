@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.moli.module.framework.mvp.IView
+import com.moli.module.model.constant.EventConstant
 import com.moli.pophelper.BuildConfig
 import com.moli.pophelper.R
 import com.tencent.mm.opensdk.constants.ConstantsAPI
@@ -12,6 +13,7 @@ import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
+import org.simple.eventbus.EventBus
 import timber.log.Timber
 
 /**
@@ -55,6 +57,7 @@ class WXPayEntryActivity : Activity(), IWXAPIEventHandler, IView {
             when (code) {
                 0 -> {
                     showMessage("支付成功")
+                    EventBus.getDefault().post("", EventConstant.PAY_SUCCESS)
                 }
                 -1 -> {
                     // 支付失败 可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等

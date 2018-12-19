@@ -364,4 +364,9 @@ object EventConstant {
      * 已是最新版本
      */
     const val BE_LATEST_VERSION = "be_latest_version"
+
+    /**
+     * 支付成功
+     */
+    const val PAY_SUCCESS = "pay_success"
 }

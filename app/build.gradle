@@ -83,7 +83,7 @@ android {
          * 连服务器本机调试*/
         develop {
 
-            buildConfigField("String", "APPID_WX", "\"wx34ad04b90532e44c\"")
+            buildConfigField("String", "APPID_WX", "\"wxfe6a701a858b8b85\"")
             buildConfigField("String", "APPKEY_WX", "\"cbffb6f98f1c19391ce2e1a7faece99b\"")
             buildConfigField("String", "APPID_QQ", "\"1107794755\"")
             buildConfigField("String", "APPKEY_QQ", "\"KAOFNBSWrb2wKDaZ\"")
@@ -109,7 +109,7 @@ android {
          * 测试服*/
         offline {
 
-            buildConfigField("String", "APPID_WX", "\"wx34ad04b90532e44c\"")
+            buildConfigField("String", "APPID_WX", "\"wxfe6a701a858b8b85\"")
             buildConfigField("String", "APPKEY_WX", "\"cbffb6f98f1c19391ce2e1a7faece99b\"")
             buildConfigField("String", "APPKEY_ZFB", "\"2018101861680833\"")
             buildConfigField("String", "APPID_QQ", "\"1107794755\"")
@@ -135,7 +135,7 @@ android {
         online {
 
 
-            buildConfigField("String", "APPID_WX", "\"wx34ad04b90532e44c\"")
+            buildConfigField("String", "APPID_WX", "\"wxfe6a701a858b8b85\"")
             buildConfigField("String", "APPKEY_WX", "\"cbffb6f98f1c19391ce2e1a7faece99b\"")
             buildConfigField("String", "APPID_QQ", "\"1107794755\"")
             buildConfigField("String", "APPKEY_QQ", "\"KAOFNBSWrb2wKDaZ\"")
@@ -160,7 +160,7 @@ android {
         beta {
 
 
-            buildConfigField("String", "APPID_WX", "\"wx34ad04b90532e44c\"")
+            buildConfigField("String", "APPID_WX", "\"wxfe6a701a858b8b85\"")
             buildConfigField("String", "APPKEY_WX", "\"cbffb6f98f1c19391ce2e1a7faece99b\"")
             buildConfigField("String", "APPID_QQ", "\"1107794755\"")
             buildConfigField("String", "APPKEY_QQ", "\"KAOFNBSWrb2wKDaZ\"")

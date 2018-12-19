@@ -211,6 +211,11 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
         ivHome.performClick()
     }
 
+    @Subscriber(tag = EventConstant.PAY_SUCCESS)
+    fun paySuccess(msg: String) {
+        presenter?.getUserInfo()
+    }
+
 
     fun removeCacheFragment() {
         var transaction = mFragmentManager.beginTransaction()
