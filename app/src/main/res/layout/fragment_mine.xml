@@ -1,183 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
-            android:id="@+id/ivWord"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_38"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="centerInside"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:src="@drawable/icon_mine_word"/>
+        android:id="@+id/ivWord"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_38"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_mine_word"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-            android:id="@+id/ivLaunchGame"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_38"
-            android:scaleType="centerInside"
-            android:layout_marginRight="@dimen/dp_14"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/icon_launcher_game"/>
+        android:id="@+id/ivLaunchGame"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_38"
+        android:layout_marginRight="@dimen/dp_14"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_launcher_game"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
-            android:id="@+id/topLine"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            app:layout_constraintTop_toBottomOf="@+id/ivWord"
-            android:background="@color/color_dddddd"/>
+        android:id="@+id/topLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/color_dddddd"
+        app:layout_constraintTop_toBottomOf="@+id/ivWord" />
 
     <com.moli.module.widget.widget.MLImageView
-            android:id="@+id/mlCover"
-            android:layout_width="@dimen/dp_75"
-            android:layout_height="@dimen/dp_75"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@id/topLine"
-            android:layout_marginTop="@dimen/dp_18"
-            app:placeholderImageScaleType="centerCrop"
-            app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@drawable/icon_default_header"
-            app:roundAsCircle="true"/>
+        android:id="@+id/mlCover"
+        android:layout_width="@dimen/dp_75"
+        android:layout_height="@dimen/dp_75"
+        android:layout_marginLeft="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_18"
+        app:actualImageScaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLine"
+        app:placeholderImage="@drawable/icon_default_header"
+        app:placeholderImageScaleType="centerCrop"
+        app:roundAsCircle="true" />
 
     <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_23"
-            android:textColor="@color/color_454c57"
-            android:layout_marginLeft="@dimen/dp_10"
-            app:layout_constraintLeft_toRightOf="@id/mlCover"
-            app:layout_constraintTop_toTopOf="@id/mlCover"
-            app:layout_constraintBottom_toBottomOf="@id/mlCover"
-            android:text="点击绑定游戏账号"/>
+        android:id="@+id/tvName"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="2"
+        android:text="点击绑定游戏账号"
+        android:textColor="@color/color_454c57"
+        android:textSize="@dimen/sp_23"
+        app:layout_constraintBottom_toBottomOf="@id/mlCover"
+        app:layout_constraintLeft_toRightOf="@id/mlCover"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mlCover" />
 
     <com.youth.banner.Banner
-            android:id="@+id/banner"
-            app:layout_constraintTop_toBottomOf="@id/mlCover"
-            android:layout_marginTop="@dimen/dp_26"
-            android:layout_width="@dimen/dp_0"
-            app:indicator_drawable_selected="@drawable/circle_indicator_white"
-            app:indicator_drawable_unselected="@drawable/circle_indicator_white50"
-            app:indicator_margin="@dimen/dp_3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintDimensionRatio="360:80"
-            android:layout_height="@dimen/dp_80">
+        android:id="@+id/banner"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_80"
+        android:layout_marginTop="@dimen/dp_26"
+        app:indicator_drawable_selected="@drawable/circle_indicator_white"
+        app:indicator_drawable_unselected="@drawable/circle_indicator_white50"
+        app:indicator_margin="@dimen/dp_3"
+        app:layout_constraintDimensionRatio="360:80"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mlCover">
 
     </com.youth.banner.Banner>
 
     <TextView
-            android:id="@+id/tvOrder"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:text="我的订单"
-            android:paddingLeft="@dimen/dp_16"
-            android:drawableLeft="@drawable/icon_order"
-            android:drawablePadding="@dimen/dp_9"
-            android:textColor="@color/color_2e2e2e"
-            android:paddingRight="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@id/banner"
-            android:textSize="@dimen/sp_16"
-            android:drawableRight="@drawable/icon_more"
-            android:gravity="center_vertical|left"/>
+        android:id="@+id/tvOrder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:drawableLeft="@drawable/icon_order"
+        android:drawableRight="@drawable/icon_more"
+        android:drawablePadding="@dimen/dp_9"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="我的订单"
+        android:textColor="@color/color_2e2e2e"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintTop_toBottomOf="@id/banner" />
 
     <View
-            android:id="@+id/bigLine1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_5"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrder"
-            android:background="@color/color_f9f9f9"/>
+        android:id="@+id/bigLine1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_5"
+        android:background="@color/color_f9f9f9"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tvOrder" />
 
     <TextView
-            android:id="@+id/tvTask"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:text="我的任务"
-            android:paddingLeft="@dimen/dp_16"
-            android:drawableLeft="@drawable/icon_task"
-            android:drawablePadding="@dimen/dp_9"
-            android:textColor="@color/color_2e2e2e"
-            android:paddingRight="@dimen/dp_16"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/bigLine1"
-            android:textSize="@dimen/sp_16"
-            android:drawableRight="@drawable/icon_more"
-            android:gravity="center_vertical|left"/>
+        android:id="@+id/tvTask"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:drawableLeft="@drawable/icon_task"
+        android:drawableRight="@drawable/icon_more"
+        android:drawablePadding="@dimen/dp_9"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="我的任务"
+        android:textColor="@color/color_2e2e2e"
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/bigLine1" />
 
     <View
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginLeft="@dimen/dp_41"
-            app:layout_constraintTop_toBottomOf="@+id/tvTask"
-            android:background="@color/color_ededed"/>
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_41"
+        android:background="@color/color_ededed"
+        app:layout_constraintTop_toBottomOf="@+id/tvTask" />
 
     <TextView
-            android:id="@+id/tvFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:text="帮助与反馈"
-            android:paddingLeft="@dimen/dp_16"
-            android:drawableLeft="@drawable/icon_feedback"
-            android:drawablePadding="@dimen/dp_9"
-            android:textColor="@color/color_2e2e2e"
-            android:paddingRight="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@id/line1"
-            android:textSize="@dimen/sp_16"
-            android:drawableRight="@drawable/icon_more"
-            android:gravity="center_vertical|left"/>
+        android:id="@+id/tvFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:drawableLeft="@drawable/icon_feedback"
+        android:drawableRight="@drawable/icon_more"
+        android:drawablePadding="@dimen/dp_9"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="帮助与反馈"
+        android:textColor="@color/color_2e2e2e"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintTop_toBottomOf="@id/line1" />
 
     <View
-            android:id="@+id/bigLine2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_5"
-            app:layout_constraintTop_toBottomOf="@+id/tvFeedback"
-            android:background="@color/color_f9f9f9"/>
+        android:id="@+id/bigLine2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_5"
+        android:background="@color/color_f9f9f9"
+        app:layout_constraintTop_toBottomOf="@+id/tvFeedback" />
 
     <TextView
-            android:id="@+id/tvSet"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:text="设置"
-            android:paddingLeft="@dimen/dp_16"
-            android:drawableLeft="@drawable/icon_set"
-            android:drawablePadding="@dimen/dp_9"
-            android:textColor="@color/color_2e2e2e"
-            android:paddingRight="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@id/bigLine2"
-            android:textSize="@dimen/sp_16"
-            android:drawableRight="@drawable/icon_more"
-            android:gravity="center_vertical|left"/>
+        android:id="@+id/tvSet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:drawableLeft="@drawable/icon_set"
+        android:drawableRight="@drawable/icon_more"
+        android:drawablePadding="@dimen/dp_9"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="设置"
+        android:textColor="@color/color_2e2e2e"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintTop_toBottomOf="@id/bigLine2" />
 
     <View
-            android:id="@+id/line2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginLeft="@dimen/dp_41"
-            app:layout_constraintTop_toBottomOf="@+id/tvSet"
-            android:background="@color/color_ededed"/>
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginLeft="@dimen/dp_41"
+        android:background="@color/color_ededed"
+        app:layout_constraintTop_toBottomOf="@+id/tvSet" />
 
     <TextView
-            android:id="@+id/tvExit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:text="退出登录"
-            android:paddingLeft="@dimen/dp_16"
-            android:drawableLeft="@drawable/icon_exit"
-            android:drawablePadding="@dimen/dp_9"
-            android:textColor="@color/color_2e2e2e"
-            android:paddingRight="@dimen/dp_16"
-            app:layout_constraintTop_toBottomOf="@id/line2"
-            android:textSize="@dimen/sp_16"
-            android:drawableRight="@drawable/icon_more"
-            android:gravity="center_vertical|left"/>
+        android:id="@+id/tvExit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:drawableLeft="@drawable/icon_exit"
+        android:drawableRight="@drawable/icon_more"
+        android:drawablePadding="@dimen/dp_9"
+        android:gravity="center_vertical|left"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16"
+        android:text="退出登录"
+        android:textColor="@color/color_2e2e2e"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintTop_toBottomOf="@id/line2" />
 
 
 </android.support.constraint.ConstraintLayout>

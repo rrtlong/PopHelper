@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/root_view"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_radius_5dp"
+        android:gravity="center_horizontal"
+        android:minHeight="110dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="无法连接网络哦！"
+            android:textColor="@color/black_100"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_ededed"
+            android:orientation="horizontal"></View>
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_39"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="我知道了"
+            android:textColor="@color/color_fe6257"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>

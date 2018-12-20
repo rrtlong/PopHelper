@@ -93,7 +93,7 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
     fun getVersion() {
         api.getVersion(VersionRequest(BuildConfig.Channel, BuildConfig.APPLICATION_ID, BuildConfig.versionNumber))
             .bindToLifecycle(owner)
-            .subscribe(object : HttpSubscriber<VersionModel>() {
+            .subscribe(object : HttpSubscriber<VersionModel>(false) {
                 override fun onNext(t: VersionModel) {
                     if (t.serverwebUrl != null && !t.serverwebUrl.isNullOrEmpty()) {
                         SPUtils.getInstance().put(SPConstant.DYNAMIC_DOMAIN_URL, t.serverwebUrl)

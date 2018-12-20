@@ -95,8 +95,6 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
         })
 
 
-
-
     }
 
     override fun createPresenter(): ActivityFragmentPresenter? {
@@ -259,6 +257,9 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
             return
         }
         user?.let {
+            if (it.signTimes == 7 && (it.signDate == null || !TimeUtils.isToday(it.signDate!!))) {
+                it.signTimes = 0
+            }
             setReward(it, it.signTimes)
             setTips(it, it.signTimes)
             if (it.signDate == null) {
@@ -334,7 +335,7 @@ class ActivityFragment : BaseMVPFragment<ActivityFragmentPresenter>(), IListView
         ivCursor.visibility = if (isShow) View.VISIBLE else View.INVISIBLE
     }
 
-    fun setCursorPosition(lpx:Int) {
+    fun setCursorPosition(lpx: Int) {
         var left = lpx
         var param = ivCursor.layoutParams as ConstraintLayout.LayoutParams
         param.leftMargin = left

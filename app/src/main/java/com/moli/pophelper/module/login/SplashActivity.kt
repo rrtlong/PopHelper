@@ -18,6 +18,7 @@ import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.constant.SPConstant
 import com.moli.module.net.imageloader.loadImage
 import com.moli.module.net.manager.UserManager
+import com.moli.module.widget.widget.dialog.CommonAlertDialog
 import com.moli.pophelper.R
 import com.moli.pophelper.utils.PageSkipUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -78,7 +79,11 @@ class SplashActivity : BaseMVPActivity<SplashActivityPresenter>(), IView {
             3 -> {
                 //跟新请求失败
                 isForceUpdate = false
-                finish()
+                CommonAlertDialog.showConfirm(this, "没有连接到网络哦～", "我知道了", false, null) {
+                    Observable.timer(400, TimeUnit.MILLISECONDS).toIoAndMain().subscribe {
+                        finish()
+                    }
+                }
             }
         }
     }
