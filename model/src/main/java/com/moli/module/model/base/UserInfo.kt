@@ -40,8 +40,10 @@ data class UserInfo(
     var createTime: Long? = null,  //创建时间
     @Convert(converter = SignConverter::class, dbType = String::class)
     @JvmField
-    var signConfig: MutableList<SignConfig>? = null  //签到奖励
-
+    var signConfig: MutableList<SignConfig>? = null,  //签到奖励
+    @Convert(converter = ListIntConverter::class, dbType = String::class)
+    @JvmField
+    var doubleRechargeFlag: MutableList<Int>? = null   //首冲双倍标志
 
 ) : Parcelable {
     constructor(source: Parcel) : this(
@@ -121,6 +123,23 @@ class SignConverter : PropertyConverter<MutableList<SignConfig>?, String?> {
             return null
         }
         return jolyglot.fromJson(databaseValue, object : TypeToken<MutableList<SignConfig>>() {}.type)
+    }
+
+}
+
+class ListIntConverter : PropertyConverter<MutableList<Int>?, String?> {
+    override fun convertToDatabaseValue(entityProperty: MutableList<Int>?): String? {
+        if (entityProperty == null || entityProperty.isEmpty()) {
+            return null
+        }
+        return jolyglot.toJson(entityProperty)
+    }
+
+    override fun convertToEntityProperty(databaseValue: String?): MutableList<Int>? {
+        if (databaseValue == null) {
+            return null
+        }
+        return jolyglot.fromJson(databaseValue, object : TypeToken<MutableList<Int>>() {}.type)
     }
 
 }

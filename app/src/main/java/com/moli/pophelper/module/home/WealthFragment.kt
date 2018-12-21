@@ -130,11 +130,13 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
     @Subscriber(tag = EventConstant.LOGIN_SUCCESS)
     fun login(msg: String) {
         refreshView()
+        presenter?.notifyAdapter()
     }
 
     @Subscriber(tag = EventConstant.USER_LOGOUT)
     fun logout(msg: String) {
         refreshView()
+        presenter?.notifyAdapter()
     }
 
     fun installOrLauncher() {

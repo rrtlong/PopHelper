@@ -65,11 +65,18 @@ class WealthFragmentPresenter(iListView: IListView) : ListPresenter<GoodsModel>(
         val recyclerView = iListView.getRecyclerView()
         val context = recyclerView.context
         recyclerView.addItemDecoration(SpacingDecoration(context.dip(8), context.dip(8), false))
+        recyclerView.animate().duration = 0
     }
 
     fun loadMore() {
         if (hasMore) {
             loadData(false)
+        }
+    }
+
+    fun notifyAdapter() {
+        if (this@WealthFragmentPresenter::adapter.isInitialized) {
+            adapter.notifyDataSetChanged()
         }
     }
 }

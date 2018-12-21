@@ -16,11 +16,11 @@ import com.moli.module.model.http.BannerRequest
 import com.moli.module.model.http.CodeRequest
 import com.moli.module.model.http.VersionRequest
 import com.moli.module.net.http.HttpSubscriber
-import com.moli.module.net.http.RetrofitUtils
 import com.moli.module.net.http.provider.APIService
 import com.moli.module.net.manager.UserManager
 import com.moli.pophelper.BuildConfig
 import com.moli.pophelper.constant.Constant
+import timber.log.Timber
 
 /**
  * 项目名称：PopHelper
@@ -84,6 +84,7 @@ class SplashActivityPresenter(iView: IView) : BasePresenter<IView>(iView) {
                     it.rewardNum = it.signText.substring(0, it.signText.length - 2)
                 }
                 UserManager.refreshUserInfo(t, false)
+                Timber.e("rrt userinfo ${t}")
             }
 
         })

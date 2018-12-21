@@ -33,7 +33,9 @@ data class GoodsModel(
     @JvmField
     val discount: Int? = null,   //折扣
     @JvmField
-    val imge: String? = null
+    val imge: String? = null,
+    @JvmField
+    val doubleImge: String? = null
 ) : Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
@@ -45,6 +47,7 @@ data class GoodsModel(
         source.readInt(),
         source.readValue(Int::class.java.classLoader) as Int?,
         source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
         source.readString()
     )
 
@@ -61,6 +64,7 @@ data class GoodsModel(
         writeValue(sort)
         writeValue(discount)
         writeString(imge)
+        writeString(doubleImge)
     }
 
     companion object {

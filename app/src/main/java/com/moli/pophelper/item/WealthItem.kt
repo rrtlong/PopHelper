@@ -37,7 +37,12 @@ class WealthItem(val onClick: (model: GoodsModel) -> Unit) : LayoutContainerItem
 
     override fun handleData(model: GoodsModel, position: Int) {
         this.model = model
-        mlCover.loadImage(model.imge)
+        var user = UserManager.getSynSelf()
+        if (user != null && user.doubleRechargeFlag?.size ?: 0 >= model.id && user.doubleRechargeFlag!![model.id] == 0) {
+            mlCover.loadImage(model.doubleImge)
+        } else {
+            mlCover.loadImage(model.imge)
+        }
     }
 
 }

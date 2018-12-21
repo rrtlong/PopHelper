@@ -18,6 +18,7 @@ import com.moli.module.framework.utils.LayoutManagerUtil
 import com.moli.module.framework.utils.rx.clicksThrottle
 import com.moli.module.model.base.BannerModel
 import com.moli.module.model.base.GoodsModel
+import com.moli.module.model.constant.EventConstant
 import com.moli.module.model.constant.SPConstant
 import com.moli.module.model.http.ResponseOrder
 import com.moli.module.net.imageloader.loadImage
@@ -37,6 +38,7 @@ import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.support.v4.ctx
+import org.simple.eventbus.Subscriber
 import timber.log.Timber
 
 
@@ -150,18 +152,7 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
             }
             2 -> {
                 goods = message.obj as List<GoodsModel>
-                if (goods?.size ?: 0 > 0) {
-                    ivGood1.loadImage(goods!![0].imge)
-                    ivGood1.clicksThrottle().subscribe {
-                        openPayFragment(goods!![0])
-                    }
-                }
-                if (goods?.size ?: 0 > 1) {
-                    ivGood2.loadImage(goods!![1].imge)
-                    ivGood2.clicksThrottle().subscribe {
-                        openPayFragment(goods!![1])
-                    }
-                }
+                refreshGoods()
             }
         }
     }
@@ -215,4 +206,46 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
         }
         return true
     }
+
+    fun refreshGoods() {
+        goods?.let {
+            var user = UserManager.getSynSelf()
+            if (goods?.size ?: 0 > 0) {
+                if (user != null && user.doubleRechargeFlag?.size ?: 0 >= goods!![0].id && user.doubleRechargeFlag!![goods!![0].id] == 0) {
+                    ivGood1.loadImage(goods!![0].doubleImge)
+                } else {
+                    ivGood1.loadImage(goods!![0].imge)
+                }
+                ivGood1.clicksThrottle().subscribe {
+                    openPayFragment(goods!![0])
+                }
+            }
+            if (goods?.size ?: 0 > 1) {
+                if (user != null && user.doubleRechargeFlag?.size ?: 0 >= goods!![1].id && user.doubleRechargeFlag!![goods!![1].id] == 0) {
+                    ivGood2.loadImage(goods!![1].doubleImge)
+                } else {
+                    ivGood2.loadImage(goods!![1].imge)
+                }
+
+                ivGood2.clicksThrottle().subscribe {
+                    openPayFragment(goods!![1])
+                }
+            }
+        }
+    }
+
+    @Subscriber(tag = EventConstant.LOGIN_SUCCESS)
+    fun login(msg: String) {
+        refreshGoods()
+    }
+
+    @Subscriber(tag = EventConstant.USER_LOGOUT)
+    fun logout(msg: String) {
+        refreshGoods()
+    }
+
+    override fun useEventBus(): Boolean {
+        return true
+    }
+
 }
