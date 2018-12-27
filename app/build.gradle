@@ -228,5 +228,5 @@ static int gitVersionCode() {
 
 
 def getTestVersionName() {
-    return String.format("%s.%s", rootProject.ext.android["versionName"], "7")
+    return String.format("%s.%s", rootProject.ext.android["versionName"], "9")
 }

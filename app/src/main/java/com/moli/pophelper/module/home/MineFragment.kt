@@ -75,7 +75,7 @@ class MineFragment : BaseMVPFragment<MineFragmentPresenter>(), IView {
         }
 
         tvFeedback.clicksThrottle().subscribe { PageSkipUtils.skipFeedback() }
-        tvSet.clicksThrottle().subscribe{PageSkipUtils.skipSet()}
+        tvSet.clicksThrottle().subscribe { PageSkipUtils.skipSet() }
         tvExit.clicksThrottle().subscribe {
             CommonDialogWithoutTitle.showConfirm(
                 ctx,
@@ -123,7 +123,9 @@ class MineFragment : BaseMVPFragment<MineFragmentPresenter>(), IView {
         banner.setOnBannerListener {
             if (bannerList?.size ?: 0 > it) {
                 val item = bannerList!![it]
-                PageSkipUtils.skipGenderWeb(item.contentUrl ?: "")
+                if (item.contentUrl != null && item.contentUrl != "") {
+                    PageSkipUtils.skipGenderWeb(item.contentUrl!!)
+                }
             }
         }
     }

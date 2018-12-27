@@ -69,18 +69,18 @@ class WealthFragment : BaseMVPFragment<WealthFragmentPresenter>(), IListView {
 
         tvReflect.clicksThrottle().subscribe {
             //体现
-            if (checkSkip()) {
-                PageSkipUtils.skipGetCash()
-            }
+//            if (checkSkip()) {
+//                PageSkipUtils.skipGetCash()
+//            }
         }
 
         tvExchangeDiamond.clicksThrottle().subscribe {
             //换钻石
-            if (checkSkip()) {
-                childFragmentManager.beginTransaction()
-                    .add(FragmentNavigationUtils.exchangeDiamond(), HelperArouter.Fragment.ExchangeDiamondFragment.PATH)
-                    .commitAllowingStateLoss()
-            }
+//            if (checkSkip()) {
+//                childFragmentManager.beginTransaction()
+//                    .add(FragmentNavigationUtils.exchangeDiamond(), HelperArouter.Fragment.ExchangeDiamondFragment.PATH)
+//                    .commitAllowingStateLoss()
+//            }
         }
     }
 

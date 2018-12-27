@@ -110,7 +110,9 @@ class HomeFragment : BaseMVPFragment<HomeFragmentPresenter>(), IListView {
         banner.setOnBannerListener {
             if (bannerList?.size ?: 0 > it) {
                 val item = bannerList!![it]
-                PageSkipUtils.skipGenderWeb(item.contentUrl ?: "")
+                if (item.contentUrl != null && item.contentUrl != "") {
+                    PageSkipUtils.skipGenderWeb(item.contentUrl!!)
+                }
             }
         }
         banner.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
