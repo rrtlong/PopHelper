@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PopHelper</string>
+    <string name="app_name">红包消消乐助手</string>
     <string name="app_exit">再按一次退出</string>
     <string name="share_success">分享成功</string>
     <string name="share_failed">分享失败</string>

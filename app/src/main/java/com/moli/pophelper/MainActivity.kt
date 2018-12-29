@@ -59,8 +59,10 @@ class MainActivity : BaseMVPActivity<MainActivityPresenter>(), IView {
         removeCacheFragment()
         setFragment(mCurrentPosition)
         initClick()
-        if (!checkFirstLaunch()) {
-            AppUpdateUtil(this).compareVersionFromJson(false)
+        if (!isDebug) {
+            if (!checkFirstLaunch()) {
+                AppUpdateUtil(this).compareVersionFromJson(false)
+            }
         }
     }
 
